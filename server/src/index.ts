@@ -1,6 +1,5 @@
 import express from 'express';
 const app = express();
-const http = require('http').createServer(app);
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -34,6 +33,7 @@ mongoose.connect(dbUrl, {
     });
 
 const PORT = process.env.PORT || 1000;
-app.listen(PORT, () => {
+
+server.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`);
 });
