@@ -1,18 +1,32 @@
 import express from 'express';
+const app = express();
+const http = require('http').createServer(app);
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-dotenv.config();
 
-const app = express();
+const server = require("http").createServer(app);
+const io = require("socket.io")(server, {
+    cors: {
+        origin: "*",
+        credentials: true
+    }
+});
+
+require("./appointment/events/index")(io);
+dotenv.config();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //* DB Connection
-const dbUrl = "mongo://localhost:27017/bussiness";
-mongoose.connect(dbUrl, { useFindAndModify: true })
+const dbUrl = "mongodb://localhost:27017/bussiness";
+mongoose.connect(dbUrl, {
+    useFindAndModify: true,
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+})
     .then(con => {
         console.log("connected to db");
     }).catch(err => {
