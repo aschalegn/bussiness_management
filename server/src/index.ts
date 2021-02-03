@@ -1,18 +1,11 @@
 import express from 'express';
-const app = express();
+import { server, app, io } from './Socket';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-const server = require("http").createServer(app);
-const io = require("socket.io")(server, {
-    cors: {
-        origin: "*",
-        credentials: true
-    }
-});
-
 require("./appointment/events/index")(io);
+require("./cronejob/index")(io);
 dotenv.config();
 
 app.use(cors());
