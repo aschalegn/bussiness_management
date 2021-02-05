@@ -1,12 +1,9 @@
 import express from 'express';
-import { server, app, io } from './Socket';
+const app = express();
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-require("./appointment/events/index")(io);
-require("./setting/Times")(io);
-require("./cronejob/index")(io);
 dotenv.config();
 
 app.use(cors());
@@ -28,7 +25,7 @@ mongoose.connect(dbUrl, {
 
 const PORT = process.env.PORT || 1000;
 
-server.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`);
 });
 

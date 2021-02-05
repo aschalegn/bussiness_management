@@ -1,9 +1,9 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema } from "mongoose";
 
-const ClientSchema = new Schema({
-    fullname: { type: String },
-    phone: { type: Number },
-    IMEI: { type: String }
+const clientSchema = new Schema({
+
 });
 
-export const Client = mongoose.model("Client", ClientSchema);
+
+const Client = mongoose.model('Client', clientSchema);
+export { Client };

@@ -1,12 +1,9 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema } from "mongoose";
 
-const AppointmentSchema: Schema = new Schema({
-    client: {
-        type: mongoose.Types.ObjectId,
-        ref: "Client"
-    },
-    date: { type: String },
-    hour: { type: String }
+const appointmentSchema = new Schema({
+
 });
 
-export const Appointment = mongoose.model("Appointment", AppointmentSchema);
+
+const Appointment = mongoose.model('Appointment', appointmentSchema);
+export { Appointment };
