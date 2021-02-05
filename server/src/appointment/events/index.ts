@@ -17,14 +17,12 @@ module.exports = (io: any) => {
                     console.log(err);
                 });
 
-            // ! schedual crone job
+            //* schedual crone job -done
 
-            // ! update the admin app
+            //TODO: update the availeable hours  -lilach
 
-            // ! update the availeable hours
+            //? send sms - if the app owner has the service
 
-            // ! send sms - if the app owner has the service
-                
         });
     });
 }
