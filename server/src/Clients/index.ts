@@ -12,5 +12,4 @@ module.exports = (io: any) => {
 const adduSer = (user: any, appId: any, socket: any) => {
     Client.create(user)
         .then((user: any) => { socket.emit('user registered', user) });
-
 }
