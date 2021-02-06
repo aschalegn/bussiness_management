@@ -3,12 +3,15 @@ const app = express();
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-
+import businesRoute from "./routes/bussiness";
 dotenv.config();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+//* Routing
+app.use("/api/business", businesRoute);
 
 //* DB Connection
 const dbUrl = "mongodb://localhost:27017/bussiness";
