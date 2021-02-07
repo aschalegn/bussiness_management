@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:mobile_client/navBar.dart';
+import 'dart:convert';
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -92,6 +90,9 @@ class _SignUpFormState extends State<SignUpForm> {
             if (value.isEmpty) {
               return "זהו שדה חובה";
             }
+            if (value.length < 8) {
+              return "חייב להיות לפחות 8 תווים";
+            }
             return null;
           },
           onSaved: (value) {
@@ -114,6 +115,7 @@ class _SignUpFormState extends State<SignUpForm> {
       "email": _email,
       "password": _password
     };
+
     var res = await http.post("http://$uri:1000/api/business",
         headers: {'content-type': 'application/json'}, body: jsonEncode(body));
     print(res.body);

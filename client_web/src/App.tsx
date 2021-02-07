@@ -2,9 +2,9 @@
 import './App.css';
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import Home from './components/HomePage/home';
-import  SignIn  from './components/Login/index';
-import  SignUp  from './components/Register/index';
+import Home from './components/Client/HomePage/home';
+import  SignIn  from './components/Client/Login/index';
+import  SignUp  from './components/Client/Register/index';
 function App() {
 
   return (

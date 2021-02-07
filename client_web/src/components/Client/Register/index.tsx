@@ -1,6 +1,6 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { baseURL } from '../../utils/index';
+import { baseURL } from '../../../utils';
 
 import axios from 'axios';
 import Avatar from '@material-ui/core/Avatar';
@@ -10,7 +10,6 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -61,40 +60,9 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUp = () => {
   const classes = useStyles();
-
   const { register, handleSubmit } = useForm();
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
-  // const [isLogin, setLogin] = useState(false);
-
-  // const [errors, setPhoneErrors] = useState<{ phone}>('');
-  // const [errorsFullName, setFullNameErrors] = useState<{ fullName: String }>();
-
-  // const handleChangePhone = (event: ChangeEvent<HTMLInputElement>) => {
-  //   let { target: { value } } = event;
-  //   setPhoneErrors({ phone: ''})
-  //   setPhone(value);
-  
-
-  //   const regPhone = new RegExp(/^[2-9]\d{2}[2-9]\d{2}\d{4}$/)
-  //   if (!regPhone) {
-  //     errors({ phone: 'Only number are permitted' })
-  //   }
-
-
-  // }
-
-  // const handleChangeFullName = (event: ChangeEvent<HTMLInputElement>) => {
-  //   let { target: { value } } = event;
-
-  //   setFullNameErrors({fullName:''})
-  //   setFullName(value);
-
-  //   const regName = new RegExp(/^(?:((([^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]'’,\-.\s])){1,}(['’,\-\.]){0,1}){2,}(([^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]'’,\-. ]))*(([ ]+){0,1}(((([^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]'’,\-\.\s])){1,})(['’\-,\.]){0,1}){2,}((([^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]'’,\-\.\s])){2,})?)*)$/).test(value)
-  //   if (!regName) {
-  //     errorsFullName({ fullName: 'Only full name are permitted' })
-  //   }
-  // }
 
   const onSubmit = () => {
     console.log(fullName, phone);
@@ -107,7 +75,7 @@ const SignUp = () => {
         if (res.status === 201) {
           alert('A name was submitted: ' + fullName);
           console.log(res)
-        
+
         } else {
           console.log('error');
 
@@ -133,17 +101,13 @@ const SignUp = () => {
             <TextField
               variant="outlined"
               margin="normal"
-              // inputProps={{ pattern: "^(?:((([^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]'’,\-.\s])){1,}(['’,\-\.]){0,1}){2,}(([^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]'’,\-. ]))*(([ ]+){0,1}(((([^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]'’,\-\.\s])){1,})(['’\-,\.]){0,1}){2,}((([^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]'’,\-\.\s])){2,})?)*)$" }}
               fullWidth
               id="fullName"
               label="Full Name"
               name="fullName"
-              // value={fullName}
               autoComplete="off"
               autoFocus
               onChange={(e) => setFullName(e.target.value)}
-              // error={Boolean(errorsFullName?.fullName)}
-              // helperText={(errorsFullName?.fullName)}
               ref={register}
               required
             />
@@ -156,12 +120,9 @@ const SignUp = () => {
               id="phone"
               label="Phone Number"
               name="phone"
-              // value={phone}
               type="number"
               autoComplete="off"
               onChange={(e) => setPhone(e.target.value)}
-              // error={Boolean(errorsPhone?.phone)}
-              // helperText={(errorsPhone?.phone)}
               ref={register}
               required
             />
@@ -175,7 +136,6 @@ const SignUp = () => {
               fullWidth
               variant="contained"
               color="primary"
-
               className={classes.submit}
             >
               Sign Up
@@ -187,7 +147,7 @@ const SignUp = () => {
         </Box>
       </Container>
     </div>
-  )
+  );
 }
 
 export default SignUp;

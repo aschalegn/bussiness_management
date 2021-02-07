@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { addBussiness, logIn } from "../controllers/bussiness";
+import { Business } from "../model/Bussiness";
 const router = Router();
 
 router.get("/", (req, res) => {
@@ -12,6 +13,9 @@ router.post("/", (req: Request, res: Response) => {
 router.get("/login", (req, res) => {
     logIn(req, res);
 });
+router.patch("/setting/:id",()=>{
+    Business.findById()
+})
 
 
 

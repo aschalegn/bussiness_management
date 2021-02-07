@@ -26,6 +26,10 @@ const businessSchema = new Schema({
         type: mongoose.Types.ObjectId,
         ref: "Appointment"
     }],
+    clients: [{
+        type: mongoose.Types.ObjectId,
+        ref: "Client"
+    }],
     waitingList: [{
         client: {
             type: mongoose.Types.ObjectId,

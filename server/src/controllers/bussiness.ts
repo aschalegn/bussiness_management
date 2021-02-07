@@ -13,18 +13,15 @@ const addBussiness = async (req: Request, res: Response) => {
         return res.status(201).send(newBussiness);
     }
     return res.status(300).send("This Email exists in the system");
-
 }
 
 const logIn = async (req: Request, res: Response) => {
     const { email, password } = req.query;
     const business = await Business.findOne({ email });
     if (await business) {
-        console.log(business);
         const isPasswordMatch = comparePassword(password, business.password);
-        if (isPasswordMatch) {
+        if (isPasswordMatch)
             return res.status(200).send("logedIn successfully");
-        }
         return res.status(500).send("password does not match");
     }
     return res.status(500).send("could not find the user");
