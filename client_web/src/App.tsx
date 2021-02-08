@@ -19,12 +19,11 @@ function App() {
       <Router>
         <Switch>
           <UserProvider>
-            {/* client */}
             <Route exact path='/Home' component={Home} />
             <Route exact path='/' component={SignIn} />
             <Route exact path='/signUp' component={SignUp} />
-            <Route exact path='/user/appointment' component={MakeAppointment} />
-            {/* Admin */}
+            <Route exact path='/user/appointment' component={MakeAppointment} /
+            >
             <Route exact path='/admin/signUp' component={Register} />
             <Route exact path='/admin/login' component={LogIn} />
             
@@ -33,10 +32,7 @@ function App() {
           </UserProvider>
         </Switch>
       </Router>
-      {/* <AdminHome/> */}
-      {/* <Home/>
-      <SignIn />
-      <SignUp /> */}
+ 
     </div>
   );
 }

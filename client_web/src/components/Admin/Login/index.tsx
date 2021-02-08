@@ -98,11 +98,6 @@ export default function LogIn() {
               onChange={(e) => setPassword(e.target.value)}
               autoFocus
             />
-
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
             <Button
               type="button"
               fullWidth

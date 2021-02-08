@@ -32,28 +32,18 @@ const logIn = async (req: Request, res: Response) => {
 }
 
 const addWorker = async (req: Request, res: Response) => {
-   const worker = req.body;
-  const availableTimes = addSetAvailable(worker)
-   worker.availableTimes = availableTimes;
-
-    const {id} = req.params;
-    
-    // ! generate id with uuid;
+    const worker = req.body;
+    const availableTimes = addSetAvailable(worker)
+    worker.availableTimes = availableTimes;
+    const { id } = req.params;
     worker.id = uuidv4();
-    // console.log(worker);
-    Business.findById(id , (err:any,b:any)=>{
-        if (err) {
-            console.log(err);
-        }
 
-        
-         b.workers.push(worker)
-         b.save();
-         console.log(b);
-         return res.status(200).send(worker)
+    Business.findById(id, (err: any, b: any) => {
+        if (err) { console.log(err); }
+        b.workers.push(worker)
+        b.save();
+        return res.status(200).send(worker)
     })
-    // TODO: push inoto the clients array of the business using the business id from the url;
-    // const worker = new Business( body );
 }
 
 
@@ -79,25 +69,16 @@ function tokenise() { }
 
 
 const addSetAvailable = (worker: any) => {
-    console.log(worker);
-    
-        const jump = worker.jump
-        const startTime = moment(worker.openAt, "kk:mm").format("kk:mm")
-        const endTime = moment(worker.closeAt, "kk:mm").format("kk:mm")
-        const start = moment(worker.openAt, "kk:mm")
-        const end = moment(worker.closeAt, "kk:mm")
-        const timesBetween = [];
-    
-        while (start < end) {
-            timesBetween.push(start.clone().format("kk:mm"))// clone to add new object
-            start.add(jump, "m");
-        }
-    // console.log(data,'datttta-----------');
-    
-    
-        return timesBetween
-        // console.log(timesBetween);
-        
+    const jump = worker.jump
+    const start = moment(worker.openAt, "kk:mm")
+    const end = moment(worker.closeAt, "kk:mm")
+    const timesBetween = [];
+    // clone to add new object
+    while (start < end) {
+        timesBetween.push(start.clone().format("kk:mm"))
+        start.add(jump, "m");
     }
+    return timesBetween
+}
 
 export { addBussiness, logIn, addWorker };
