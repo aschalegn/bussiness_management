@@ -21,9 +21,9 @@ state= {name:String,phone:String,typeWorker:String,openAt:String,closeAt:String,
         skills:this.state.skills
      }
      console.log(data,'data from new worker');
-    axios.patch(`${baseURL}busines/workers`, data)
+    axios.patch(`${baseURL}business/setting/addWorker/60213db13f53a228b4a40497`, data)
         .then(res => {
-        if (res.status === 201) {
+        if (res.status === 200) {
             console.log('success');
         }
         else{
@@ -52,7 +52,7 @@ render() {
                 <Modal.Body>
                 <input type="text" placeholder='שם העובד' onChange={e=>this.setState({ name:e.target.value })} />
                 <br/><br/>
-                <select onChange={(e)=>{console.log(e.target.value);}}>
+                <select onChange={(e)=>{this.setState({typeWorker:e.target.value});}}>
                 <option>מנהל</option>
                 <option >עובד</option>
                 </select>
