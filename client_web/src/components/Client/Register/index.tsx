@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { baseURL } from '../../../utils';
-
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -63,6 +63,7 @@ const SignUp = () => {
   const { register, handleSubmit } = useForm();
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
+  const [isRegistered, setIsRegistred] = useState(false);
 
   const onSubmit = () => {
     console.log(fullName, phone);
@@ -74,7 +75,8 @@ const SignUp = () => {
       .then(res => {
         if (res.status === 201) {
           alert('A name was submitted: ' + fullName);
-          console.log(res)
+          console.log(res);
+          setIsRegistred(true);
 
         } else {
           console.log('error');
@@ -88,6 +90,10 @@ const SignUp = () => {
 
   return (
     <div>
+        {isRegistered ?
+        <Redirect to='/Home' />
+        : ''
+      }
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>

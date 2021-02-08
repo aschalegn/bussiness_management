@@ -17,7 +17,7 @@ const businessSchema = new Schema({
     socialMedia: [{ name: String, link: String }],
     workers: [{
         id: String, name: String, phone: String,
-        times: [{ apenAt: String, closeAt: String, jump: Number }],
+        times: [{ openAt: String, closeAt: String, jump: Number }],
         availableTimes: [String],
         role: { type: String, enum: ["worker", "manneger"] },
         skills: [String]

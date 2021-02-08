@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import bcrypt from "bcryptjs";
 import { Business } from '../model/Bussiness';
 
+
+
 const addBussiness = async (req: Request, res: Response) => {
     const body = req.body;
     const emailExist = await isEmailExists(body.email);
@@ -27,6 +29,10 @@ const logIn = async (req: Request, res: Response) => {
     return res.status(500).send("could not find the user");
 }
 
+const addWorker = async(req: Request, res: Response) => {
+
+}
+
 // * Util Functions
 async function isEmailExists(email: string): Promise<Boolean> {
     const isFound = await Business.findOne({ email });
@@ -44,4 +50,6 @@ function comparePassword(password: any, hash: string): boolean {
     return isMatch;
 }
 
-export { addBussiness, logIn };
+
+
+export { addBussiness, logIn, addWorker };

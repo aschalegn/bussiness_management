@@ -14,7 +14,7 @@ router.get("/login", (req, res) => {
     logIn(req, res);
 });
 router.patch("/setting/:id",()=>{
-    Business.findById()
+    // Business.findById()
 })
 
 

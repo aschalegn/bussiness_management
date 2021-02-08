@@ -1,6 +1,6 @@
 import React from 'react';
 
-function LogedIn(props: Props) {
+function LogedIn(props: any) {
     return (
         <section>
             {props.children}
