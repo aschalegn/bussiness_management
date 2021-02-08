@@ -21,8 +21,7 @@ const userReducer = (state: any, action: any) => {
 export default function UserProvider(props: any) {
     const [user, userDispatch] = useReducer(userReducer, null);
     const signUp = (body: any) => {
-        console.log(body);
-        axios.post(`${baseURL}business`, {
+        axios.post(`${baseURL}/business`, {
             body
         }).then(res => {
             if (res.status === 201) {
