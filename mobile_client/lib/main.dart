@@ -6,7 +6,7 @@ import './signUpForm.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: "/",
+     initialRoute: "/",
     routes: {
       "/": (context) => HomePage(),
       "/logIn": (context) => LoginForm(),
@@ -15,6 +15,8 @@ void main() {
     },
   ));
 }
+
+
 
 class Home extends StatelessWidget {
   @override
@@ -26,3 +28,5 @@ class Home extends StatelessWidget {
     );
   }
 }
+
+

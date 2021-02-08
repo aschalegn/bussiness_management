@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { baseURL } from '../../../utils/index';
 import { Redirect, Link } from 'react-router-dom';
-import SignUp from '../Register/index';
-
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';

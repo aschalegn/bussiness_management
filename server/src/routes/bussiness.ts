@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { addBussiness, logIn } from "../controllers/bussiness";
+import { addBussiness, addWorker, logIn } from "../controllers/bussiness";
 import { Business } from "../model/Bussiness";
 const router = Router();
 
@@ -15,8 +15,8 @@ router.get("/login", (req, res) => {
     logIn(req, res);
 });
 
-router.patch("/setting/:id",()=>{
-    
+router.patch("/setting/addWorker/:id",(req, res)=>{
+    addWorker(req, res);
 })
 
 

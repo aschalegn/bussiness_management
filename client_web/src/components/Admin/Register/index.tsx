@@ -56,18 +56,21 @@ const Register = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const body = { name, phone, email, password }
-    axios.post(`${baseURL}business`, body).then(res => {
+    axios.post(`${baseURL}business`,  body)
+    .then(res => {
       if (res.status === 201) {
         console.log(res.data);
         // userDispatch({ type: "SIGN_UP", payload: res.data });
       }
     }).catch((err) => {
-      console.log(err.message);
-    });
+      console.log(err, 'some erorr')
+      
+    })
   }
 
   return (
     <div>
+      
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
