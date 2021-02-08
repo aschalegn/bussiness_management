@@ -7,11 +7,17 @@ export default function MakeAppointment() {
     const [timeselected, setTimeSelected] = useState(false);
     const [dates, setDates] = useState([]);
     const [hours, setHours] = useState([]);
-    const body = { worker: "", style: "", hour: "", date: "" }
+    const body = {
+        worker: "",
+        style: "",
+        hour: "",
+        date: ""
+    };
 
     const getAppointments = (workerId: string) => {
         console.log(workerId);
     }
+
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(body);
@@ -23,8 +29,8 @@ export default function MakeAppointment() {
             <form onSubmit={submitHandler}>
                 <select title="barber" name="barbare" id="barbare"
                     onChange={(event: ChangeEvent<HTMLSelectElement>) => {
+                        body.worker = event.target.value;
                         getAppointments(event.target.value);
-                        body["worker"] = event.target.value;
                         setBarbareSelected(true);
                     }}
                 >
@@ -35,7 +41,7 @@ export default function MakeAppointment() {
                 <input title="pick date" type="date" name="date" id="date"
                     disabled={!barbareSelected}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                        body["date"] = e.target.value;
+                        body.date = e.target.value;
                         setDateSelected(true);
                     }}
                 />
@@ -43,7 +49,7 @@ export default function MakeAppointment() {
                 <input title="pick time" type="time" name="time" id="time"
                     disabled={!dateSelected}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                        body["hour"] = e.target.value;
+                        body.hour = e.target.value;
                         setTimeSelected(true);
                     }}
                 />
@@ -51,7 +57,7 @@ export default function MakeAppointment() {
                 <select title="style" name="style" id="style"
                     disabled={!timeselected}
                     onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                        body["style"] = e.target.value;
+                        body.style = e.target.value;
                     }}
                 >
                     <option value="Boy">Boy</option>
