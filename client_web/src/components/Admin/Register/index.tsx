@@ -1,21 +1,18 @@
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { baseURL } from '../../../utils';
-
-import axios from 'axios';
+import React, { useState, FormEvent, useContext, ContextType } from 'react';
 import {
   Avatar, Button, CssBaseline,
-  TextField, FormControlLabel,
-  Checkbox, Link, Typography, makeStyles, Container, Box
+  TextField, Link, Typography, makeStyles, Container, Box
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-
+import axios from 'axios';
+import { baseURL } from '../../../utils';
+// import { userContext } from "../../../context/User";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        AppointU 2021
         </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -24,8 +21,9 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
+  // const {  } = useContext(userContext) as ContextType;
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -48,34 +46,26 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
-
-const SignUp = () => {
+const Register = () => {
   const classes = useStyles();
-  const { register, handleSubmit } = useForm();
-  const [fullName, setFullName] = useState('');
+  const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const onSubmit = () => {
-    console.log(fullName, phone);
-
-    axios.post(`${baseURL}client/signUp`, {
-      fullName,
-      phone
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const body = { name, phone, email, password }
+    axios.post(`${baseURL}business`, {
+      body
+    }).then(res => {
+      if (res.status === 201) {
+        console.log(res.data);
+        // userDispatch({ type: "SIGN_UP", payload: res.data });
+      }
+    }).catch((err) => {
+      console.log(err, 'some erorr')
     })
-      .then(res => {
-        if (res.status === 201) {
-          alert('A name was submitted: ' + fullName);
-          console.log(res)
-
-        } else {
-          console.log('error');
-
-        }
-
-      }).catch((err) => {
-        console.log(err, 'some erorr')
-      })
   }
 
   return (
@@ -87,20 +77,19 @@ const SignUp = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign Up
+            הרשמה
             </Typography>
-          <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
+          <form onSubmit={handleSubmit} className={classes.form}>
             <TextField
               variant="outlined"
               margin="normal"
               fullWidth
-              id="fullName"
-              label="Full Name"
-              name="fullName"
+              id="name"
+              label="שם העסק"
+              name="name"
               autoComplete="off"
               autoFocus
-              onChange={(e) => setFullName(e.target.value)}
-              ref={register}
+              onChange={(e) => setName(e.target.value)}
               required
             />
 
@@ -110,18 +99,38 @@ const SignUp = () => {
               inputProps={{ pattern: "[0-9]{10}" }}
               fullWidth
               id="phone"
-              label="Phone Number"
+              label="מספר טלפון"
               name="phone"
-              type="number"
+              type="phone"
               autoComplete="off"
               onChange={(e) => setPhone(e.target.value)}
-              ref={register}
               required
             />
-
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              type="email"
+              id="email"
+              label="אי-מייל"
+              name="email"
+              autoComplete="off"
+              autoFocus
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              type="password"
+              id="password"
+              label="סיסמה"
+              name="password"
+              autoComplete="off"
+              autoFocus
+              onChange={(e) => setPassword(e.target.value)}
+              required
             />
             <Button
               type="submit"
@@ -130,7 +139,7 @@ const SignUp = () => {
               color="primary"
               className={classes.submit}
             >
-              Sign Up
+              הרשמה
               </Button>
           </form>
         </div>
@@ -142,4 +151,4 @@ const SignUp = () => {
   );
 }
 
-export default SignUp;
+export default Register;

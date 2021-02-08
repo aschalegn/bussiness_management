@@ -1,11 +1,11 @@
 import React from 'react';
 
-function LogedIn(props: Props) {
+export default function LogedIn() {
     return (
         <section>
-            {props.children}
+            {/* {props.children} */}
         </section>
     );
 }
 
-export default LogedIn
+ 

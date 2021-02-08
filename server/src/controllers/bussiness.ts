@@ -20,8 +20,9 @@ const logIn = async (req: Request, res: Response) => {
     const business = await Business.findOne({ email });
     if (await business) {
         const isPasswordMatch = comparePassword(password, business.password);
-        if (isPasswordMatch)
+        if (isPasswordMatch) {
             return res.status(200).send("logedIn successfully");
+        }
         return res.status(500).send("password does not match");
     }
     return res.status(500).send("could not find the user");
@@ -43,5 +44,7 @@ function comparePassword(password: any, hash: string): boolean {
     const isMatch = bcrypt.compareSync(password, hash);
     return isMatch;
 }
+
+function tokenise() { }
 
 export { addBussiness, logIn };
