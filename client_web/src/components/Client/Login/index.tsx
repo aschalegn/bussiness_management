@@ -1,6 +1,4 @@
-import React, { FormEvent, useState } from 'react';
-import axios from 'axios';
-import { baseURL } from '../../../utils/index';
+import React, { FormEvent, useState, useContext } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -13,6 +11,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { userContext } from '../../../context/User';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,33 +36,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
-
+  const { signInClient, user } = useContext(userContext);
   const [phone, setPhone] = useState('')
-  const [isLogin, setLogin] = useState(false)
-  const [newUser, setNewUser] = useState(false)
 
-  const handleSignIn = (e:FormEvent) => {
+  const handleSignIn = (e: FormEvent) => {
     e.preventDefault();
-    axios.get(`${baseURL}client/signIn/60213db13f53a228b4a40497?phone=${phone}`)
-      .then(res => {
-        if (res.status === 200) {
-          console.log(res.data);
-          setLogin(true);
-        }
-      })
-      .catch(err => {
-        console.log(err, 'login Failed');
-      })
+    signInClient(phone);
   }
 
   return (
     <div>
-      {isLogin ?
+      {user ?
         <Redirect to='/Home' />
-        : ''
-      }
-      {newUser ?
-        <Redirect to='/SignUp' />
         : ''
       }
       <Container component="main" maxWidth="xs">
@@ -74,7 +58,7 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-           כניסה
+            כניסה
         </Typography>
           <form onSubmit={handleSignIn} className={classes.form} noValidate>
 
@@ -103,16 +87,16 @@ export default function SignIn() {
               color="primary"
               className={classes.submit}
             >
-             התחבר
+              התחבר
           </Button>
             <Grid container>
               <Grid item xs>
-                <Link to='/SignUp' onClick={() => setNewUser(true)}>
+                <Link to='/SignUp' >
                   Forgot password?
               </Link>
               </Grid>
               <Grid item>
-                <Link to='/SignUp' onClick={() => setNewUser(true)} >
+                <Link to='/SignUp'  >
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

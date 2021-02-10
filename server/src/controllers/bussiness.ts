@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import mongoose from 'mongoose'
 import bcrypt from "bcryptjs";
 import { Business } from '../model/Bussiness';
 import { v4 as uuidv4 } from 'uuid';
@@ -28,9 +27,9 @@ const logIn = async (email: any, password: any, res: Response) => {
         if (await business) {
             const isPasswordMatch = comparePassword(password, business.password);
             if (isPasswordMatch) {
-                const token = tokenise(business, "busioness");
+                const token = tokenise(business, "business");
                 res.cookie("appointU", token);
-                return res.status(200).send("logedIn successfully");
+                return res.status(200).send(business);
             }
             return res.status(500).send("password does not match");
         }

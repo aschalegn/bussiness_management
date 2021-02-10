@@ -11,19 +11,17 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
     const cookie = req.cookies.appointU;
     if (cookie) {
         console.log(cookie);
-
     }
     next();
 }
 
-const parseToken = (req: Request, res: Response) => {
-    const cookie = req.cookies.easyProject;
+const parseToken = (req: Request, res: Response, next: NextFunction) => {
+    const cookie = req.cookies.appointU;
     if (cookie) {
-        const info = jwt.decode(cookie)
-        console.log(info);
+        const info = jwt.decode(cookie);
         res.status(200).send(info);
     }
 }
 
 
-export { tokenise, authenticate }
+export { tokenise, authenticate, parseToken }
