@@ -38,14 +38,9 @@ export default function MakeAppointment() {
     const [timeselected, setTimeSelected] = useState(false);
     const [date, setDate] = useState(new Date());
     const [time, setTime] = useState('');
-    const [role, setRole] = React.useState('');
-    const [workerSelected, setWorkerSelected] = useState({ availableTimes: [] });
-    const body = {
-        // clientName,
-        role,
-        date,
-        time
-    };
+    const [barber, setBarber] = React.useState('');
+    const [workerSelected, setWorkerSelected] = useState({ availableTimes: [], name: '' });
+
 
 
     const handleClickOpen = () => {
@@ -68,12 +63,11 @@ export default function MakeAppointment() {
 
 
     const handleChange = (event: any) => {
-        if (event.target.name === 'role') {
+        if (event.target.name === 'barber') {
             const filterWorkerById = allWorkers.filter((w: any, i: any) => {
                 return w._id === event.target.value
             });
             setWorkerSelected(filterWorkerById[0]);
-            setRole(event.target.value);
         }
         if (event.target.name === 'time') {
             setTime(event.target.value);
@@ -83,13 +77,27 @@ export default function MakeAppointment() {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        console.log(role, date, time, 'ugefuqfi');
+        const body = {
+            barber: workerSelected.name,
+            date,
+            time
+        };
+        console.log(body);
+        axios.post(`${baseURL}appointment/60213db13f53a228b4a40497/6023ade3ea2bfc363c7d12cc`, body)
+            .then(res => {
+                if (res.status === 201) {
+                    console.log(res.data);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+
+            })
 
     }
 
     const handleDateChange = (date: any) => {
         setDate(date);
-        console.log(workerSelected)
     };
 
 
@@ -112,7 +120,7 @@ export default function MakeAppointment() {
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            name='role'
+                            name='barber'
                             onChange={handleChange}
                         >
                             {allWorkers.map((worker: any, i: any) =>
@@ -132,6 +140,7 @@ export default function MakeAppointment() {
                                 id="date-picker-inline"
                                 label="בחר תאריך"
                                 value={date}
+                                // name="time"
                                 onChange={handleDateChange}
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',

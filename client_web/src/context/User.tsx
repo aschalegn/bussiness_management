@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { createContext, useReducer } from 'react';
 import { baseURL } from '../utils';
+
+
 export const userContext = createContext({user:{},
     signUp: (body: any )=> {},
     signUpClient: (fullName: any, phone: any)=> {}

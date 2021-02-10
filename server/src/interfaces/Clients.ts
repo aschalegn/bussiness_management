@@ -1,10 +1,10 @@
 import mongoose, { ObjectId } from "mongoose";
 
 export interface IClient extends mongoose.Document {
-    fullName: String,
-    phone: { type: String, unique: true },
-    birthDate: String,
+    fullName: string,
+    phone: { type: string, unique: true },
+    birthDate: string,
     appointments: [ObjectId],
-    joinDate: String,
+    joinDate: string,
     businesses: [ObjectId]
 }

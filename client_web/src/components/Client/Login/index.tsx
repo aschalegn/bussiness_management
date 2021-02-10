@@ -47,7 +47,6 @@ export default function SignIn() {
     axios.get(`${baseURL}client/signIn/60213db13f53a228b4a40497?phone=${phone}`)
       .then(res => {
         if (res.status === 200) {
-          
           console.log(res.data);
           setLogin(true);
         }
