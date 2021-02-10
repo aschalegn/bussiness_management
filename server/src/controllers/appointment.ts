@@ -1,18 +1,26 @@
 import { Appointment } from "../model/Appointment"
 import { Business } from "../model/Bussiness";
-import { IAppointment } from "../interfaces/Appointment";
 import { Client } from "../model/Client";
 
 class AppointmentContreller {
     // ! non register user
-    makeByBussines = async () => {
-        
+    makeByBussines = async (bussinessId: string, data: any, clientId: string) => {
+        const appointment = new Appointment();
+        const business = await Business.findById(bussinessId);
+        if (await business) {
+            business.appointments.push(appointment);
+            const client = Business.findById(clientId);
+            business.appointments.push(appointment);
+            await business.save();
+            await client.save();
+            return appointment;
+        }
+        return false;
     }
 
-    makeByClient = async (bussinessId: string, data: any) => {
+    makeByClient = async (bussinessId: string, data: any, userId: string) => {
         const appointment = new Appointment();
-        const { phone } = data.client;
-        const client = await Client.findOne({ phone: phone });
+        const client = await Client.findById(userId);
         if (await client) {
             client.appointments.push(appointment);
             const business = Business.findById(bussinessId);

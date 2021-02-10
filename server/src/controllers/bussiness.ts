@@ -49,9 +49,7 @@ const getAvailableTimes = (req:Request,res: Response) => {
     const { id } = req.params;
     return Business.findById(id)
         .then((data:any) => {
-            
-            res.status(200).send(data);
-
+                        res.status(200).send(data.worker);
         })
         .catch((err:any) => {
             console.log(err);
