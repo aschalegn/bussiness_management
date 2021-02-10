@@ -1,4 +1,4 @@
-const { Router } = require("express");
+import { Router, Request, Response } from "express";
 const router = Router();
 
 import { register, login } from '../controllers/clients';

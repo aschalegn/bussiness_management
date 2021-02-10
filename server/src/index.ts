@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import businesRoute from "./routes/bussiness";
 import clientRoutes from './routes/clients';
+import appointmentRoutes from './routes/appointment';
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 //* Routing
 app.use("/api/business", businesRoute);
 app.use('/api/client', clientRoutes);
+app.use('/api/appointment', appointmentRoutes);
 
 //* DB Connection
 const dbUrl = "mongodb://localhost:27017/bussiness";
