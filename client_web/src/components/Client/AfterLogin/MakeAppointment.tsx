@@ -40,18 +40,12 @@ export default function MakeAppointment() {
     const [time, setTime] = useState('');
     const [role, setRole] = React.useState('');
     const [workerSelected, setWorkerSelected] = useState({availableTimes:[]});
-    const [clientName, setClientName] = React.useState('');
     const body = {
-        clientName,
+        // clientName,
         role,
         date,
         time
     };
-
-
-    // const getAppointments = (workerId: string) => {
-    //     console.log(workerId);
-    // }
 
 
     const handleClickOpen = () => {
@@ -110,16 +104,7 @@ export default function MakeAppointment() {
                     {/* <Button onClick={getAvailableTimes}>הדפס</Button> */}
                 </DialogContent>
 
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="שם לקוח"
-                    type="text"
-                    fullWidth
-                    onChange={e => setClientName(e.target.value)}
-                />
-
+         
                 <FormControl className={classes.formControl}>
                     <InputLabel id="demo-simple-select-label">בחר ספר</InputLabel>
                     <Select

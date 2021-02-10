@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, FormEvent } from 'react';
 import { useForm } from 'react-hook-form';
-import { baseURL } from '../../../utils';
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
+import { userContext } from '../../../context/User';
 import {
   Avatar, Button, CssBaseline,
   TextField, FormControlLabel,
   Checkbox, Link, Typography, makeStyles, Container, Box
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+
 
 function Copyright() {
   return (
@@ -48,41 +48,20 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
-
 const SignUp = () => {
   const classes = useStyles();
-  const { register, handleSubmit } = useForm();
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
-  const [isRegistered, setIsRegistred] = useState(false);
+  const { user, signUpClient } = useContext(userContext);
 
-  const onSubmit = () => {
-    console.log(fullName, phone);
-
-    axios.post(`${baseURL}client/signUp`, {
-      fullName,
-      phone
-    })
-      .then(res => {
-        if (res.status === 201) {
-          alert('A name was submitted: ' + fullName);
-          console.log(res);
-          setIsRegistred(true);
-
-        } else {
-          console.log('error');
-
-        }
-
-      }).catch((err) => {
-        console.log(err, 'some erorr')
-      })
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    signUpClient(fullName, phone)
   }
 
   return (
     <div>
-        {isRegistered ?
+      {user ?
         <Redirect to='/Home' />
         : ''
       }
@@ -95,7 +74,7 @@ const SignUp = () => {
           <Typography component="h1" variant="h5">
             Sign Up
             </Typography>
-          <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
+          <form onSubmit={onSubmit} className={classes.form}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -106,7 +85,6 @@ const SignUp = () => {
               autoComplete="off"
               autoFocus
               onChange={(e) => setFullName(e.target.value)}
-              ref={register}
               required
             />
 
@@ -121,7 +99,6 @@ const SignUp = () => {
               type="number"
               autoComplete="off"
               onChange={(e) => setPhone(e.target.value)}
-              ref={register}
               required
             />
 
