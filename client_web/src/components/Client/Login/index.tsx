@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import axios from 'axios';
 import { baseURL } from '../../../utils/index';
 import { Redirect, Link } from 'react-router-dom';
@@ -42,22 +42,14 @@ export default function SignIn() {
   const [isLogin, setLogin] = useState(false)
   const [newUser, setNewUser] = useState(false)
 
-
-
-  const handleSignIn = () => {
-    const user = { phone }
-
-    axios.post(`${baseURL}client/signIn`, {
-      phone: user.phone,
-    })
+  const handleSignIn = (e:FormEvent) => {
+    e.preventDefault();
+    axios.get(`${baseURL}client/signIn/60213db13f53a228b4a40497?phone=${phone}`)
       .then(res => {
-        if (res.status === 404) {
-          console.log("some error")
-        }
-        else {
+        if (res.status === 200) {
+          
+          console.log(res.data);
           setLogin(true);
-          console.log('login success');
-
         }
       })
       .catch(err => {
@@ -83,9 +75,9 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+           כניסה
         </Typography>
-          <form className={classes.form} noValidate>
+          <form onSubmit={handleSignIn} className={classes.form} noValidate>
 
             <TextField
               variant="outlined"
@@ -94,7 +86,7 @@ export default function SignIn() {
               required
               fullWidth
               id="phone"
-              label="Phone"
+              label="טלפון"
               name="phone"
               autoComplete="phone"
               onChange={(e) => setPhone(e.target.value)}
@@ -106,14 +98,13 @@ export default function SignIn() {
               label="Remember me"
             />
             <Button
-              type="button"
+              type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={() => handleSignIn()}
             >
-              Sign In
+             התחבר
           </Button>
             <Grid container>
               <Grid item xs>

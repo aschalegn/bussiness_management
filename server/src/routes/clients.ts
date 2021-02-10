@@ -7,7 +7,7 @@ router.post('/signUp/:businessId', (req: Request, res: Response, next: any) => {
     register(req, res, next);
 });
 
-router.post('/signIn/:businessId', (req: Request, res: Response, next: any) => {
+router.get('/signIn/:businessId', (req: Request, res: Response, next: any) => {
     login(req, res, next);
 });
 

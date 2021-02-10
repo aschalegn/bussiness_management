@@ -4,10 +4,6 @@ import { Business } from "../model/Bussiness";
 
 const router = Router();
 
-router.get("/:id", (req, res) => {
-    res.status(200).send("working");
-    const { workers } = req.query;
-});
 
 router.post("/", (req: Request, res: Response) => {
     addBussiness(req, res);

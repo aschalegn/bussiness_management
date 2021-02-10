@@ -50,7 +50,7 @@ const getAvailableTimes = (req:Request,res: Response) => {
     return Business.findById(id)
         .then((data:any) => {
             
-            res.status(200).send(data);
+            res.status(200).send(data.workers);
 
         })
         .catch((err:any) => {
