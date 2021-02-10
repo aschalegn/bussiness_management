@@ -3,7 +3,7 @@ import axios from 'axios';
 import { baseURL } from '../utils';
 
 export const userContext = createContext({
-    user: {},
+    user: {type: ''},
     signUp: (body: any) => { },
     signUpClient: (fullName: any, phone: any) => { },
     signIn: (email: string, password: string) => { },
