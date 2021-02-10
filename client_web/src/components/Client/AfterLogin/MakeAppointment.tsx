@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import { baseURL } from '../../../utils';
 import axios from 'axios';
 import {
     Button, Dialog, DialogActions, DialogTitle, DialogContent,
-    createStyles, makeStyles, Theme, TextField, Grid,
+    createStyles, makeStyles, Theme, Grid,
     FormControl, Select, MenuItem, InputLabel
 
 } from '@material-ui/core';
@@ -38,14 +38,9 @@ export default function MakeAppointment() {
     const [timeselected, setTimeSelected] = useState(false);
     const [date, setDate] = useState(new Date());
     const [time, setTime] = useState('');
-    const [role, setRole] = React.useState('');
-    const [workerSelected, setWorkerSelected] = useState({availableTimes:[]});
-    const body = {
-        // clientName,
-        role,
-        date,
-        time
-    };
+    const [barber, setBarber] = React.useState('');
+    const [workerSelected, setWorkerSelected] = useState({ availableTimes: [], name: '' });
+
 
 
     const handleClickOpen = () => {
@@ -60,108 +55,124 @@ export default function MakeAppointment() {
     const getAvailableTimes = () => {
         axios.get(`${baseURL}business/60213db13f53a228b4a40497`)
             .then((res) => {
-                console.log(res.data.workers);
-                setAllWorkers(res.data.workers);
+                console.log(res.data);
+                setAllWorkers(res.data);
             })
             .catch((err) => { console.log(err); })
     }
 
 
     const handleChange = (event: any) => {
-        if (event.target.name === 'role') {
-           const filterWorkerById = allWorkers.filter((w:any,i:any)=>{               
-             return  w._id === event.target.value
-        }); 
-        
-           setWorkerSelected(filterWorkerById[0]);
-         setRole(event.target.value);
-           
-         
+        if (event.target.name === 'barber') {
+            const filterWorkerById = allWorkers.filter((w: any, i: any) => {
+                return w._id === event.target.value
+            });
+            setWorkerSelected(filterWorkerById[0]);
         }
-        setTime(event.target.value);
+        if (event.target.name === 'time') {
+            setTime(event.target.value);
+        }
+
     };
 
-    const setAppointment = () => {
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault();
+        const body = {
+            barber: workerSelected.name,
+            date,
+            time
+        };
         console.log(body);
+        axios.post(`${baseURL}appointment/60213db13f53a228b4a40497/6023ade3ea2bfc363c7d12cc`, body)
+            .then(res => {
+                if (res.status === 201) {
+                    console.log(res.data);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+
+            })
 
     }
 
     const handleDateChange = (date: any) => {
         setDate(date);
-        console.log(workerSelected)
     };
-  
+
 
     return (
         <>
-        
+
             <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                 קביעת תור
             </Button>
+
             <Dialog open={open} onClose={handleClickClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">הוספת תור</DialogTitle>
                 <DialogContent>
                     {/* <Button onClick={getAvailableTimes}>הדפס</Button> */}
                 </DialogContent>
 
-         
-                <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-label">בחר ספר</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        // value={role._id}
-                        name='role'
-                        onChange={handleChange}
-                    >
-                        {allWorkers.map((worker: any, i: any) =>
-                            <MenuItem key={i} value={worker._id}>{worker.name}</MenuItem>
-                        )}
+                <form onSubmit={handleSubmit}>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel id="demo-simple-select-label">בחר ספר</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            name='barber'
+                            onChange={handleChange}
+                        >
+                            {allWorkers.map((worker: any, i: any) =>
+                                <MenuItem key={i} value={worker._id}>{worker.name}</MenuItem>
+                            )}
 
-                    </Select>
-                </FormControl>
+                        </Select>
+                    </FormControl>
 
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <Grid container justify="space-around">
-                        <KeyboardDatePicker
-                            disableToolbar
-                            variant="inline"
-                            format="MM/dd/yyyy"
-                            margin="normal"
-                            id="date-picker-inline"
-                            label="בחר תאריך"
-                            value={date}
-                            onChange={handleDateChange}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change date',
-                            }}
-                        />
-                    </Grid>
-                </MuiPickersUtilsProvider>
-                <FormControl className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-label">בחר שעה</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        // value={role}
-                        name='time'
-                        onChange={handleChange}
-                    >
-                        {workerSelected.availableTimes.map((time: any, i: any) =>
-                            <MenuItem key={i} value={time}>{time}</MenuItem>
-                        )}
-                    </Select>
-                </FormControl>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <Grid container justify="space-around">
+                            <KeyboardDatePicker
+                                disableToolbar
+                                variant="inline"
+                                format="MM/dd/yyyy"
+                                margin="normal"
+                                id="date-picker-inline"
+                                label="בחר תאריך"
+                                value={date}
+                                // name="time"
+                                onChange={handleDateChange}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                }}
+                            />
+                        </Grid>
+                    </MuiPickersUtilsProvider>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel id="demo-simple-select-label">בחר שעה</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            name='time'
+                            onChange={handleChange}
+                        >
+                            {workerSelected.availableTimes.map((time: any, i: any) =>
+                                <MenuItem key={i} value={time}>{time}</MenuItem>
+                            )}
+                        </Select>
+                    </FormControl>
 
-                <DialogActions>
-                    <Button onClick={handleClickClose} color="secondary">
-                        חזור
+                    <DialogActions>
+                        <Button onClick={handleClickClose} color="secondary">
+                            חזור
           </Button>
-                    <Button onClick={setAppointment} color="primary">
-                        קבע
+                        <Button type='submit' color="primary">
+                            קבע
           </Button>
-                </DialogActions>
+                    </DialogActions>
+                </form>
             </Dialog >
+
         </>
     )
 }

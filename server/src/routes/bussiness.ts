@@ -8,7 +8,8 @@ router.post("/", (req: Request, res: Response) => {
 });
 
 router.get("/login", (req, res) => {
-    logIn(req, res);
+    const { email, password } = req.query;
+    logIn(email,password, res);
 });
 
 router.patch("/setting/addWorker/:id", (req, res) => {

@@ -21,19 +21,22 @@ const addBussiness = async (req: Request, res: Response) => {
     return res.status(300).send("This Email exists in the system");
 }
 
-const logIn = async (req: Request, res: Response) => {
-    const { email, password } = req.query;
-    const business = await Business.findOne({ email });
-    if (await business) {
-        const isPasswordMatch = comparePassword(password, business.password);
-        if (isPasswordMatch) {
-            const token = tokenise(business, "busioness");
-            res.cookie("appointU", token);
-            return res.status(200).send("logedIn successfully");
+
+const logIn = async (email: any, password: any, res: Response) => {
+    if (email) {
+        const business = await Business.findOne({ email });
+        if (await business) {
+            const isPasswordMatch = comparePassword(password, business.password);
+            if (isPasswordMatch) {
+                const token = tokenise(business, "busioness");
+                res.cookie("appointU", token);
+                return res.status(200).send("logedIn successfully");
+            }
+            return res.status(500).send("password does not match");
         }
-        return res.status(500).send("password does not match");
+        return res.status(500).send("could not find the user");
     }
-    return res.status(500).send("could not find the user");
+
 }
 
 const addWorker = async (req: Request, res: Response) => {
@@ -54,7 +57,7 @@ const getAvailableTimes = (req: Request, res: Response) => {
     const { id } = req.params;
     return Business.findById(id)
         .then((data: any) => {
-            res.status(200).send(data.worker);
+            res.status(200).send(data.workers);
         })
         .catch((err: any) => {
             console.log(err);

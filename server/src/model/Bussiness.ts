@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { IBusiness } from "../interfaces/Business";
 
 const businessSchema = new Schema({
     name: { type: String, required: true },
@@ -41,6 +42,5 @@ const businessSchema = new Schema({
     }]
 });
 
-
-const Business = mongoose.model('Business', businessSchema);
+const Business = mongoose.model<IBusiness>('Business', businessSchema);
 export { Business };

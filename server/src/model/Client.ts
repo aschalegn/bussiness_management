@@ -3,7 +3,7 @@ import { IClient} from "../interfaces/Clients";
 
 const clientSchema = new Schema({
    fullName: String,
-   phone: { type: Number, unique: true },
+   phone: { type: String, unique: true },
    birthDate: String,
    appointments: [{
     type: mongoose.Types.ObjectId,

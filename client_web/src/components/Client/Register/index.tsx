@@ -80,7 +80,7 @@ const SignUp = () => {
               margin="normal"
               fullWidth
               id="fullName"
-              label="Full Name"
+              label="שם מלא"
               name="fullName"
               autoComplete="off"
               autoFocus
@@ -94,9 +94,9 @@ const SignUp = () => {
               inputProps={{ pattern: "[0-9]{10}" }}
               fullWidth
               id="phone"
-              label="Phone Number"
+              label="טלפון"
               name="phone"
-              type="number"
+              type="tel"
               autoComplete="off"
               onChange={(e) => setPhone(e.target.value)}
               required

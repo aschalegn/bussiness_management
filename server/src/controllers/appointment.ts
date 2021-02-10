@@ -19,14 +19,16 @@ class AppointmentContreller {
     }
 
     makeByClient = async (bussinessId: string, data: any, userId: string) => {
-        const appointment = new Appointment();
+        const body = {time:data.time,barber:data.barber, client: userId}
+        const appointment = new Appointment(body);
         const client = await Client.findById(userId);
         if (await client) {
             client.appointments.push(appointment);
-            const business = Business.findById(bussinessId);
+            const business = await Business.findById(bussinessId);
             business.appointments.push(appointment);
             await business.save();
             await client.save();
+            await appointment.save();
             return appointment;
         }
         return false;
