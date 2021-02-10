@@ -1,7 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
 const appointmentSchema = new Schema({
-
 });
 
 

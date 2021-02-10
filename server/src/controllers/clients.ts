@@ -4,13 +4,8 @@ import { Client } from '../model/Client'
 
 function register(req: any, res: any, next: any) {
     const { fullName, phone } = req.body;
-    const { businessID } = req.params;
+    const { businessId } = req.params;
 
-    const user = new Client({
-        fullName,
-        phone,
-        businessID
-    });
 
     Client.findOne({ phone }, function (err: any, u: any) {
         // error occur
@@ -24,16 +19,28 @@ function register(req: any, res: any, next: any) {
             return res.status(400).send({ msg: 'This phone address is already associated with another account.' });
         }
         // if user is not exist into database then save the user into database for register account
-        Business.findById(businessID, (err: any, bussiness: any) => {
+        Business.findById(businessId, async (err: any, business: any) => {
             if (err) {
                 console.log({ msg: err.message });
                 return res.status(500).send({ msg: err.message });
             }
-            if (!bussiness) {
+            if (!business) {
                 // return res.
             }
-            user.save();
-            bussiness.clients.push(user);
+
+            const user = new Client({ fullName, phone });
+            await user.save();
+            if (user) {
+                user.businesses.push(business);
+                business.clients.push(user);
+                business.save();
+                user.save();
+                console.log(user);
+            }
+
+
+
+
             return res.status(201).send(user);
         });
     });
