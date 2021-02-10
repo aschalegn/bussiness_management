@@ -52,7 +52,7 @@ export default function LogIn() {
         }
       })
       .catch(err => {
-        console.log(err, 'login Failed');
+        console.log(err);
       })
   }
 

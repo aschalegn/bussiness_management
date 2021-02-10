@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { Business } from '../model/Bussiness';
 import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment';
+import { tokenise } from '../util';
 
 const addBussiness = async (req: Request, res: Response) => {
     const body = req.body;
@@ -13,6 +14,8 @@ const addBussiness = async (req: Request, res: Response) => {
         body.password = hashPassword(body.password);
         const newBussiness = new Business(body);
         await newBussiness.save();
+        const token = tokenise(newBussiness, "business");
+        res.cookie("appointU", token);
         return res.status(201).send(newBussiness);
     }
     return res.status(300).send("This Email exists in the system");
@@ -24,6 +27,8 @@ const logIn = async (req: Request, res: Response) => {
     if (await business) {
         const isPasswordMatch = comparePassword(password, business.password);
         if (isPasswordMatch) {
+            const token = tokenise(business, "busioness");
+            res.cookie("appointU", token);
             return res.status(200).send("logedIn successfully");
         }
         return res.status(500).send("password does not match");
@@ -45,13 +50,13 @@ const addWorker = async (req: Request, res: Response) => {
         return res.status(200).send(worker)
     })
 }
-const getAvailableTimes = (req:Request,res: Response) => {
+const getAvailableTimes = (req: Request, res: Response) => {
     const { id } = req.params;
     return Business.findById(id)
-        .then((data:any) => {
-                        res.status(200).send(data.worker);
+        .then((data: any) => {
+            res.status(200).send(data.worker);
         })
-        .catch((err:any) => {
+        .catch((err: any) => {
             console.log(err);
             res.status(500);
         })
@@ -75,9 +80,6 @@ function comparePassword(password: any, hash: string): boolean {
     return isMatch;
 }
 
-function tokenise() { }
-
-
 const addSetAvailable = (worker: any) => {
     const jump = worker.jump
     const start = moment(worker.openAt, "kk:mm")
@@ -93,4 +95,4 @@ const addSetAvailable = (worker: any) => {
 
 
 
-export { addBussiness, logIn, addWorker ,getAvailableTimes};
+export { addBussiness, logIn, addWorker, getAvailableTimes };

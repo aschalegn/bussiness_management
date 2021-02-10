@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="26a72b91-3c2d-4183-991e-6f39edf7f809" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client_web/src/components/Admin/Register/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client_web/src/components/Admin/Register/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/routes/clients.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/clients.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

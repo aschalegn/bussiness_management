@@ -1,6 +1,7 @@
 // const Client = require("../model/Client");
 import { Business } from '../model/Bussiness';
 import { Client } from '../model/Client'
+import { tokenise } from '../util';
 
 function register(req: any, res: any, next: any) {
     const { fullName, phone } = req.body;
@@ -37,10 +38,8 @@ function register(req: any, res: any, next: any) {
                 user.save();
                 console.log(user);
             }
-
-
-
-
+            const token = tokenise(user, "client");
+            res.cookie("appointU", token);
             return res.status(201).send(user);
         });
     });
@@ -54,6 +53,8 @@ function login(req: any, res: any, next: any) {
         else if (!user)
             return res.status(401).send({ msg: 'The phone number ' + phone + ' is not associated with any account. please check and try again!' });
         // user successfully logged in
+        const token = tokenise(user, "client");
+        res.cookie("appointU", token);
         return res.status(200).send('User successfully logged in.');
     });
 }
