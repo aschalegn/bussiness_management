@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { baseURL } from '../../../utils';
+import { baseURL } from '../../../../utils/index';
 import axios from 'axios';
 import {
     Button, Dialog, DialogActions, DialogTitle, DialogContent,
@@ -64,9 +64,9 @@ export default function MakeAppointment() {
     };
 
     const getAvailableTimes = () => {
-        axios.get(`${baseURL}business/60213db13f53a228b4a40497`)
+        axios.get(`${baseURL}business/setting/60213db13f53a228b4a40497`)
             .then((res) => {
-                console.log(res.data.workers);
+                console.log(res.data.workers, 'ffygkgugug');
                 setAllWorkers(res.data.workers);
             })
             .catch((err) => { console.log(err); })

@@ -5,14 +5,14 @@ const clientSchema = new Schema({
    phone: {type: Number, unique: true},
    birthDate: String,
    joinDate: {type: Date, default: Date.now},
-//    businessID: [{
-//     type: mongoose.Types.ObjectId,
-//     ref: "Business"
-// }],
-//    appointmentID: [{
-//     type: mongoose.Types.ObjectId,
-//     ref: "Appointment"
-// }]
+   businessID: [{
+    type: mongoose.Types.ObjectId,
+    ref: "Business"
+}],
+   appointments: [{
+    type: mongoose.Types.ObjectId,
+    ref: "Appointment"
+}]
 });
 
 
