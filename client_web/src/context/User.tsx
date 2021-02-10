@@ -36,7 +36,7 @@ export default function UserProvider(props: any) {
                 const type = res.data.type
                 const payload = { ...res.data.body, type }
                 console.log(payload);
-                { userDispatch({ type: "SIGN_IN", payload: payload }); }
+                { userDispatch({ type: "SIGN_UP", payload: payload }); }
             })
     }, []);
 
@@ -64,6 +64,7 @@ export default function UserProvider(props: any) {
     }
 
     const signUpClient = (fullName: any, phone: any) => {
+        console.log(phone);
         axios.post(`${baseURL}client/signUp/60213e701f365014cc0f8fb4`, {
             fullName,
             phone
@@ -79,6 +80,8 @@ export default function UserProvider(props: any) {
     const signInClient = (phone: string) => {
         axios.get(`${baseURL}client/signIn/60213e701f365014cc0f8fb4?phone=${phone}`, { withCredentials: true })
             .then(res => {
+                console.log(res);
+                
                 if (res.status === 200)
                     userDispatch({ type: "SIGN_UP", payload: res.data });
             })

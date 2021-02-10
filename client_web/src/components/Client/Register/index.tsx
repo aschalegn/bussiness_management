@@ -54,15 +54,15 @@ const SignUp = () => {
   const [phone, setPhone] = useState('');
   const { user, signUpClient } = useContext(userContext);
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = (e: FormEvent) => {    
     e.preventDefault()
     signUpClient(fullName, phone)
   }
 
   return (
     <div>
-      {user ?
-        <Redirect to='/Home' />
+      {user.type ?
+        <Redirect to='/' />
         : ''
       }
       <Container component="main" maxWidth="xs">

@@ -46,12 +46,11 @@ export default function SignIn() {
 
   return (
     <div>
-      {user ?
-        <Redirect to='/Home' />
+      {user.type ?
+        <Redirect to='/' />
         : ''
       }
       <Container component="main" maxWidth="xs">
-
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>

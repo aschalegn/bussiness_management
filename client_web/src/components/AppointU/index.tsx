@@ -3,7 +3,7 @@ import React from 'react';
 const Home = () => {
     return (
         <div>
-            Home page before Login Client
+         <h1>AppointU</h1>   
         </div>
     )
 }

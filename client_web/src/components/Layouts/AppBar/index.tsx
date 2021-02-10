@@ -1,9 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import { createStyles, AppBar, Toolbar, IconButton, Theme, makeStyles, Drawer, Button, List, Divider, ListItem, ListItemIcon, ListItemText, Link } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { userContext } from '../../../context/User';
+import HomeClient from '../../Client/HomePage/home';
+import HomeAdmin from '../../Admin/AfterLogin';
+
+import LogIn from '../../Admin/Login';
+import Register from '../../Admin/Register';
+import SignIn from '../../Client/Login';
+import SignUp from '../../Client/Register';
+import Home from '../../AppointU';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -157,6 +165,9 @@ export default function Navbar() {
 
     );
 
+    useEffect(() => {
+        console.log(!user.type);
+    }, []);
 
     return (
         <div>
@@ -168,10 +179,10 @@ export default function Navbar() {
                             <React.Fragment key={anchor}>
                                 <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
                                 <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
-                                    {!user ?
+                                    {!user.type ?
                                         list(anchor)
                                         : user.type === 'client' ? listClient(anchor)
-                                    : listAdmin(anchor)
+                                            : listAdmin(anchor)
                                     }
                                 </Drawer>
                             </React.Fragment>
@@ -179,6 +190,27 @@ export default function Navbar() {
                     </IconButton>
                 </Toolbar>
             </AppBar>
+            <Router>
+                <Switch>
+                    {!user.type ?
+                        <>
+                            <Route exact path='/' component={Home} />
+                            <Route exact path='/signIn' component={SignIn} />
+                            <Route exact path='/signUp' component={SignUp} />
+                            <Route exact path='/admin/login' component={LogIn} />
+                            <Route exact path='/admin/signUp' component={Register} />
+                        </>
+                        :
+                        user.type === 'client' ?
+                            <Route exact path='/' component={HomeClient} />
+                            :
+                            <Route exact path='/' component={HomeAdmin} />
+                    }
+
+
+                </Switch>
+            </Router>
         </div>
+
     );
 }

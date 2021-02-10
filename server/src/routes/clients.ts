@@ -4,6 +4,8 @@ const router = Router();
 import { register, login } from '../controllers/clients';
 
 router.post('/signUp/:businessId', (req: Request, res: Response, next: any) => {
+    console.log("hitted");
+        
     register(req, res, next);
 });
 
