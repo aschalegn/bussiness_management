@@ -29,19 +29,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function MakeAppointment() {
     const classes = useStyles();
-
     const [allWorkers, setAllWorkers] = useState([]);
-
     const [open, setOpen] = React.useState(false);
-    const [barbareSelected, setBarbareSelected] = useState(false);
-    const [dateSelected, setDateSelected] = useState(false);
-    const [timeselected, setTimeSelected] = useState(false);
     const [date, setDate] = useState(new Date());
     const [time, setTime] = useState('');
     const [barber, setBarber] = React.useState('');
     const [workerSelected, setWorkerSelected] = useState({ availableTimes: [], name: '' });
-
-
 
     const handleClickOpen = () => {
         getAvailableTimes();
@@ -72,7 +65,6 @@ export default function MakeAppointment() {
         if (event.target.name === 'time') {
             setTime(event.target.value);
         }
-
     };
 
     const handleSubmit = (e: FormEvent) => {
@@ -91,19 +83,14 @@ export default function MakeAppointment() {
             })
             .catch(err => {
                 console.log(err);
-
             })
-
     }
 
     const handleDateChange = (date: any) => {
         setDate(date);
     };
-
-
     return (
         <>
-
             <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                 קביעת תור
             </Button>
@@ -140,7 +127,6 @@ export default function MakeAppointment() {
                                 id="date-picker-inline"
                                 label="בחר תאריך"
                                 value={date}
-                                // name="time"
                                 onChange={handleDateChange}
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
@@ -165,10 +151,10 @@ export default function MakeAppointment() {
                     <DialogActions>
                         <Button onClick={handleClickClose} color="secondary">
                             חזור
-          </Button>
+                        </Button>
                         <Button type='submit' color="primary">
                             קבע
-          </Button>
+                        </Button>
                     </DialogActions>
                 </form>
             </Dialog >

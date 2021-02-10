@@ -1,3 +1,4 @@
+import { IBusiness } from '../interfaces/Business';
 import { Business } from '../model/Bussiness';
 import { Client } from '../model/Client'
 import { tokenise } from '../util';
@@ -12,7 +13,7 @@ function register(req: any, res: any, next: any) {
         if (u) {
             return res.status(400).send({ msg: 'This phone address is already associated with another account.' });
         }
-        Business.findById(businessId, async (err: any, business: any) => {
+        Business.findById(businessId, async (err: any, business: IBusiness) => {
             if (err) {
                 return res.status(500).send({ msg: err.message });
             }
@@ -21,8 +22,8 @@ function register(req: any, res: any, next: any) {
             const user = new Client({ fullName, phone });
             await user.save();
             if (user) {
-                user.businesses.push(business);
-                business.clients.push(user);
+                user.businesses.push(business._id);
+                business.clients.push(user._id);
                 business.save();
                 user.save();
             }
