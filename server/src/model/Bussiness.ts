@@ -19,7 +19,7 @@ const businessSchema = new Schema({
         id: String, name: String, phone: String,
         times: [{ openAt: String, closeAt: String, jump: Number }],
         availableTimes: [String],
-        role: { type: String, enum: ["worker", "manneger"] },
+        role: { type: String, enum: ["עובד", "מנהל"] },
         skills: [String]
     }],
     appointments: [{

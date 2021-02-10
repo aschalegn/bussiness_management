@@ -101,9 +101,9 @@ export default function AddWorkers() {
               name='role'
               onChange={handleChange}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={"עובד"}>עובד</MenuItem>
+              <MenuItem value={"מנהל"}>מנהל</MenuItem>
+
             </Select>
           </FormControl>
 
@@ -125,7 +125,7 @@ export default function AddWorkers() {
             type="text"
 
             fullWidth
-            onChange={e => setPhone(e.target.value)}
+            onChange={e => setSkills(e.target.value)}
           />
 
           <TextField
@@ -155,9 +155,9 @@ export default function AddWorkers() {
               name='jump'
               onChange={handleChange}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={15}>15</MenuItem>
+              <MenuItem value={20}>20</MenuItem>
+              <MenuItem value={30}>30</MenuItem>
             </Select>
           </FormControl>
 
