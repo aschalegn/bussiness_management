@@ -1,5 +1,6 @@
 import React from 'react'
 import AddWorkers from './addNewWorkers'
+import MakeAppointment from './MakeAppointment-admin'
 function Setting() {
   
 
@@ -7,6 +8,7 @@ function Setting() {
         <div>
                 <h1>setting</h1>
                 <AddWorkers/>
+                <MakeAppointment/>
         </div>
     )
 }

@@ -45,7 +45,19 @@ const addWorker = async (req: Request, res: Response) => {
         return res.status(200).send(worker)
     })
 }
+const getAvailableTimes = (req:Request,res: Response) => {
+    const { id } = req.params;
+    return Business.findById(id)
+        .then((data:any) => {
+            
+            res.status(200).send(data);
 
+        })
+        .catch((err:any) => {
+            console.log(err);
+            res.status(500);
+        })
+}
 
 
 // * Util Functions
@@ -81,4 +93,6 @@ const addSetAvailable = (worker: any) => {
     return timesBetween
 }
 
-export { addBussiness, logIn, addWorker };
+
+
+export { addBussiness, logIn, addWorker ,getAvailableTimes};
