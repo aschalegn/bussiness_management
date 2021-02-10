@@ -1,9 +1,16 @@
 import mongoose, { Schema } from "mongoose";
+import { IAppointment } from "../interfaces/Appointment";
 
-const appointmentSchema = new Schema({
-
+const appointmentSchema: Schema = new Schema({
+    client: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Client'
+    },
+    barber: String,
+    date: String,
+    time: String,
+    style: String
 });
 
-
-const Appointment = mongoose.model('Appointment', appointmentSchema);
+const Appointment = mongoose.model<IAppointment>('Appointment', appointmentSchema);
 export { Appointment };
