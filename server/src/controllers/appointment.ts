@@ -9,8 +9,8 @@ class AppointmentContreller {
         
     }
 
-    makeByClient = async (bussinessId: string, data: IAppointment) => {
-        const appointment = new Appointment(data);
+    makeByClient = async (bussinessId: string, data: any) => {
+        const appointment = new Appointment();
         const { phone } = data.client;
         const client = await Client.findOne({ phone: phone });
         if (await client) {
