@@ -15,7 +15,7 @@ const addBussiness = async (req: Request, res: Response) => {
         await newBussiness.save();
         const token = tokenise(newBussiness, "business");
         res.cookie("appointU", token);
-        return res.status(201).send(newBussiness);
+        return res.status(201).send({ body: newBussiness, type: "business" });
     }
     return res.status(300).send("This Email exists in the system");
 }
@@ -29,7 +29,7 @@ const logIn = async (email: any, password: any, res: Response) => {
             if (isPasswordMatch) {
                 const token = tokenise(business, "business");
                 res.cookie("appointU", token);
-                return res.status(200).send(business);
+                return res.status(200).send({ body: business, type: "business" });
             }
             return res.status(500).send("password does not match");
         }

@@ -41,17 +41,16 @@ export default function UserProvider(props: any) {
     }, []);
 
     const signUp = (body: any) => {
-        axios.post(`${baseURL}/business`, {
-            body
-        }).then(res => {
-            if (res.status === 201) {
-                const type = res.data.type
-                const payload = { ...res.data.body, type }
-                userDispatch({ type: "SIGN_UP", payload: payload });
-            }
-        }).catch((err) => {
-            console.log(err, 'some erorr')
-        })
+        axios.post(`${baseURL}/business`, body, { withCredentials: true })
+            .then(res => {
+                if (res.status === 201) {
+                    const type = res.data.type
+                    const payload = { ...res.data.body, type }
+                    userDispatch({ type: "SIGN_UP", payload: payload });
+                }
+            }).catch((err) => {
+                console.log(err, 'some erorr')
+            })
     }
 
     const signIn = (email: string, password: string) => {
@@ -69,22 +68,21 @@ export default function UserProvider(props: any) {
     }
 
     const signUpClient = (fullName: any, phone: any) => {
-        axios.post(`${baseURL}client/signUp/60213db13f53a228b4a40497`, {
-            fullName,
-            phone
-        }).then(res => {
-            if (res.status === 201) {
-                const type = res.data.type
-                const payload = { ...res.data.body, type }
-                userDispatch({ type: "SIGN_UP", payload: payload });
-            }
-        }).catch((err) => {
-            console.log(err, 'some erorr')
-        })
+        const body = { fullName, phone };
+        axios.post(`${baseURL}client/signUp/60213e701f365014cc0f8fb4`, body, { withCredentials: true })
+            .then(res => {
+                if (res.status === 201) {
+                    const type = res.data.type
+                    const payload = { ...res.data.body, type }
+                    userDispatch({ type: "SIGN_UP", payload: payload });
+                }
+            }).catch((err) => {
+                console.log(err, 'some erorr')
+            })
     }
 
     const signInClient = (phone: string) => {
-        axios.get(`${baseURL}client/signIn/60213db13f53a228b4a40497?phone=${phone}`, { withCredentials: true })
+        axios.get(`${baseURL}client/signIn/services?phone=${phone}`, { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
                     const type = res.data.type

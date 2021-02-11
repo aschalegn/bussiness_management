@@ -18,18 +18,20 @@ function register(req: any, res: any, next: any) {
                 return res.status(500).send({ msg: err.message });
             }
             if (!business) {
+                return
             }
+
             const user = new Client({ fullName, phone });
-            await user.save();
             if (user) {
                 user.businesses.push(business._id);
                 business.clients.push(user._id);
-                business.save();
-                user.save();
+                await user.save();
+                await business.save();
+                const token = tokenise(user, "client");
+                res.cookie("appointU", token);
+                return res.status(201).send({ body: user, type: "client" });
             }
-            const token = tokenise(user, "client");
-            res.cookie("appointU", token);
-            return res.status(201).send(user);
+            return res.status(500).send("omkjhgghbj");
         });
     });
 }
@@ -38,12 +40,12 @@ function login(req: any, res: any, next: any) {
     const { phone } = req.query;
     Client.findOne({ phone: phone }, function (err: any, user: any) {
         if (err) return res.status(500).send({ msg: err.message });
-        else if (!user)
-            return res.status(401).send({ msg: 'The phone number ' + phone + ' is not associated with any account. please check and try again!' });
-        // user successfully logged in
-        const token = tokenise(user, "client");
-        res.cookie("appointU", token);
-        return res.status(200).send('User successfully logged in.');
+        else if (user) {
+            const token = tokenise(user, "client");
+            res.cookie("appointU", token);
+            return res.status(200).send({ body: user, type: "client" });
+        }
+        return res.status(401).send({ msg: 'The phone number ' + phone + ' is not associated with any account. please check and try again!' });
     });
 }
 
