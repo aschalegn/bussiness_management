@@ -3,7 +3,7 @@ import React from 'react';
 const Home = () => {
     return (
         <div>
-            Home page before Login Client
+            דף בית - מנהלים
         </div>
     )
 }
