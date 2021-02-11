@@ -6,7 +6,7 @@ import { Client } from "../model/Client";
 
 class AppointmentContreller {
     // ! non register user
-    makeByBussines = async (bussinessId: string, data: any, clientId: string) => {
+    makeByBussines = async (bussinessId: ObjectId, data: any, clientId: ObjectId) => {
         const appointment = new Appointment();
         const business = await Business.findById(bussinessId);
         if (await business) {
@@ -20,7 +20,7 @@ class AppointmentContreller {
         return false;
     }
 
-    makeByClient = async (bussinessId: string, data: any, userId: string) => {
+    makeByClient = async (bussinessId: ObjectId, data: any, userId: ObjectId) => {
         const body = { time: data.time, barber: data.barber, client: userId }
         const appointment = new Appointment(body);
         const client = await Client.findById(userId);
@@ -39,6 +39,7 @@ class AppointmentContreller {
 
     update = async (appointmentId: ObjectId) => {
         // Todo: update appointmet
+        return true;
     }
 
     delete = async (appointmentId: ObjectId) => {
@@ -49,7 +50,7 @@ class AppointmentContreller {
             client.appointments.filter((ap: ObjectId) => { return ap !== appointmentId });
             const business = await Client.findById(appointment.business);
             business.appointments.filter((ap: ObjectId) => { return ap !== appointmentId });
-            appointment.delete();
+            appointment.delete(); //? works
             client.save();
             business.save();
             appointmentEmitter.emit("deleted", appointmentId);

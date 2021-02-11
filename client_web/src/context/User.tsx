@@ -72,7 +72,8 @@ export default function UserProvider(props: any) {
             .then(res => {
                 if (res.status === 201) {
                     const type = res.data.type
-                    const payload = { ...res.data.body, type }
+                    const business = res.data.businessId
+                    const payload = { ...res.data.body, type, business }
                     userDispatch({ type: "SIGN_UP", payload: payload });
                 }
             }).catch((err) => {
@@ -84,8 +85,9 @@ export default function UserProvider(props: any) {
         axios.get(`${baseURL}client/signIn/services?phone=${phone}`, { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
-                    const type = res.data.type
-                    const payload = { ...res.data.body, type }
+                    const type = res.data.type;
+                    const business = res.data.businessId;
+                    const payload = { ...res.data.body, type, business };
                     userDispatch({ type: "SIGN_UP", payload: payload });
                 }
             })

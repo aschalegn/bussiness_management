@@ -30,7 +30,7 @@ function register(req: any, res: any, next: any) {
                 await business.save();
                 const token = tokenise(user, "client");
                 res.cookie("appointU", token);
-                return res.status(201).send({ body: user, type: "client" });
+                return res.status(201).send({ body: user, type: "client", business: businessId });
             }
             return res.status(500).send("omkjhgghbj");
         });
@@ -38,13 +38,13 @@ function register(req: any, res: any, next: any) {
 }
 
 function login(req: any, res: any, next: any) {
-    const { phone } = req.query;
+    const { phone, businessId } = req.query;
     Client.findOne({ phone: phone }, function (err: any, user: any) {
         if (err) return res.status(500).send({ msg: err.message });
         else if (user) {
             const token = tokenise(user, "client");
             res.cookie("appointU", token);
-            return res.status(200).send({ body: user, type: "client" });
+            return res.status(200).send({ body: user, type: "client", business: businessId });
         }
         return res.status(401).send({ msg: 'The phone number ' + phone + ' is not associated with any account. please check and try again!' });
     });
