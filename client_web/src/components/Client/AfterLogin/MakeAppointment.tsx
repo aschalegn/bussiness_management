@@ -7,11 +7,11 @@ import {
     FormControl, Select, MenuItem, InputLabel
 
 } from '@material-ui/core';
-import {
-    MuiPickersUtilsProvider,
-    KeyboardDatePicker
-} from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
+
+import MomentUtils from "@date-io/moment";
+import moment from "moment";
+import DateFnsUtils from "@date-io/date-fns"; // choose your lib
+import { DatePicker, MuiPickersUtilsProvider, MuiPickersContext } from "@material-ui/pickers";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,16 +26,16 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-
 export default function MakeAppointment() {
     const classes = useStyles();
     const [allWorkers, setAllWorkers] = useState([]);
     const [open, setOpen] = React.useState(false);
-    const [date, setDate] = useState(new Date());
+    // const [selectedDate, setSelectedDate] = useState(null);
     const [time, setTime] = useState('');
-    const [barber, setBarber] = React.useState('');
+    // const [barber, setBarber] = React.useState('');
     const [workerSelected, setWorkerSelected] = useState({ availableTimes: [], name: '' });
-
+    const [selectedDate, setDate] = useState(moment());
+    const [inputValue, setInputValue] = useState(moment().format("YYYY-MM-DD"));
     const handleClickOpen = () => {
         getAvailableTimes();
         setOpen(true);
@@ -54,7 +54,6 @@ export default function MakeAppointment() {
             .catch((err) => { console.log(err); })
     }
 
-
     const handleChange = (event: any) => {
         if (event.target.name === 'barber') {
             const filterWorkerById = allWorkers.filter((w: any, i: any) => {
@@ -71,14 +70,16 @@ export default function MakeAppointment() {
         e.preventDefault();
         const body = {
             barber: workerSelected.name,
-            date,
+            date: inputValue,
             time
         };
         console.log(body);
-        axios.post(`${baseURL}appointment/60213db13f53a228b4a40497/6023ade3ea2bfc363c7d12cc`, body)
+        axios.post(`${baseURL}appointment/60213db13f53a228b4a40497/6023bdbaf819db495c0c3305`, body)
             .then(res => {
                 if (res.status === 201) {
                     console.log(res.data);
+                    handleClickClose();
+                    alert('success');
                 }
             })
             .catch(err => {
@@ -86,9 +87,21 @@ export default function MakeAppointment() {
             })
     }
 
-    const handleDateChange = (date: any) => {
+    const onDateChange = (date: any, value: any) => {
         setDate(date);
+        setInputValue(value);
+        console.log(selectedDate, inputValue);
+
     };
+
+    const dateFormatter = (str: string) => {
+        return str;
+    };
+
+    function shouldDisableYear(day: any, pickerProps: any) {
+        return day.getDay() === 0 || day.getDay() === 6;
+    }
+
     return (
         <>
             <Button variant="outlined" color="primary" onClick={handleClickOpen}>
@@ -109,6 +122,7 @@ export default function MakeAppointment() {
                             id="demo-simple-select"
                             name='barber'
                             onChange={handleChange}
+                            required
                         >
                             {allWorkers.map((worker: any, i: any) =>
                                 <MenuItem key={i} value={worker._id}>{worker.name}</MenuItem>
@@ -117,23 +131,31 @@ export default function MakeAppointment() {
                         </Select>
                     </FormControl>
 
+                    {/* <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
+                        <Grid container justify="space-around"> */}
+                    {/* <DatePicker
+                                autoOk={true}
+                                showTodayButton={true}
+
+                                value={selectedDate}
+                                format="dd-MM-yyyy"
+                                inputValue={inputValue}
+                                onChange={onDateChange}
+                                rifmFormatter={dateFormatter}
+                                shouldDisableDate={shouldDisableDate}
+                            /> */}
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <Grid container justify="space-around">
-                            <KeyboardDatePicker
-                                disableToolbar
-                                variant="inline"
-                                format="MM/dd/yyyy"
-                                margin="normal"
-                                id="date-picker-inline"
-                                label="בחר תאריך"
-                                value={date}
-                                onChange={handleDateChange}
-                                KeyboardButtonProps={{
-                                    'aria-label': 'change date',
-                                }}
-                            />
-                        </Grid>
+                        <DatePicker
+                            shouldDisableYear={shouldDisableYear}
+                            value={selectedDate}
+                            format="dd-MM-yyyy"
+                            inputValue={inputValue}
+                            onChange={onDateChange}
+                            rifmFormatter={dateFormatter}
+                        />
                     </MuiPickersUtilsProvider>
+                    {/* </Grid>
+                    </MuiPickersUtilsProvider> */}
                     <FormControl className={classes.formControl}>
                         <InputLabel id="demo-simple-select-label">בחר שעה</InputLabel>
                         <Select
@@ -141,6 +163,7 @@ export default function MakeAppointment() {
                             id="demo-simple-select"
                             name='time'
                             onChange={handleChange}
+                            required
                         >
                             {workerSelected.availableTimes.map((time: any, i: any) =>
                                 <MenuItem key={i} value={time}>{time}</MenuItem>
@@ -158,7 +181,6 @@ export default function MakeAppointment() {
                     </DialogActions>
                 </form>
             </Dialog >
-
         </>
     )
 }

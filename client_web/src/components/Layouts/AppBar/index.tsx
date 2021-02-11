@@ -12,6 +12,7 @@ import Register from '../../Admin/Register';
 import SignIn from '../../Client/Login';
 import SignUp from '../../Client/Register';
 import Home from '../../AppointU';
+import MakeAppointment from '../../Client/AfterLogin/MakeAppointment';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -198,11 +199,16 @@ export default function Navbar() {
                             <Route exact path='/signIn' component={SignIn} />
                             <Route exact path='/signUp' component={SignUp} />
                             <Route exact path='/admin/login' component={LogIn} />
-                            <Route exact path='/admin/signUp' component={Register} />
+                            <Route exact path='/admin/signUp' component={Register} /> 
+                            <Route exact path='/client/makeAppointment' component={MakeAppointment} />
                         </>
                         :
+
                         user.type === 'client' ?
-                            <Route exact path='/' component={HomeClient} />
+                            <>
+                                    <Route exact path='/' component={HomeClient} />
+                               
+                            </>
                             :
                             <Route exact path='/' component={HomeAdmin} />
                     }
