@@ -54,14 +54,16 @@ const SignUp = () => {
   const [phone, setPhone] = useState('');
   const { user, signUpClient } = useContext(userContext);
 
-  const onSubmit = (e: FormEvent) => {    
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault()
-    signUpClient(fullName, phone)
+    console.log("Page", { phone, fullName });
+    signUpClient(fullName, phone);
+    console.log(user);
   }
 
   return (
     <div>
-      {user.type ?
+      {user ?
         <Redirect to='/' />
         : ''
       }

@@ -166,7 +166,7 @@ export default function Navbar() {
     );
 
     useEffect(() => {
-        console.log(!user.type);
+        console.log(!user);
     }, []);
 
     return (
@@ -179,7 +179,7 @@ export default function Navbar() {
                             <React.Fragment key={anchor}>
                                 <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
                                 <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
-                                    {!user.type ?
+                                    {!user ?
                                         list(anchor)
                                         : user.type === 'client' ? listClient(anchor)
                                             : listAdmin(anchor)
@@ -192,7 +192,7 @@ export default function Navbar() {
             </AppBar>
             <Router>
                 <Switch>
-                    {!user.type ?
+                    {!user ?
                         <>
                             <Route exact path='/' component={Home} />
                             <Route exact path='/signIn' component={SignIn} />

@@ -1,13 +1,15 @@
 import React from 'react';
 import './App.css';
 import NavBar from './components/Layouts/AppBar';
+import UserProvider from './context/User';
 
 function App() {
 
   return (
     <div className="App">
-      <NavBar/>
- 
+      <UserProvider>
+        <NavBar />
+      </UserProvider>
     </div>
   );
 }

@@ -19,8 +19,9 @@ const parseToken = (req: Request, res: Response, next: NextFunction) => {
     const cookie = req.cookies.appointU;
     if (cookie) {
         const info = jwt.decode(cookie);
-        res.status(200).send(info);
+        return res.status(200).send(info);
     }
+    return res.status(204).end();
 }
 
 

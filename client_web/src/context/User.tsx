@@ -3,10 +3,11 @@ import axios from 'axios';
 import { baseURL } from '../utils';
 
 export const userContext = createContext({
-    user: {type: ''},
+    user: { type: '' },
     signUp: (body: any) => { },
-    signUpClient: (fullName: any, phone: any) => { },
     signIn: (email: string, password: string) => { },
+
+    signUpClient: (fullName: any, phone: any) => { },
     signInClient: (phone: string) => { }
 });
 
@@ -25,18 +26,17 @@ const userReducer = (state: any, action: any) => {
     return state;
 }
 
-
-
-
 export default function UserProvider(props: any) {
     const [user, userDispatch] = useReducer(userReducer, null);
     useEffect(() => {
         axios.get(`${baseURL}isUser`, { withCredentials: true })
             .then(res => {
-                const type = res.data.type
-                const payload = { ...res.data.body, type }
-                console.log(payload);
-                { userDispatch({ type: "SIGN_UP", payload: payload }); }
+                if (res.status === 200) {
+                    const type = res.data.type
+                    const payload = { ...res.data.body, type }
+                    console.log(payload);
+                    { userDispatch({ type: "SIGN_UP", payload: payload }); }
+                }
             })
     }, []);
 
@@ -45,7 +45,9 @@ export default function UserProvider(props: any) {
             body
         }).then(res => {
             if (res.status === 201) {
-                userDispatch({ type: "SIGN_UP", payload: res.data });
+                const type = res.data.type
+                const payload = { ...res.data.body, type }
+                userDispatch({ type: "SIGN_UP", payload: payload });
             }
         }).catch((err) => {
             console.log(err, 'some erorr')
@@ -55,8 +57,11 @@ export default function UserProvider(props: any) {
     const signIn = (email: string, password: string) => {
         axios.get(`${baseURL}business/login?email=${email}&password=${password}`, { withCredentials: true })
             .then(res => {
-                if (res.status === 200)
+                if (res.status === 200) {
+                    const type = res.data.type
+                    const payload = { ...res.data.body, type }
                     userDispatch({ type: "SIGN_UP", payload: res.data });
+                }
             })
             .catch(err => {
                 console.log(err);
@@ -64,13 +69,14 @@ export default function UserProvider(props: any) {
     }
 
     const signUpClient = (fullName: any, phone: any) => {
-        console.log(phone);
-        axios.post(`${baseURL}client/signUp/60213e701f365014cc0f8fb4`, {
+        axios.post(`${baseURL}client/signUp/60213db13f53a228b4a40497`, {
             fullName,
             phone
         }).then(res => {
             if (res.status === 201) {
-                userDispatch({ type: "SIGN_UP", payload: res.data });
+                const type = res.data.type
+                const payload = { ...res.data.body, type }
+                userDispatch({ type: "SIGN_UP", payload: payload });
             }
         }).catch((err) => {
             console.log(err, 'some erorr')
@@ -78,12 +84,13 @@ export default function UserProvider(props: any) {
     }
 
     const signInClient = (phone: string) => {
-        axios.get(`${baseURL}client/signIn/60213e701f365014cc0f8fb4?phone=${phone}`, { withCredentials: true })
+        axios.get(`${baseURL}client/signIn/60213db13f53a228b4a40497?phone=${phone}`, { withCredentials: true })
             .then(res => {
-                console.log(res);
-                
-                if (res.status === 200)
-                    userDispatch({ type: "SIGN_UP", payload: res.data });
+                if (res.status === 200) {
+                    const type = res.data.type
+                    const payload = { ...res.data.body, type }
+                    userDispatch({ type: "SIGN_UP", payload: payload });
+                }
             })
             .catch(err => {
                 console.log(err);
