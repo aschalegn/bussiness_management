@@ -1,19 +1,18 @@
 import React, { useContext, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
-import { createStyles, AppBar, Toolbar, IconButton, Theme, makeStyles, Drawer, Button, List, Divider, ListItem, ListItemIcon, ListItemText, Link } from '@material-ui/core';
+import { createStyles, AppBar, Toolbar, IconButton, Theme, makeStyles, Drawer, Button, List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { userContext } from '../../../context/User';
 import HomeClient from '../../Client/HomePage/home';
 import HomeAdmin from '../../Admin/AfterLogin';
-
 import LogIn from '../../Admin/Login';
 import Register from '../../Admin/Register';
 import SignIn from '../../Client/Login';
 import SignUp from '../../Client/Register';
 import Home from '../../AppointU';
 import MakeAppointment from '../../Client/AfterLogin/MakeAppointment';
-
+import AddWorkers from '../../Layouts/Admin/Setting/AddWorkers';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -70,17 +69,17 @@ export default function Navbar() {
                 </ListItem>
                 <ListItem>
                     <ListItemText>
-                        <Link>admin home</Link>
+                        <Link to='/'>דף בית</Link>
                     </ListItemText>
                 </ListItem>
                 <ListItem>
                     <ListItemText>
-                        <Link>setting</Link>
+                        <Link to='/addworkers'>הוספת עובדים</Link>
                     </ListItemText>
                 </ListItem>
                 <ListItem>
                     <ListItemText>
-                        <Link>SIGN_OUT</Link>
+                        <Link to='login'>SIGN_OUT</Link>
                     </ListItemText>
                 </ListItem>
             </List>
@@ -109,17 +108,17 @@ export default function Navbar() {
                 </ListItem>
                 <ListItem>
                     <ListItemText>
-                        <Link>client home</Link>
+                        <Link to='/'>דף בית</Link>
                     </ListItemText>
                 </ListItem>
                 <ListItem>
                     <ListItemText>
-                        <Link>setting</Link>
+                        <Link to='/makeappointment'>קביעת תורים</Link>
                     </ListItemText>
                 </ListItem>
                 <ListItem>
                     <ListItemText>
-                        <Link>SIGN_OUT</Link>
+                        <Link to='/signin'>SIGN_OUT</Link>
                     </ListItemText>
                 </ListItem>
             </List>
@@ -148,17 +147,27 @@ export default function Navbar() {
                 </ListItem>
                 <ListItem>
                     <ListItemText>
-                        <Link>home</Link>
+                        <Link to='/'>דף בית</Link>
                     </ListItemText>
                 </ListItem>
                 <ListItem>
                     <ListItemText>
-                        <Link>setting</Link>
+                        <Link to='/signin'>כניסה</Link>
                     </ListItemText>
                 </ListItem>
                 <ListItem>
                     <ListItemText>
-                        <Link>SIGN_OUT</Link>
+                        <Link to='/signup'>הרשמה</Link>
+                    </ListItemText>
+                </ListItem>
+                <ListItem>
+                    <ListItemText>
+                        <Link to='/login'>כניסת מנהלים</Link>
+                    </ListItemText>
+                </ListItem>
+                <ListItem>
+                    <ListItemText>
+                        <Link to='/register'>הרשמת מנהלים</Link>
                     </ListItemText>
                 </ListItem>
             </List>
@@ -171,7 +180,8 @@ export default function Navbar() {
     }, []);
 
     return (
-        <div>
+        <div> 
+            <Router>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" >
@@ -191,27 +201,30 @@ export default function Navbar() {
                     </IconButton>
                 </Toolbar>
             </AppBar>
-            <Router>
+           
                 <Switch>
                     {!user ?
                         <>
                             <Route exact path='/' component={Home} />
-                            <Route exact path='/signIn' component={SignIn} />
-                            <Route exact path='/signUp' component={SignUp} />
+                            <Route exact path='/signin' component={SignIn} />
+                            <Route exact path='/signup' component={SignUp} />
                             <Route exact path='/admin/login' component={LogIn} />
-                            <Route exact path='/admin/signUp' component={Register} /> 
-                            <Route exact path='/client/MakeAppointment' component={MakeAppointment} />
+                            <Route exact path='/admin/signup' component={Register} />
+
                         </>
                         :
 
                         user.type === 'client' ?
                             <>
-                                    <Route exact path='/' component={HomeClient} />
-                               
+                                <Route exact path='/' component={HomeClient} />
+                                <Route exact path='/makeappointment' component={MakeAppointment} />
+
                             </>
                             :
-                            <Route exact path='/' component={HomeAdmin} />
-                            // <Route exact path='/admin' component={} />
+                            <>
+                                <Route exact path='/' component={HomeAdmin} />
+                                <Route exact path='/addWorkers' component={AddWorkers} />
+                            </>
                     }
                 </Switch>
             </Router>

@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useContext } from 'react';
 import { baseURL } from '../../../utils';
 import axios from 'axios';
 import Date from './Date';
@@ -7,6 +7,7 @@ import {
     createStyles, makeStyles, Theme, Grid,
     FormControl, Select, MenuItem, InputLabel
 } from '@material-ui/core';
+import { userContext } from '../../../context/User';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -28,6 +29,7 @@ export default function MakeAppointment() {
     const [time, setTime] = useState('');
     const [workerSelected, setWorkerSelected] = useState({ availableTimes: [], name: '' });
     const [date, setDate] = useState('');
+    const { user } = useContext(userContext);
 
     const handleClickOpen = () => {
         getAvailableTimes();
@@ -67,7 +69,7 @@ export default function MakeAppointment() {
             time
         };
         console.log(body);
-        axios.post(`${baseURL}appointment/60213db13f53a228b4a40497/6023bdbaf819db495c0c3305`, body)
+        axios.post(`${baseURL}appointment/60213db13f53a228b4a40497/${user._id}`, body)
             .then(res => {
                 if (res.status === 201) {
                     console.log(res.data);
