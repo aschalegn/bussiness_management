@@ -34,7 +34,6 @@ export default function UserProvider(props: any) {
                 if (res.status === 200) {
                     const type = res.data.type
                     const payload = { ...res.data.body, type }
-                    console.log(payload);
                     { userDispatch({ type: "SIGN_UP", payload: payload }); }
                 }
             })
