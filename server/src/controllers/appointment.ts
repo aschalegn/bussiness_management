@@ -1,3 +1,4 @@
+import { appointmentEmitter } from "../eventsNotification/Appointments";
 import { Appointment } from "../model/Appointment"
 import { Business } from "../model/Bussiness";
 import { Client } from "../model/Client";
@@ -19,7 +20,7 @@ class AppointmentContreller {
     }
 
     makeByClient = async (bussinessId: string, data: any, userId: string) => {
-        const body = {time:data.time,barber:data.barber, client: userId}
+        const body = { time: data.time, barber: data.barber, client: userId }
         const appointment = new Appointment(body);
         const client = await Client.findById(userId);
         if (await client) {
@@ -29,9 +30,14 @@ class AppointmentContreller {
             await business.save();
             await client.save();
             await appointment.save();
+            appointmentEmitter.emit("made", bussinessId, appointment);
             return appointment;
         }
         return false;
+    }
+
+    delete = (appointmentId: string) => {
+        // Appointment.
     }
 }
 

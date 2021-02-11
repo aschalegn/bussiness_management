@@ -206,8 +206,6 @@ export default function Navbar() {
                             :
                             <Route exact path='/' component={HomeAdmin} />
                     }
-
-
                 </Switch>
             </Router>
         </div>
