@@ -5,7 +5,8 @@ interface IAppointment extends mongoose.Document {
     barber: string,
     date: string,
     time: string,
-    style: string
+    style: string,
+    bussiness:ObjectId
 }
 
 export { IAppointment }

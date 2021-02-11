@@ -1,3 +1,4 @@
+import { ObjectId } from "mongoose";
 import { appointmentEmitter } from "../eventsNotification/Appointments";
 import { Appointment } from "../model/Appointment"
 import { Business } from "../model/Bussiness";
@@ -36,8 +37,25 @@ class AppointmentContreller {
         return false;
     }
 
-    delete = (appointmentId: string) => {
-        // Appointment.
+    update = async (appointmentId: ObjectId) => {
+        // Todo: update appointmet
+    }
+
+    delete = async (appointmentId: ObjectId) => {
+        const appointment = await Appointment.findById(appointmentId);
+        if (await appointment) {
+            console.log(appointment);
+            const client = await Client.findById(appointment.client);
+            client.appointments.filter((ap: ObjectId) => { return ap !== appointmentId });
+            const business = await Client.findById(appointment.business);
+            business.appointments.filter((ap: ObjectId) => { return ap !== appointmentId });
+            appointment.delete();
+            client.save();
+            business.save();
+            appointmentEmitter.emit("deleted", appointmentId);
+            return appointment;
+        }
+        return false;
     }
 }
 

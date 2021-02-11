@@ -1,4 +1,5 @@
 import { EventEmitter } from "events";
+import { ObjectId } from "mongoose";
 import { clients } from ".";
 import { IAppointment } from "../interfaces/Appointment";
 export const appointmentEmitter = new EventEmitter();
@@ -20,7 +21,8 @@ appointmentEmitter.on("made", (businessId: string, data: IAppointment) => {
     }
 });
 
-appointmentEmitter.on("deleted", (businessId: string, data: IAppointment) => {
+// * when appointment is getting deleted send event to clients connected
+appointmentEmitter.on("deleted", (businessId: string, data: ObjectId) => {
     //Todo: invoke a function to notify all sse clients of the business 
     for (let i = 0; i < clients.length; i++) {
         const client = clients[i];
@@ -36,6 +38,7 @@ appointmentEmitter.on("deleted", (businessId: string, data: IAppointment) => {
     }
 });
 
+// * when appointment is getting updated send event to clients connected
 appointmentEmitter.on("updated", (businessId: string, data: IAppointment) => {
     //Todo: invoke a function to notify all sse clients of the business 
     for (let i = 0; i < clients.length; i++) {

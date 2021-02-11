@@ -9,7 +9,11 @@ const appointmentSchema: Schema = new Schema({
     barber: String,
     date: String,
     time: String,
-    style: String
+    style: String,
+    bussiness: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Business'
+    }
 });
 
 const Appointment = mongoose.model<IAppointment>('Appointment', appointmentSchema);

@@ -211,6 +211,7 @@ export default function Navbar() {
                             </>
                             :
                             <Route exact path='/' component={HomeAdmin} />
+                            // <Route exact path='/admin' component={} />
                     }
                 </Switch>
             </Router>

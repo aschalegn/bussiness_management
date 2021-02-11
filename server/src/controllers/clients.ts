@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongoose';
 import { IBusiness } from '../interfaces/Business';
 import { Business } from '../model/Bussiness';
 import { Client } from '../model/Client'
@@ -48,5 +49,8 @@ function login(req: any, res: any, next: any) {
         return res.status(401).send({ msg: 'The phone number ' + phone + ' is not associated with any account. please check and try again!' });
     });
 }
+
+const deleteClient = (id: ObjectId) => { }
+
 
 export { register, login };
