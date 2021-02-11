@@ -200,7 +200,7 @@ export default function Navbar() {
                             <Route exact path='/signUp' component={SignUp} />
                             <Route exact path='/admin/login' component={LogIn} />
                             <Route exact path='/admin/signUp' component={Register} /> 
-                            <Route exact path='/client/makeAppointment' component={MakeAppointment} />
+                            <Route exact path='/client/MakeAppointment' component={MakeAppointment} />
                         </>
                         :
 

@@ -1,18 +1,12 @@
 import React, { useState, FormEvent } from 'react';
 import { baseURL } from '../../../utils';
 import axios from 'axios';
+import Date from './Date';
 import {
-    Button, Dialog, DialogActions, DialogTitle, DialogContent,
+    Button, Dialog, DialogActions, DialogTitle,
     createStyles, makeStyles, Theme, Grid,
     FormControl, Select, MenuItem, InputLabel
-
 } from '@material-ui/core';
-
-import MomentUtils from "@date-io/moment";
-import moment from "moment";
-import DateFnsUtils from "@date-io/date-fns"; // choose your lib
-import { DatePicker, MuiPickersUtilsProvider, MuiPickersContext } from "@material-ui/pickers";
-
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -27,15 +21,14 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function MakeAppointment() {
+
     const classes = useStyles();
     const [allWorkers, setAllWorkers] = useState([]);
     const [open, setOpen] = React.useState(false);
-    // const [selectedDate, setSelectedDate] = useState(null);
     const [time, setTime] = useState('');
-    // const [barber, setBarber] = React.useState('');
     const [workerSelected, setWorkerSelected] = useState({ availableTimes: [], name: '' });
-    const [selectedDate, setDate] = useState(moment());
-    const [inputValue, setInputValue] = useState(moment().format("YYYY-MM-DD"));
+    const [date, setDate] = useState('');
+
     const handleClickOpen = () => {
         getAvailableTimes();
         setOpen(true);
@@ -70,7 +63,7 @@ export default function MakeAppointment() {
         e.preventDefault();
         const body = {
             barber: workerSelected.name,
-            date: inputValue,
+            date,
             time
         };
         console.log(body);
@@ -87,33 +80,13 @@ export default function MakeAppointment() {
             })
     }
 
-    const onDateChange = (date: any, value: any) => {
-        setDate(date);
-        setInputValue(value);
-        console.log(selectedDate, inputValue);
-
-    };
-
-    const dateFormatter = (str: string) => {
-        return str;
-    };
-
-    function shouldDisableYear(day: any, pickerProps: any) {
-        return day.getDay() === 0 || day.getDay() === 6;
-    }
-
     return (
         <>
             <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                 קביעת תור
             </Button>
-
             <Dialog open={open} onClose={handleClickClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">הוספת תור</DialogTitle>
-                <DialogContent>
-                    {/* <Button onClick={getAvailableTimes}>הדפס</Button> */}
-                </DialogContent>
-
                 <form onSubmit={handleSubmit}>
                     <FormControl className={classes.formControl}>
                         <InputLabel id="demo-simple-select-label">בחר ספר</InputLabel>
@@ -130,32 +103,10 @@ export default function MakeAppointment() {
 
                         </Select>
                     </FormControl>
+                    <Grid container justify="space-around">
+                        <Date getDate={setDate} />
+                    </Grid>
 
-                    {/* <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
-                        <Grid container justify="space-around"> */}
-                    {/* <DatePicker
-                                autoOk={true}
-                                showTodayButton={true}
-
-                                value={selectedDate}
-                                format="dd-MM-yyyy"
-                                inputValue={inputValue}
-                                onChange={onDateChange}
-                                rifmFormatter={dateFormatter}
-                                shouldDisableDate={shouldDisableDate}
-                            /> */}
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <DatePicker
-                            shouldDisableYear={shouldDisableYear}
-                            value={selectedDate}
-                            format="dd-MM-yyyy"
-                            inputValue={inputValue}
-                            onChange={onDateChange}
-                            rifmFormatter={dateFormatter}
-                        />
-                    </MuiPickersUtilsProvider>
-                    {/* </Grid>
-                    </MuiPickersUtilsProvider> */}
                     <FormControl className={classes.formControl}>
                         <InputLabel id="demo-simple-select-label">בחר שעה</InputLabel>
                         <Select
@@ -181,6 +132,7 @@ export default function MakeAppointment() {
                     </DialogActions>
                 </form>
             </Dialog >
+
         </>
     )
 }
