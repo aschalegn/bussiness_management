@@ -8,7 +8,7 @@ import clientRoutes from './routes/clients';
 import appointmentRoutes from './routes/appointment';
 import cookieParser from "cookie-parser";
 import { parseToken } from "./util";
-
+import { emailEmiter } from "./eventsNotification/Email"
 import { clients } from './eventsNotification';
 
 dotenv.config();
@@ -53,6 +53,21 @@ app.use('/api/appointment', appointmentRoutes);
 app.get("/api/isUser", (req: Request, res: Response, next: NextFunction) => {
     parseToken(req, res, next);
 });
+
+app.get("/api/logout", (req: Request, res: Response, next: NextFunction) => {
+    res.clearCookie("appointU");
+    // return res.redirect("http://127.0.0.1:3000");
+    return res.status(200).end();
+});
+
+app.get("/api/forgotPassword", (req, res) => {
+    const { email } = req.query;
+    emailEmiter.emit("forgotPassword", email);
+    return res.status(200).send();
+});
+
+// emailEmiter.emit("forgotPassword", "practice2me@gmail.com");
+
 
 //* DB Connection
 const dbUrl = "mongodb://localhost:27017/bussiness";

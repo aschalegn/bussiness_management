@@ -3,13 +3,14 @@ import axios from 'axios';
 import { baseURL } from '../utils';
 
 export const userContext = createContext({
-    user: { type: '', _id: '' , business: ['1']},
+    user: { type: '', _id: '', business: ['1'] },
 
     signUp: (body: any) => { },
     signIn: (email: string, password: string) => { },
 
     signUpClient: (fullName: any, phone: any) => { },
-    signInClient: (phone: string) => { }
+    signInClient: (phone: string) => { },
+    signOut: () => { }
 });
 
 const userReducer = (state: any, action: any) => {
@@ -82,6 +83,14 @@ export default function UserProvider(props: any) {
             })
     }
 
+    const signOut = () => {
+        axios.get(`${baseURL}logout`, { withCredentials: true })
+            .then(res => {
+                if (res.status === 200)
+                    userDispatch({ type: "SIGN_OUT" });
+            })
+    }
+
     const signInClient = (phone: string) => {
         axios.get(`${baseURL}client/signIn/services?phone=${phone}`, { withCredentials: true })
             .then(res => {
@@ -98,7 +107,7 @@ export default function UserProvider(props: any) {
     }
 
     return (
-        <userContext.Provider value={{ user, signUp, signUpClient, signIn, signInClient }}>
+        <userContext.Provider value={{ user, signUp, signUpClient, signIn, signInClient, signOut }}>
             {props.children}
         </userContext.Provider>
     )

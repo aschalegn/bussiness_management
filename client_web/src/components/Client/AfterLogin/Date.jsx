@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { TextField } from "@material-ui/core";
 import DateFnsUtils from '@date-io/date-fns';
-import moment from "moment";
+import moment from "@date-io/moment";
 
 function Date(props) {
     const [selectedDate, setDate] = useState(moment());

@@ -35,7 +35,6 @@ const logIn = async (email: any, password: any, res: Response) => {
         }
         return res.status(500).send("could not find the user");
     }
-
 }
 
 const addWorker = async (req: Request, res: Response) => {
@@ -52,6 +51,7 @@ const addWorker = async (req: Request, res: Response) => {
         return res.status(200).send(worker)
     })
 }
+
 const getAvailableTimes = (req: Request, res: Response) => {
     const { id } = req.params;
     return Business.findById(id)
@@ -64,6 +64,16 @@ const getAvailableTimes = (req: Request, res: Response) => {
         })
 }
 
+async function updatePassword(email: string, password: string) {
+    const business = await Business.findOne({ email });
+    if (await business) {
+        const hash = hashPassword(password);
+        business.password = hash;
+        business.save();
+        return true;
+    }
+    return false;
+}
 
 // * Util Functions
 async function isEmailExists(email: string): Promise<Boolean> {
@@ -97,4 +107,4 @@ const addSetAvailable = (worker: any) => {
 
 
 
-export { addBussiness, logIn, addWorker, getAvailableTimes };
+export { addBussiness, logIn, addWorker, getAvailableTimes, updatePassword };
