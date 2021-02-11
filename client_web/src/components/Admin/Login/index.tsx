@@ -44,9 +44,9 @@ export default function LogIn() {
     signIn(email, password);
   }
 
-  return (
+  return (  
     <div>
-      {user.type ?
+      {user ?
         <Redirect to='/' />
         : ''
       }
