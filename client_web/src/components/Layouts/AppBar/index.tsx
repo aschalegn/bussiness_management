@@ -159,7 +159,7 @@ export default function Navbar() {
                 </ListItem>
                 <ListItem>
                     <ListItemText>
-                        <Link to='/admin/signup'>הרשמה</Link>
+                        <Link to='/signup'>הרשמה</Link>
                     </ListItemText>
                 </ListItem>
                 <ListItem>
@@ -169,7 +169,7 @@ export default function Navbar() {
                 </ListItem>
                 <ListItem>
                     <ListItemText>
-                        <Link to='/register'>הרשמת מנהלים</Link>
+                        <Link to='admin/register'>הרשמת מנהלים</Link>
                     </ListItemText>
                 </ListItem>
             </List>
@@ -211,7 +211,7 @@ export default function Navbar() {
                             <Route exact path='/signin' component={SignIn} />
                             <Route exact path='/signup' component={SignUp} />
                             <Route exact path='/admin/login' component={LogIn} />
-                            <Route exact path='/admin/signup' component={Register} />
+                            <Route exact path='/admin/register' component={Register} />
                             <Route exact path='/admin/forgotpassword' component={ForgoPassword} />
                             <Route exact path='/admin/forgotpassword/:random' component={Reset} />
 
