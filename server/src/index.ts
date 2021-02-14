@@ -10,6 +10,7 @@ import cookieParser from "cookie-parser";
 import { parseToken } from "./util";
 import { emailEmiter } from "./eventsNotification/Email"
 import { clients } from './eventsNotification';
+import { db } from './util/config';
 
 dotenv.config();
 app.use(express.json());
@@ -70,8 +71,7 @@ app.get("/api/forgotPassword", (req, res) => {
 
 
 //* DB Connection
-const dbUrl = "mongodb://localhost:27017/bussiness";
-mongoose.connect(dbUrl, {
+mongoose.connect(db, {
     useFindAndModify: true,
     useUnifiedTopology: true,
     useNewUrlParser: true,
