@@ -8,19 +8,19 @@ function Date(props) {
     const [selectedDate, setDate] = useState(moment());
     const [inputValue, setInputValue] = useState(moment().format("YYYY-MM-DD"));
 
-    const { getDate } = props;
+    const { getUserDate } = props;
 
     const shouldDisableDate =(date) => {
         // const disabledDays = day.getDay() === 5 || day.getDay() === 6;
         // return (disabledDays)
         // const x = date.getDay() === 0 || date.getDay() === 6;
-console.log(getDate());
+// console.log(getDay());
     }
 
     const onDateChange = (date, value) => {
         setDate(date);
         setInputValue(value);
-        getDate(value);
+        getUserDate(value);
     };
 
     const dateFormatter = (str) => {
