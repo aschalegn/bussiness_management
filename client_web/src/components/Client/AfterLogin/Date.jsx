@@ -1,24 +1,25 @@
 import React, { useState } from "react";
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { TextField } from "@material-ui/core";
-import DateFnsUtils from '@date-io/date-fns';
-import moment from "@date-io/moment";
+import MomentUtils from "@date-io/moment";
+import moment from "moment";
 
 function Date(props) {
-    const [selectedDate, setDate] = useState('');
-    const [inputValue, setInputValue] = useState(moment().format("yyyy-mm-dd"));
+    const [selectedDate, setDate] = useState(moment());
+    const [inputValue, setInputValue] = useState(moment().format("YYYY-MM-DD"));
+
     const { getDate } = props;
-    function shouldDisableDate(day, pickerProps) {
-        const disabledDays = day.getDay() === 5 || day.getDay() === 6;
-        return (disabledDays)
+
+    const shouldDisableDate =(date) => {
+        // const disabledDays = day.getDay() === 5 || day.getDay() === 6;
+        // return (disabledDays)
+        // const x = date.getDay() === 0 || date.getDay() === 6;
+console.log(getDate());
     }
+
     const onDateChange = (date, value) => {
-        
         setDate(date);
         setInputValue(value);
-        console.log(selectedDate, inputValue);
-        // console.log({ date, value });
-        // console.log(moment().format(date, "YYYY-mm-dd"));
         getDate(value);
     };
 
@@ -26,11 +27,15 @@ function Date(props) {
         return str;
     };
     return (
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils} >
             <KeyboardDatePicker
                 shouldDisableDate={shouldDisableDate}
-                // value=""
-                // format="dd-MM-yyyy"
+                autoOk={true}
+                showTodayButton={true}
+
+                value={selectedDate}
+                format="YYYY-MM-DD"
+                inputValue={inputValue}
                 onChange={onDateChange}
                 rifmFormatter={dateFormatter}
                 renderInput={props => <TextField {...props} />}

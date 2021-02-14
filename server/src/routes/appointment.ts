@@ -23,12 +23,10 @@ router.post("/:bussinessId/:userId", (req, res) => {
 
     const { bussinessId, userId } = req.params;
     console.log(mongoose.Types.ObjectId.isValid(bussinessId));
-    const dd = bussinessId.toString()
-    console.log(body, mongoose.Types.ObjectId(bussinessId), userId);
     // if (mongoose.Types.ObjectId.isValid(bussinessId)) {
         new AppointmentContreller()
-            .makeByClient(new mongoose.Schema.Types.ObjectId(dd),
-                body, new mongoose.Schema.Types.ObjectId(userId)
+            .makeByClient(bussinessId,
+                body, userId
             ).then(appointment => {
                 if (appointment) return res.status(201).send(appointment);
             });
@@ -38,9 +36,8 @@ router.post("/:bussinessId/:userId", (req, res) => {
 
 router.patch("/:id", (req, res) => {
     let { id } = req.params;
-    let newId = new mongoose.Schema.Types.ObjectId(id);
     new AppointmentContreller()
-        .update(newId)
+        .update(id)
         .then(appointment => {
             if (appointment) return res.status(200).send("updated sucssesfully");
         })
@@ -49,9 +46,8 @@ router.patch("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
     let { id } = req.params;
-    let newId = new mongoose.Schema.Types.ObjectId(id);
     new AppointmentContreller()
-        .delete(newId)
+        .delete(id)
         .then(appointment => {
             if (appointment) return res.status(200).send("deleted sucssesfully");
         });

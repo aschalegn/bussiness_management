@@ -1,4 +1,3 @@
-import { ObjectId } from "mongoose";
 import { appointmentEmitter } from "../eventsNotification/Appointments";
 import { Appointment } from "../model/Appointment"
 import { Business } from "../model/Bussiness";
@@ -6,7 +5,7 @@ import { Client } from "../model/Client";
 
 class AppointmentContreller {
     // ! non register user
-    makeByBussines = async (bussinessId: ObjectId, data: any, clientId: ObjectId) => {
+    makeByBussines = async (bussinessId: string, data: any, clientId: string) => {
         const appointment = new Appointment();
         const business = await Business.findById(bussinessId);
         if (await business) {
@@ -22,7 +21,7 @@ class AppointmentContreller {
 
    
 
-    makeByClient = async (bussinessId: ObjectId, data: any, userId: ObjectId) => {
+    makeByClient = async (bussinessId: string, data: any, userId: string) => {
         const body = { time: data.time, barber: data.barber, client: userId }
         const appointment = new Appointment(body);
         const client = await Client.findById(userId);
@@ -39,19 +38,19 @@ class AppointmentContreller {
         return false;
     }
 
-    update = async (appointmentId: ObjectId) => {
+    update = async (appointmentId: string) => {
         // Todo: update appointmet
         return true;
     }
 
-    delete = async (appointmentId: ObjectId) => {
+    delete = async (appointmentId: string) => {
         const appointment = await Appointment.findById(appointmentId);
         if (await appointment) {
             console.log(appointment);
             const client = await Client.findById(appointment.client);
-            client.appointments.filter((ap: ObjectId) => { return ap !== appointmentId });
+            client.appointments.filter((ap: string) => { return ap !== appointmentId });
             const business = await Client.findById(appointment.business);
-            business.appointments.filter((ap: ObjectId) => { return ap !== appointmentId });
+            business.appointments.filter((ap: string) => { return ap !== appointmentId });
             appointment.delete(); //? works
             client.save();
             business.save();
