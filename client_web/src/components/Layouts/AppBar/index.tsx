@@ -220,14 +220,14 @@ export default function Navbar() {
 
                         user.type === 'client' ?
                             <>
-                                <Route exact path='/' component={HomeClient} />
+                                <Route exact path='/:bussinesId' component={HomeClient} />
                                 <Route exact path='/makeappointment' component={MakeAppointment} />
                                 <Route exact path='/allappointmentbyclient' component={AllAppointmentByClient}/>
 
                             </>
                             :
                             <>
-                                <Route exact path='/' component={HomeAdmin} />
+                                <Route exact path='/:bussinesId' component={HomeAdmin} />
                                 <Route exact path='/addWorkers' component={AddWorkers} />
                             </>
                     }

@@ -70,7 +70,7 @@ const Register = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-      {user ? <Redirect to="/" /> : ''}
+      {user ? <Redirect to="/6028e4f2ed8a283230f4bc6c" /> : ''}
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>

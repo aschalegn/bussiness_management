@@ -41,7 +41,7 @@ export default function MakeAppointment() {
     };
 
     const getAvailableTimes = () => {
-        axios.get(`${baseURL}business/60213db13f53a228b4a40497`)
+        axios.get(`${baseURL}business/6028e4f2ed8a283230f4bc6c`)
             .then((res) => {
                 console.log(res.data);
                 setAllWorkers(res.data);
@@ -69,7 +69,7 @@ export default function MakeAppointment() {
             time
         };
         console.log(body);
-        axios.post(`${baseURL}appointment/60213db13f53a228b4a40497/${user._id}`, body)
+        axios.post(`${baseURL}appointment/6028e4f2ed8a283230f4bc6c/${user._id}`, body)
             .then(res => {
                 if (res.status === 201) {
                     console.log(res.data);

@@ -47,7 +47,7 @@ export default function SignIn() {
   return (
     <div>
       {user ?
-        <Redirect to='/' />
+        <Redirect to={`/6028e4f2ed8a283230f4bc6c`} />
         : ''
       }
       <Container component="main" maxWidth="xs">
