@@ -62,7 +62,7 @@ const getAvailableTimes = (req: Request, res: Response) => {
     return Business.findById(id)
         .then((data: any) => {
             // res.status(200).send(data.workers);
-            console.log(data.workers);
+            console.log(data);
             
         })
         .catch((err: any) => {
