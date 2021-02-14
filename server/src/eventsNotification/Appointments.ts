@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
 import { ObjectId } from "mongoose";
 import { clients } from ".";
-import { setSchedualForSms } from "../cronejob";
+import { createCronJob } from "../cronejob";
 import { IAppointment } from "../interfaces/Appointment";
 export const appointmentEmitter = new EventEmitter();
 
@@ -20,8 +20,7 @@ appointmentEmitter.on("made", (businessId: string, data: IAppointment) => {
             });
         }
     }
-    
-    // setSchedualForSms();
+    createCronJob(data, businessId);
 });
 
 // * when appointment is getting deleted send event to clients connected
