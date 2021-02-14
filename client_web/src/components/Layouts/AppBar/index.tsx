@@ -214,22 +214,24 @@ export default function Navbar() {
                             <Route exact path='/admin/register' component={Register} />
                             <Route exact path='/admin/forgotpassword' component={ForgoPassword} />
                             <Route exact path='/admin/forgotpassword/:random' component={Reset} />
-
                         </>
                         :
-
                         user.type === 'client' ?
                             <>
                                 <Route exact path='/:bussinesId' component={HomeClient} />
                                 <Route exact path='/makeappointment' component={MakeAppointment} />
-                                <Route exact path='/allappointmentbyclient' component={AllAppointmentByClient}/>
+                                <Route exact path='/allappointmentbyclient' component={AllAppointmentByClient} />
+                            </>
+                            : user.type === 'business' ?
+                                <>
+                                    <Route exact path='/:bussinesId' component={HomeAdmin} />
+                                    <Route exact path='/addWorkers' component={AddWorkers} />
+                                </>
+                                :
+                                <>
+                                    <h1>404 page</h1>
+                                </>
 
-                            </>
-                            :
-                            <>
-                                <Route exact path='/:bussinesId' component={HomeAdmin} />
-                                <Route exact path='/addWorkers' component={AddWorkers} />
-                            </>
                     }
                 </Switch>
             </Router>

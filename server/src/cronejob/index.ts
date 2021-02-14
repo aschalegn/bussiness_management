@@ -12,12 +12,12 @@ export const setSchedualForSms = (croneJob: ICronJob) => {
 export const createCronJob = (data: any) => {
     let { month, day, hour, minute, year } = data;
     month= String(month), day, hour, minute, year , String(day), String(hour), String(minute), String(year)
-    const job: ICronJob = {
-        name: "send sms",
-        description: "",
-        cron: { month, day, hour, minute, year }
-    }
-    setSchedualForSms(job);
+    // const job: ICronJob = {
+    //     name: "send sms",
+    //     description: "",
+    //     cron: { month, day, hour, minute, year }
+    // }
+    // setSchedualForSms(job);
 }
 
 // module.exports = (io: any) => {

@@ -5,8 +5,8 @@ import DateFnsUtils from '@date-io/date-fns';
 import moment from "@date-io/moment";
 
 function Date(props) {
-    const [selectedDate, setDate] = useState(moment());
-    const [inputValue, setInputValue] = useState(moment().format("YYYY-MM-DD"));
+    const [selectedDate, setDate] = useState(moment(new Date()));
+    const [inputValue, setInputValue] = useState(moment().format("yyyy-mm-dd"));
     const { getDate } = props;
     function shouldDisableDate(day, pickerProps) {
         const disabledDays = day.getDay() === 1 || day.getDay() === 6;
@@ -15,7 +15,7 @@ function Date(props) {
     const onDateChange = (date, value) => {
         setDate(date);
         setInputValue(value);
-        console.log(selectedDate, inputValue);
+        // console.log(selectedDate, inputValue);
         getDate(value)
     };
 
@@ -27,7 +27,7 @@ function Date(props) {
             <KeyboardDatePicker
                 shouldDisableDate={shouldDisableDate}
                 value={selectedDate}
-                format="dd-MM-yyyy"
+                // format="dd-MM-yyyy"
                 onChange={onDateChange}
                 rifmFormatter={dateFormatter}
                 renderInput={props => <TextField {...props} />}
