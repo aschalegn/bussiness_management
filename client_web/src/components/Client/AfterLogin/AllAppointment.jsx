@@ -13,7 +13,6 @@ const AllAppointmentByClient = () => {
         axios.get(`${baseURL}appointment/6028e4f2ed8a283230f4bc6c/${userId}`)
             .then((res) => {
                 console.log(res.data)
-                // setAllWorkers(res.data)
             })
             .catch((err) => { console.log(err) })
     }
