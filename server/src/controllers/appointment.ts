@@ -20,6 +20,8 @@ class AppointmentContreller {
         return false;
     }
 
+   
+
     makeByClient = async (bussinessId: ObjectId, data: any, userId: ObjectId) => {
         const body = { time: data.time, barber: data.barber, client: userId }
         const appointment = new Appointment(body);

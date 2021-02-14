@@ -1,7 +1,21 @@
 import { Router } from 'express';
 import mongoose from "mongoose";
 import { AppointmentContreller } from '../controllers/appointment';
+import { Client } from '../model/Client';
 const router = Router();
+
+
+router.get("/:userId", (req: any, res: any, next: any) => {
+    const { clientId } = req.params;
+    Client.findById(clientId, (err: any, client: any) => {
+        if (err) {
+            res.status(500).send({ msg: err.message });
+        } else {
+            console.log(client);
+        }
+
+    })
+})
 
 router.post("/:bussinessId/:userId", (req, res) => {
     const body = req.body;

@@ -13,6 +13,7 @@ import SignUp from '../../Client/Register';
 import Home from '../../AppointU';
 import MakeAppointment from '../../Client/AfterLogin/MakeAppointment';
 import AddWorkers from '../../Layouts/Admin/Setting/AddWorkers';
+import AllAppointmentByClient from '../../Client/AfterLogin/AllAppointment';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -218,6 +219,7 @@ export default function Navbar() {
                             <>
                                 <Route exact path='/' component={HomeClient} />
                                 <Route exact path='/makeappointment' component={MakeAppointment} />
+                                <Route exact path='/allappointmentbyclient' component={AllAppointmentByClient}/>
 
                             </>
                             :
