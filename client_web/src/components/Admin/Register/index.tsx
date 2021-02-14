@@ -18,7 +18,7 @@ function Copyright() {
       {new Date().getFullYear()}
       {'.'}
     </Typography>
-  );
+  )
 }
 
 const useStyles = makeStyles((theme) => ({

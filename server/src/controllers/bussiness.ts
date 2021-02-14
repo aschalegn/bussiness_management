@@ -46,8 +46,13 @@ const addWorker = async (req: Request, res: Response) => {
 
     Business.findById(id, (err: any, b: any) => {
         if (err) { console.log(err); }
-        b.workers.push(worker)
+        
+        
+        b.workers.push(worker);
+        
         b.save();
+        // console.log(b);
+        
         return res.status(200).send(worker)
     })
 }

@@ -12,6 +12,7 @@ import { emailEmiter } from "./eventsNotification/Email"
 import { clients } from './eventsNotification';
 import { db } from './util/config';
 
+
 dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
