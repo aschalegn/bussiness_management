@@ -1,16 +1,18 @@
 import crone from 'node-cron';
 
-const setSchedual = (month: number, day: number, hour: number, minute: number) => {
-    crone.schedule(`0 ${minute} ${hour} ${day} ${month} 0`, () => {
+export const setSchedualForSms = (date: any) => {
+    const { month, day, hour, minute, year } = date;
+    crone.schedule(`0 ${minute} ${hour} ${day} ${month} ${year}`, () => {
         // ! send in app notification or sms
+        
     });
 }
 
-module.exports = (io: any) => {
-    io.on("connection", (socket: any) => {
-        socket.on("turn made", (data: any) => {
-            const { month, day, hour, minute } = data;
-            setSchedual(month, day, hour, minute);
-        });
-    });
-}
+// module.exports = (io: any) => {
+//     io.on("connection", (socket: any) => {
+//         socket.on("turn made", (data: any) => {
+//             // const { month, day, hour, minute } = data;
+//             setSchedual(data);
+//         });
+//     });
+// }
