@@ -1,13 +1,15 @@
 import React, { useState, FormEvent, useContext } from 'react';
 import { baseURL } from '../../../utils';
 import axios from 'axios';
+import moment from "@date-io/moment";
+
+import { userContext } from '../../../context/User';
 import Date from './Date';
 import {
     Button, Dialog, DialogActions, DialogTitle,
     createStyles, makeStyles, Theme, Grid,
     FormControl, Select, MenuItem, InputLabel
 } from '@material-ui/core';
-import { userContext } from '../../../context/User';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -34,7 +36,6 @@ export default function MakeAppointment() {
     const handleClickOpen = () => {
         getAvailableTimes();
         setOpen(true);
-
     };
     const handleClickClose = () => {
         setOpen(false);
@@ -63,6 +64,7 @@ export default function MakeAppointment() {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
+        // date = moment(date, "yyyy-mm-dd");
         const body = {
             barber: workerSelected.name,
             date,

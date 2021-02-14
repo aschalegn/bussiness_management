@@ -5,18 +5,20 @@ import DateFnsUtils from '@date-io/date-fns';
 import moment from "@date-io/moment";
 
 function Date(props) {
-    const [selectedDate, setDate] = useState(moment(new Date()));
-    const [inputValue, setInputValue] = useState(moment().format("yyyy-mm-dd"));
+    // const [selectedDate, setDate] = useState(moment(new Date()));
+    // const [inputValue, setInputValue] = useState(moment().format("yyyy-mm-dd"));
     const { getDate } = props;
     function shouldDisableDate(day, pickerProps) {
-        const disabledDays = day.getDay() === 1 || day.getDay() === 6;
+        const disabledDays = day.getDay() === 5 || day.getDay() === 6;
         return (disabledDays)
     }
     const onDateChange = (date, value) => {
-        setDate(date);
-        setInputValue(value);
+        // setDate(date);
+        // setInputValue(value);
         // console.log(selectedDate, inputValue);
-        getDate(value)
+        console.log({ date, value });
+        // console.log(moment().format(date, "YYYY-mm-dd"));
+        getDate(value);
     };
 
     const dateFormatter = (str) => {
@@ -26,8 +28,8 @@ function Date(props) {
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
                 shouldDisableDate={shouldDisableDate}
-                value={selectedDate}
-                // format="dd-MM-yyyy"
+                // value=""
+                format="yyyy-MM-dd"
                 onChange={onDateChange}
                 rifmFormatter={dateFormatter}
                 renderInput={props => <TextField {...props} />}

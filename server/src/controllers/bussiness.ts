@@ -46,29 +46,22 @@ const addWorker = async (req: Request, res: Response) => {
 
     Business.findById(id, (err: any, b: any) => {
         if (err) { console.log(err); }
-        
-        
         b.workers.push(worker);
-        
         b.save();
-        // console.log(b);
-        
         return res.status(200).send(worker)
-    })
+    });
 }
 
 const getAvailableTimes = (req: Request, res: Response) => {
     const { id } = req.params;
     return Business.findById(id)
         .then((data: any) => {
-            // res.status(200).send(data.workers);
-            console.log(data);
-            
+            res.status(200).send(data.workers);
         })
         .catch((err: any) => {
             console.log(err);
             res.status(500);
-        })
+        });
 }
 
 async function updatePassword(email: string, password: string) {

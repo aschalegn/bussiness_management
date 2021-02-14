@@ -3,7 +3,7 @@ import { IAppointment } from "../interfaces/Appointment";
 
 const appointmentSchema: Schema = new Schema({
     client: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Client'
     },
     barber: String,
@@ -11,7 +11,7 @@ const appointmentSchema: Schema = new Schema({
     time: String,
     style: String,
     bussiness: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Business'
     }
 });
