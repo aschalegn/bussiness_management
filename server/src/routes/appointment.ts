@@ -2,6 +2,7 @@ import { Router } from 'express';
 import mongoose, { ObjectId } from "mongoose";
 // import { ObjectID } from "mongodb";
 import { AppointmentContreller } from '../controllers/appointment';
+import { appointmentEmitter } from '../eventsNotification/Appointments';
 import { Client } from '../model/Client';
 const router = Router();
 
@@ -20,18 +21,17 @@ router.get("/:userId", (req: any, res: any, next: any) => {
 
 router.post("/:bussinessId/:userId", (req, res) => {
     const body = req.body;
-
     const { bussinessId, userId } = req.params;
-    console.log(mongoose.Types.ObjectId.isValid(bussinessId));
-    // if (mongoose.Types.ObjectId.isValid(bussinessId)) {
-        new AppointmentContreller()
-            .makeByClient(bussinessId,
-                body, userId
-            ).then(appointment => {
-                if (appointment) return res.status(201).send(appointment);
-            });
-    // }
-    return res.status(500).send("didnot add");
+    new AppointmentContreller()
+        .makeByClient(bussinessId,body, userId)
+        .then(appointment => {
+            // console.log(appointment);
+            if (appointment) return res.status(201).send(appointment);
+            // appointmentEmitter.emit("made", bussinessId, appointment);
+        }).catch(err => {
+            console.log(err);
+            return res.status(500).send("didnot add");
+        });
 });
 
 router.patch("/:id", (req, res) => {

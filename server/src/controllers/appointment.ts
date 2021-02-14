@@ -19,8 +19,6 @@ class AppointmentContreller {
         return false;
     }
 
-   
-
     makeByClient = async (bussinessId: string, data: any, userId: string) => {
         const body = { time: data.time, barber: data.barber, client: userId }
         const appointment = new Appointment(body);
@@ -32,10 +30,9 @@ class AppointmentContreller {
             await business.save();
             await client.save();
             await appointment.save();
-            appointmentEmitter.emit("made", bussinessId, appointment);
+            // return appointmentEmitter.emit("made", bussinessId, appointment);
             return appointment;
-        }
-        return false;
+        }else return false;
     }
 
     update = async (appointmentId: string) => {

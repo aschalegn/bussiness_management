@@ -160,8 +160,6 @@ export default function AddWorkers() {
               <MenuItem value={30}>30</MenuItem>
             </Select>
           </FormControl>
-
-
         </DialogContent>
 
         <DialogActions>

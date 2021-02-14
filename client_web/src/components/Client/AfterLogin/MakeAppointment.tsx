@@ -101,13 +101,11 @@ export default function MakeAppointment() {
                             {allWorkers.map((worker: any, i: any) =>
                                 <MenuItem key={i} value={worker._id}>{worker.name}</MenuItem>
                             )}
-
                         </Select>
                     </FormControl>
                     <Grid container justify="space-around">
                         <Date getUserDate={setDate} />
                     </Grid>
-
                     <FormControl className={classes.formControl}>
                         <InputLabel id="demo-simple-select-label">בחר שעה</InputLabel>
                         <Select

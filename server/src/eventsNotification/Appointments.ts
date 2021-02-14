@@ -1,14 +1,15 @@
 import { EventEmitter } from "events";
 import { ObjectId } from "mongoose";
 import { clients } from ".";
-import { setSchedualForSms } from "../cronejob";
+import { createCronJob } from "../cronejob";
 import { IAppointment } from "../interfaces/Appointment";
 export const appointmentEmitter = new EventEmitter();
 
 // * when appointment is made send event to clients connected
 appointmentEmitter.on("made", (businessId: string, data: IAppointment) => {
     //Todo: invoke a function to notify all sse clients of the business 
-    for (let i = 0; i < clients.length; i++) {
+    console.log(clients.length);
+    for (let i = 0; i < clients.length-1; i++) {
         const client = clients[i];
         if (client.business === businessId) {
             client.clients.forEach(res => {
@@ -16,12 +17,13 @@ appointmentEmitter.on("made", (businessId: string, data: IAppointment) => {
                 res.set("Connection", "keep-alive");
                 res.set("Cache-Controll", "no-cache");
                 res.set("Access-Controll-Allow-Origin", "*");
+                console.log({data});
                 return res.status(200).write(`event: appointmentAdded\ndata:${data}\n\n`);
+                // return res.end();
             });
         }
     }
-    
-    // setSchedualForSms();
+    // createCronJob(data, businessId);
 });
 
 // * when appointment is getting deleted send event to clients connected
