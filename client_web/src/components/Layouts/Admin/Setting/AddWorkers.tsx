@@ -59,10 +59,11 @@ export default function AddWorkers() {
       skills
     }
     console.log(data, 'data from new worker');
-    axios.patch(`${baseURL}business/setting/addWorker/60213db13f53a228b4a40497`, data)
+    axios.patch(`${baseURL}business/setting/addWorker/6028e4f2ed8a283230f4bc6c`, data)
       .then(res => {
         if (res.status === 200) {
           console.log('success');
+          handleClickClose();
         }
         else {
           console.log(`error code ${res.status}`)
@@ -101,9 +102,8 @@ export default function AddWorkers() {
               name='role'
               onChange={handleChange}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={"עובד"}>עובד</MenuItem>
+              <MenuItem value={"מנהל"}>מנהל</MenuItem>
             </Select>
           </FormControl>
 
@@ -112,7 +112,7 @@ export default function AddWorkers() {
             margin="dense"
             id="name"
             label="טלפון"
-            type="tel"
+            type="phone"
             fullWidth
             onChange={e => setPhone(e.target.value)}
           />
@@ -155,9 +155,9 @@ export default function AddWorkers() {
               name='jump'
               onChange={handleChange}
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={15}>15</MenuItem>
+              <MenuItem value={20}>20</MenuItem>
+              <MenuItem value={30}>30</MenuItem>
             </Select>
           </FormControl>
 
