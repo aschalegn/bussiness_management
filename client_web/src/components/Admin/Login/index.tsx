@@ -1,6 +1,4 @@
 import React, { useState, useContext } from 'react';
-import axios from 'axios';
-import { baseURL } from '../../../utils/index';
 import { Redirect, Link } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -44,73 +42,71 @@ export default function LogIn() {
     signIn(email, password);
   }
 
-  return (  
-    <div>
+  return (
+    <Container component="main" maxWidth="xs">
       {user ?
         <Redirect to='/' />
         : ''
       }
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            כניסה לחשבון
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          כניסה לחשבון
         </Typography>
-          <form className={classes.form}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="אי-מייל"
-              name="email"
-              autoComplete="off"
-              type="email"
-              onChange={(e) => setEmail(e.target.value)}
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="password"
-              type="password"
-              label="סיסמה"
-              name="password"
-              autoComplete="off"
-              onChange={(e) => setPassword(e.target.value)}
-              autoFocus
-            />
-            <Button
-              type="button"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={() => handleSignIn()}
-            >
-              כנס
+        <form className={classes.form}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="אי-מייל"
+            name="email"
+            autoComplete="off"
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+            autoFocus
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="password"
+            type="password"
+            label="סיסמה"
+            name="password"
+            autoComplete="off"
+            onChange={(e) => setPassword(e.target.value)}
+            autoFocus
+          />
+          <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={() => handleSignIn()}
+          >
+            כנס
           </Button>
-            <Grid container justify="center">
-              {/* <Grid item xs>
-                <Link to='/SignUp'>
-                  Forgot password?
+          <Grid container justify="center">
+            <Grid item xs>
+              <Link to='/admin/forgotpassword' >
+                Forgot password?
               </Link>
-              </Grid> */}
-              <Grid item >
-                <Link to='/admin/SignUp' >
-                  {"עדיין אין לך חשבון? הרשם"}
-                </Link>
-              </Grid>
             </Grid>
-          </form>
-        </div>
-      </Container>
-    </div>
+            <Grid item >
+              <Link to='/admin/signUp' >
+                {"עדיין אין לך חשבון? הרשם"}
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+    </Container>
   );
 }
