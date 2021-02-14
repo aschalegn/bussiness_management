@@ -11,11 +11,6 @@ export const setSchedualForSms = (croneJob: any, bussinessId: string) => {
 
 export const createCronJob = (data: any, businessId: string) => {
     let { month, day, hour, minute, year } = data;
-    month = month.toString();
-    day = day.toString();
-    hour = hour.toString();
-    minute = minute.toString();
-    year = year.toString();
     const job = {
         name: "send sms",
         description: "send sms on appointment creation",

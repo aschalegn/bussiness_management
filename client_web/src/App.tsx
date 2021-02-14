@@ -15,6 +15,10 @@ function App() {
     sse.addEventListener("appointmentAdded", (e) => {
       console.log(e);
     });
+
+    return (() => {
+      return sse.close();
+    })
   }, []);
 
   return (
