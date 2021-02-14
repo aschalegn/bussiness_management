@@ -1,12 +1,12 @@
 import mongoose, { ObjectId } from "mongoose";
 
 interface IAppointment extends mongoose.Document {
-    client: ObjectId,
+    client: string,
     barber: string,
     date: string,
     time: string,
     style: string,
-    bussiness:ObjectId
+    bussiness:string
 }
 
 export { IAppointment }

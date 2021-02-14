@@ -1,8 +1,6 @@
 import React, { useState, FormEvent, useContext } from 'react';
 import { baseURL } from '../../../utils';
 import axios from 'axios';
-import moment from "@date-io/moment";
-
 import { userContext } from '../../../context/User';
 import Date from './Date';
 import {
@@ -64,7 +62,6 @@ export default function MakeAppointment() {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        // date = moment(date, "yyyy-mm-dd");
         const body = {
             barber: workerSelected.name,
             date,
