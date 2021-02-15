@@ -8,9 +8,9 @@ const AllAppointmentByClient = () => {
     const user = useContext(userContext)
 
     const getAllClientAppointment = () => {
-        console.log(user.user._id);
-        const userId = user.user._id
-        axios.get(`${baseURL}appointment/6028e4f2ed8a283230f4bc6c/${userId}`)
+        // console.log(user.user._id);
+        // const userId = user.user._id
+        axios.get(`${baseURL}appointment/6028e4f2ed8a283230f4bc6c`)
             .then((res) => {
                 console.log(res.data)
             })

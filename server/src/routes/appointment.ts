@@ -3,27 +3,40 @@ import mongoose, { ObjectId } from "mongoose";
 // import { ObjectID } from "mongodb";
 import { AppointmentContreller } from '../controllers/appointment';
 import { appointmentEmitter } from '../eventsNotification/Appointments';
+import { Appointment } from '../model/Appointment';
+import { Business } from '../model/Bussiness';
 import { Client } from '../model/Client';
 const router = Router();
 
 
-router.get("/:userId", (req: any, res: any, next: any) => {
-    const { clientId } = req.params;
-    Client.findById(clientId, (err: any, client: any) => {
-        if (err) {
-            res.status(500).send({ msg: err.message });
-        } else {
-            console.log(client);
-        }
+// router.get("/:userId", (req: any, res: any, next: any) => {
+//     const { userId } = req.params;
+//     Business.findById(userId, (err: any, client: any) => {
+//         if (err) {
+//             res.status(500).send({ msg: err.message });
+//         } else {
+//             console.log(client.appointments);
+//             Appointment.findById(client.appointments, (error: any, turn: any) => {
+//                 if (error) {
+//                     console.log(error);
 
-    })
-})
+//                 } else {
+//                     console.log(turn, 'turn');
+
+//                 }
+//             })
+//         }
+//     })
+// })
+
+
+
 
 router.post("/:bussinessId/:userId", (req, res) => {
     const body = req.body;
     const { bussinessId, userId } = req.params;
     new AppointmentContreller()
-        .makeByClient(bussinessId,body, userId)
+        .makeByClient(bussinessId, body, userId)
         .then(appointment => {
             // console.log(appointment);
             if (appointment) return res.status(201).send(appointment);

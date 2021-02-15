@@ -24,7 +24,6 @@ function Date(props) {
             <KeyboardDatePicker
                 autoOk={true}
                 showTodayButton={true}
-
                 value={selectedDate}
                 format="YYYY-MM-DD"
                 inputValue={inputValue}
