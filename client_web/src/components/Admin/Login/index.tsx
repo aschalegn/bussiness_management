@@ -11,7 +11,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { userContext } from '../../../context/User';
 
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -37,7 +36,6 @@ export default function LogIn() {
   const { user, signIn } = useContext(userContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState('');
-
   const handleSignIn = () => {
     signIn(email, password);
   }

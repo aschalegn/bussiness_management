@@ -16,6 +16,7 @@ import AddWorkers from '../../Layouts/Admin/Setting/AddWorkers';
 import AllAppointmentByClient from '../../Client/AfterLogin/AllAppointment';
 import ForgoPassword from '../../Admin/AfterLogin/forgoPassword/';
 import Reset from '../../Admin/AfterLogin/forgoPassword/Reset';
+import Admin from '../Admin';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -65,18 +66,14 @@ export default function Navbar() {
             </List>
             <Divider />
             <List>
-                <ListItem button>
-                    <ListItemIcon></ListItemIcon>
-                    <ListItemText />
-                </ListItem>
                 <ListItem>
                     <ListItemText>
-                        <Link to='/'>דף בית</Link>
+                        <Link to='/6028e4f2ed8a283230f4bc6c'>דף בית</Link>
                     </ListItemText>
                 </ListItem>
                 <ListItem>
                     <ListItemText>
-                        <Link to='/addworkers'>הוספת עובדים</Link>
+                        <Link to='/6028e4f2ed8a283230f4bc6c/addworkers'>הוספת עובדים</Link>
                     </ListItemText>
                 </ListItem>
                 <ListItem>
@@ -104,18 +101,14 @@ export default function Navbar() {
             </List>
             <Divider />
             <List>
-                <ListItem button>
-                    <ListItemIcon></ListItemIcon>
-                    <ListItemText />
-                </ListItem>
                 <ListItem>
                     <ListItemText>
-                        <Link to='/'>דף בית</Link>
+                        <Link to='/6028e4f2ed8a283230f4bc6c'>דף בית</Link>
                     </ListItemText>
                 </ListItem>
                 <ListItem>
                     <ListItemText>
-                        <Link to='/makeappointment'>קביעת תורים</Link>
+                        <Link to='/6028e4f2ed8a283230f4bc6c/makeappointment'>קביעת תורים</Link>
                     </ListItemText>
                 </ListItem>
                 <ListItem>
@@ -218,15 +211,15 @@ export default function Navbar() {
                         :
                         user.type === 'client' ?
                             <>
-                                <Route exact path='/:bussinesId' component={HomeClient} />
-                                <Route exact path='/makeappointment' component={MakeAppointment} />
-                                <Route exact path='/allappointmentbyclient' component={AllAppointmentByClient} />
+                                <Route exact path='/6028e4f2ed8a283230f4bc6c' component={HomeClient} />
+                                <Route exact path='/6028e4f2ed8a283230f4bc6c/makeappointment' component={MakeAppointment} />
+                                <Route exact path='/6028e4f2ed8a283230f4bc6c/allappointmentbyclient' component={AllAppointmentByClient} />
                             </>
                             : user.type === 'business' ?
-                                <>
+                                <Admin>
                                     <Route exact path='/:bussinesId' component={HomeAdmin} />
-                                    <Route exact path='/addWorkers' component={AddWorkers} />
-                                </>
+                                    <Route exact path='/:bussinesId/addWorkers' component={AddWorkers} />
+                                </Admin>
                                 :
                                 <>
                                     <h1>404 page</h1>

@@ -5,6 +5,6 @@ const Home = () => {
         <div>
             דף בית - מנהלים
         </div>
-    )
+    );
 }
 export default Home

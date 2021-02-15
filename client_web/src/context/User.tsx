@@ -60,7 +60,7 @@ export default function UserProvider(props: any) {
                 if (res.status === 200) {
                     const type = res.data.type
                     const payload = { ...res.data.body, type }
-                    userDispatch({ type: "SIGN_UP", payload: res.data });
+                    userDispatch({ type: "SIGN_UP", payload: payload });
                 }
             })
             .catch(err => {
