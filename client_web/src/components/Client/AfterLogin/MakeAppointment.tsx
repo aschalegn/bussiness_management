@@ -104,7 +104,7 @@ export default function MakeAppointment() {
                         </Select>
                     </FormControl>
                     <Grid container justify="space-around">
-                        <Date getDate={setDate} />
+                        <Date getUserDate={setDate} />
                     </Grid>
                     <FormControl className={classes.formControl}>
                         <InputLabel id="demo-simple-select-label">בחר שעה</InputLabel>
