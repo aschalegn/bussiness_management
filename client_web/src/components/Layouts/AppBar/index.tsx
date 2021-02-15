@@ -177,7 +177,7 @@ export default function Navbar() {
     return (
         <div>
             <Router>
-                {/* <AppBar position="static">
+                <AppBar position="static">
                     <Toolbar>
                         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" >
 
@@ -195,7 +195,7 @@ export default function Navbar() {
                             ))}
                         </IconButton>
                     </Toolbar>
-                </AppBar> */}
+                </AppBar>
 
                 <Switch>
                     {!user ?

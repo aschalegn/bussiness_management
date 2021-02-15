@@ -6,6 +6,7 @@ import { appointmentEmitter } from '../eventsNotification/Appointments';
 import { Appointment } from '../model/Appointment';
 import { Business } from '../model/Bussiness';
 import { Client } from '../model/Client';
+
 const router = Router();
 
 
@@ -13,7 +14,7 @@ const router = Router();
 // router.get("/:userId", (req: Request, res: Response, next: any) => {
 //     const { userId } = req.params;
 //     console.log(userId);
-    
+
 //     Client.findById(userId, (err: any, appointments: any) => {
 //         if (err) {
 //             res.status(500).send({ msg: err.message });
@@ -23,25 +24,21 @@ const router = Router();
 //         }
 //     })
 // })
-
-router.get("client/:userId", (req: any, res: any, next: any) => {
+router.get("/client/:userId", (req, res) => {
     const { userId } = req.params;
-    Business.findById(userId, (err: any, client: any) => {
-        if (err) {
-            res.status(500).send({ msg: err.message });
-        } else {
-            console.log(client.appointments);
-            Appointment.findById(client.appointments, (error: any, turn: any) => {
-                if (error) {
-                    console.log(error);
+    new AppointmentContreller()
+        .getByClient(userId)
+        .then(appointment => {
+            if (appointment) {
+                console.log(appointment);
+               const appoint = Appointment.find({appointment}).populate("appointments")
+                console.log(appoint);
+                
+            }
+        }).catch(err => {
+            console.log(err);
 
-                } else {
-                    console.log(turn, 'turn');
-
-                }
-            })
-        }
-    })
+        })
 })
 
 

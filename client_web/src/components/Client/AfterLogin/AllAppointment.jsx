@@ -11,7 +11,7 @@ const AllAppointmentByClient = () => {
     const  getAll = () => {
         console.log(user.user._id);
         const userId = user.user._id
-        axios.get(`${baseURL}client/${userId}`)
+        axios.get(`${baseURL}appointment/client/${userId}`)
             .then((res) => {
                 
                 console.log(res.data, 'gfhggkhkh')
