@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import mongoose, { ObjectId } from "mongoose";
 // import { ObjectID } from "mongodb";
 import { AppointmentContreller } from '../controllers/appointment';
@@ -9,25 +9,40 @@ import { Client } from '../model/Client';
 const router = Router();
 
 
-// router.get("/:userId", (req: any, res: any, next: any) => {
+
+// router.get("/:userId", (req: Request, res: Response, next: any) => {
 //     const { userId } = req.params;
-//     Business.findById(userId, (err: any, client: any) => {
+//     console.log(userId);
+    
+//     Client.findById(userId, (err: any, appointments: any) => {
 //         if (err) {
 //             res.status(500).send({ msg: err.message });
 //         } else {
-//             console.log(client.appointments);
-//             Appointment.findById(client.appointments, (error: any, turn: any) => {
-//                 if (error) {
-//                     console.log(error);
+//             console.log(appointments);
 
-//                 } else {
-//                     console.log(turn, 'turn');
-
-//                 }
-//             })
 //         }
 //     })
 // })
+
+router.get("client/:userId", (req: any, res: any, next: any) => {
+    const { userId } = req.params;
+    Business.findById(userId, (err: any, client: any) => {
+        if (err) {
+            res.status(500).send({ msg: err.message });
+        } else {
+            console.log(client.appointments);
+            Appointment.findById(client.appointments, (error: any, turn: any) => {
+                if (error) {
+                    console.log(error);
+
+                } else {
+                    console.log(turn, 'turn');
+
+                }
+            })
+        }
+    })
+})
 
 
 
@@ -46,6 +61,9 @@ router.post("/:bussinessId/:userId", (req, res) => {
             return res.status(500).send("didnot add");
         });
 });
+
+
+
 
 router.patch("/:id", (req, res) => {
     let { id } = req.params;

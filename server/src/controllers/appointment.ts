@@ -32,12 +32,22 @@ class AppointmentContreller {
             await appointment.save();
             // return appointmentEmitter.emit("made", bussinessId, appointment);
             return appointment;
-        }else return false;
+        } else return false;
     }
 
+    // getAll = async (userId: string) => {
+    //     const client = await Client.findById(userId)
+    //     if (await client) {
+    //         console.log(client.appointments);
+    //         return true
+    //     } else {
+    //         console.log('error get all');
+
+    //     }
+    // }
+
     update = async (appointmentId: string) => {
-        // Todo: update appointmet
-        return true;
+        return true
     }
 
     delete = async (appointmentId: string) => {

@@ -8,6 +8,8 @@ import {
     createStyles, makeStyles, Theme, Grid,
     FormControl, Select, MenuItem, InputLabel
 } from '@material-ui/core';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import "./makeAppointment.css";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -87,7 +89,8 @@ export default function MakeAppointment() {
                 קביעת תור
             </Button>
             <Dialog open={open} onClose={handleClickClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">הוספת תור</DialogTitle>
+            <NavigateNextIcon/>
+                <DialogTitle id="form-turn-title"> הוספת תור</DialogTitle>
                 <form onSubmit={handleSubmit}>
                     <FormControl className={classes.formControl}>
                         <InputLabel id="demo-simple-select-label">בחר ספר</InputLabel>

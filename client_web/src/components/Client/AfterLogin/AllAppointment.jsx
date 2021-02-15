@@ -5,20 +5,22 @@ import { userContext } from '../../../context/User';
 
 
 const AllAppointmentByClient = () => {
+
     const user = useContext(userContext)
 
-    const getAllClientAppointment = () => {
-        // console.log(user.user._id);
-        // const userId = user.user._id
-        axios.get(`${baseURL}appointment/6028e4f2ed8a283230f4bc6c`)
+    const  getAll = () => {
+        console.log(user.user._id);
+        const userId = user.user._id
+        axios.get(`${baseURL}client/${userId}`)
             .then((res) => {
-                console.log(res.data)
+                
+                console.log(res.data, 'gfhggkhkh')
             })
-            .catch((err) => { console.log(err) })
+            .catch((err) => { console.log(err,userId,'gfgjghhgwhgwhg') })
     }
     return (
         <>
-            <button onClick={getAllClientAppointment}>click me</button>
+            <button onClick={getAll}>click me</button>
         </>
     )
 }
