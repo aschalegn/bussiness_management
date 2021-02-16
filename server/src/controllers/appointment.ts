@@ -20,8 +20,8 @@ class AppointmentContreller {
     }
 
     makeByClient = async (bussinessId: string, data: any, userId: string) => {
-        const body = { time: data.time, barber: data.barber, client: userId }
-        const appointment = new Appointment(body);
+        data.client = userId;
+        const appointment = new Appointment(data);
         const client = await Client.findById(userId);
         if (await client) {
             client.appointments.push(appointment);
@@ -43,6 +43,34 @@ class AppointmentContreller {
         } else {
             console.log('error get all');
 
+        }
+    }
+
+    getByBusiness = async (userId: string) => {
+        const business = await Business.findById(userId)
+            .select("appointments, workers")
+            .populate({
+                path: "appointments",
+                populate: { path: "client" }
+            });
+        if (await business) {
+            return business
+        } else {
+            console.log('error get all');
+        }
+    }
+
+    getWeekly = async (userId: string) => {
+        const business = await Business.findById(userId)
+            .select("appointments")
+            .populate({
+                path: "appointments",
+                populate: { path: "client" }
+            });
+        if (await business) {
+            return business
+        } else {
+            console.log('error get all');
         }
     }
 

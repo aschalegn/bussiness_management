@@ -1,8 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
-import { createStyles, AppBar, Toolbar, IconButton, Theme, makeStyles, Drawer, Button, List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { createStyles, Theme, makeStyles, Button, List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { userContext } from '../../../context/User';
 import HomeClient from '../../Client/HomePage/home';
 import HomeAdmin from '../../Admin/AfterLogin';
@@ -17,7 +16,9 @@ import AllAppointmentByClient from '../../Client/AfterLogin/AllAppointment';
 import ForgoPassword from '../../Admin/AfterLogin/forgoPassword/';
 import Reset from '../../Admin/AfterLogin/forgoPassword/Reset';
 import Admin from '../Admin';
-
+import Appointments from '../../Admin/AfterLogin/Appointments/index';
+import AppointmentsProvider from '../../../context/Appointments';
+import Live from '../../Admin/AfterLogin/Appointments/Live';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -170,14 +171,10 @@ export default function Navbar() {
 
     );
 
-    useEffect(() => {
-        console.log(!user);
-    }, []);
-
     return (
         <div>
             <Router>
-                <AppBar position="static">
+                {/* <AppBar position="static">
                     <Toolbar>
                         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" >
 
@@ -195,7 +192,7 @@ export default function Navbar() {
                             ))}
                         </IconButton>
                     </Toolbar>
-                </AppBar>
+                </AppBar> */}
 
                 <Switch>
                     {!user ?
@@ -216,15 +213,18 @@ export default function Navbar() {
                                 <Route exact path='/6028e4f2ed8a283230f4bc6c/allappointmentbyclient' component={AllAppointmentByClient} />
                             </>
                             : user.type === 'business' ?
-                                <Admin>
-                                    <Route exact path='/:bussinesId' component={HomeAdmin} />
-                                    <Route exact path='/:bussinesId/addWorkers' component={AddWorkers} />
-                                </Admin>
+                                <AppointmentsProvider>
+                                    <Admin>
+                                        <Route exact path='/:bussinesId' component={HomeAdmin} />
+                                        <Route exact path='/:bussinesId/addWorkers' component={AddWorkers} />
+                                        <Route exact path='/:bussinesId/appointments' component={Appointments} />
+                                        <Route exact path='/:bussinesId/live' component={Live} />
+                                    </Admin>
+                                </AppointmentsProvider>
                                 :
                                 <>
                                     <h1>404 page</h1>
                                 </>
-
                     }
                 </Switch>
             </Router>

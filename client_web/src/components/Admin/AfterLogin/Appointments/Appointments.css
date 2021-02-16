@@ -1,0 +1,63 @@
+.Appointments {
+    text-align: center;
+    width: 100%;
+    margin: auto;
+}
+
+.Appointments table {
+    width: 97%;
+    margin: auto;
+    table-layout: fixed;
+}
+
+.weekly {
+    width: 97%;
+}
+
+.days {
+    display: flex;
+    align-items: center;
+}
+
+.days div {
+    border: 1px solid brown;
+    padding: 10px 0;
+}
+
+.board {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.board .hour {
+    display: flex;
+}
+
+.board .hour div.time {
+    /* background-color: #fff; */
+}
+
+.board .hour div {
+    margin-right: 1px;
+    margin-top: 1px;
+    background-color: #0b680b;
+    min-height: 50px;
+}
+
+.red {
+    background-color: red;
+    height: 100%;
+    width: 100%;
+}
+
+.Live{
+    display: flex;
+    margin-top: 20px;
+}
+
+.Live div{
+    padding: 10px 0;
+    margin-right: 2%;
+    border: brown 1px solid;
+}

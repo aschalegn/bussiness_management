@@ -12,7 +12,6 @@ import { emailEmiter } from "./eventsNotification/Email"
 import { clients } from './eventsNotification';
 import { db } from './util/config';
 
-
 dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -32,10 +31,17 @@ app.use(cors({
 // Server sent events
 app.get("/api/sse/:businessId", (req: Request, res: Response) => {
     const { businessId } = req.params;
-    const isChanneliExists = clients.findIndex(cl => cl.business === businessId);
+    const isChanneliExists = clients.find(cl => cl.business === businessId);
+    // console.log(isChanneliExists);
+
     // ! if chanell exists
-    if (isChanneliExists >= 0) {
-        clients[isChanneliExists].clients.push(res);
+    if (isChanneliExists) {
+        // const isClientExists = clients[isChanneliExists].clients.find(r => {
+        // return r === res;
+        // });
+        // if (!isClientExists) {
+        // clients[isChanneliExists].clients.push(res);
+        // }
     }
     // ! if business chanel not exsits
     else {
@@ -58,7 +64,6 @@ app.get("/api/isUser", (req: Request, res: Response, next: NextFunction) => {
 
 app.get("/api/logout", (req: Request, res: Response, next: NextFunction) => {
     res.clearCookie("appointU");
-    // return res.redirect("http://127.0.0.1:3000");
     return res.status(200).end();
 });
 
@@ -67,9 +72,6 @@ app.get("/api/forgotPassword", (req, res) => {
     emailEmiter.emit("forgotPassword", email);
     return res.status(200).send();
 });
-
-// emailEmiter.emit("forgotPassword", "practice2me@gmail.com");
-
 
 //* DB Connection
 mongoose.connect(db, {

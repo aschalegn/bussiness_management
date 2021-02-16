@@ -1,68 +1,65 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom'
 import { userContext } from '../../../context/User';
+import AdminNav from '../../Layouts/AppBar/AdminNav';
 import './adminHome.css';
 
 const Home = () => {
     const { user } = useContext(userContext)
     return (
         <>
-            <header className='adminHeader'>
-                <h1>{user.name}</h1>
-
-                <img src="./logo.jpg" alt="logo" />
-            </header>
-            <main>
+            <AdminNav location={"home"}/>
+            <main className="admin">
                 <div className="grid-container">
                     <div className="grid-item">
-                         <Link to="">
-                        <button >1</button>
-                      </Link> 
-                    </div>
-                    
-                    <div className="grid-item">
-                         <Link to="">
-                        <button >1</button>
-                      </Link> 
+                        <Link to="/6028e4f2ed8a283230f4bc6c/live">
+                            תורים עכשיו
+                        </Link>
                     </div>
                     <div className="grid-item">
-                         <Link to="">
-                        <button >1</button>
-                      </Link> 
+                        <Link to="/6028e4f2ed8a283230f4bc6c/appointments">
+                            תורים
+                        </Link>
                     </div>
                     <div className="grid-item">
-                         <Link to="">
-                        <button >1</button>
-                      </Link> 
+                        <Link to="">
+                            קביעת תורים
+                        </Link>
                     </div>
                     <div className="grid-item">
-                         <Link to="">
-                        <button >1</button>
-                      </Link> 
+                        <Link to="/">
+                            טקרנימח
+                        </Link>
                     </div>
                     <div className="grid-item">
-                         <Link to="">
-                        <button >1</button>
-                      </Link> 
+                        <Link to="">
+                            סיכום חודשי
+                        </Link>
                     </div>
                     <div className="grid-item">
-                         <Link to="">
-                        <button >1</button>
-                      </Link> 
+                        <Link to="/6028e4f2ed8a283230f4bc6c/addWorkers">
+                            הוספת עובדים
+                        </Link>
                     </div>
                     <div className="grid-item">
-                         <Link to="">
-                        <button >1</button>
-                      </Link> 
+                        <Link to="">
+                            טקרנימח
+                        </Link>
                     </div>
                     <div className="grid-item">
-                         <Link to="">
-                        <button >1</button>
-                      </Link> 
+                        <Link to="">
+                            רשתות חברתיות
+                        </Link>
+                    </div>
+                    <div className="grid-item">
+                        <Link to="">
+                            הגדרות
+                        </Link>
                     </div>
                 </div>
             </main>
         </>
     );
 }
-export default Home
+
+export default Home;
