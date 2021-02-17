@@ -13,13 +13,12 @@ const addBussiness = async (req: Request, res: Response) => {
         body.password = hashPassword(body.password);
         const newBussiness = new Business(body);
         await newBussiness.save();
-        const token = tokenise(newBussiness, "business");
+        const token = tokenise(newBussiness._id, "business");
         res.cookie("appointU", token);
         return res.status(201).send({ body: newBussiness, type: "business" });
     }
     return res.status(300).send("This Email exists in the system");
 }
-
 
 const logIn = async (email: any, password: any, res: Response) => {
     if (email) {
@@ -27,7 +26,7 @@ const logIn = async (email: any, password: any, res: Response) => {
         if (await business) {
             const isPasswordMatch = comparePassword(password, business.password);
             if (isPasswordMatch) {
-                const token = tokenise(business, "business");
+                const token = tokenise(business._id, "business");
                 res.cookie("appointU", token);
                 return res.status(200).send({ body: business, type: "business" });
             }
@@ -67,6 +66,16 @@ const getAvailableTimes = (req: Request, res: Response) => {
             res.status(500);
         });
 }
+
+const updateDetails = async (id: string, body: any) => {
+    console.log(body);
+    const updated = await Business.findByIdAndUpdate(id, body, { new: true });
+    if (await updated) {
+        // console.log(updated);
+        return updated
+    }
+    return false
+};
 
 async function updatePassword(email: string, password: string) {
     const business = await Business.findOne({ email });
@@ -111,4 +120,4 @@ const addSetAvailable = (worker: any) => {
 
 
 
-export { addBussiness, logIn, addWorker, getAvailableTimes, updatePassword };
+export { addBussiness, logIn, addWorker, getAvailableTimes, updatePassword, updateDetails };

@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom'
 import { userContext } from '../../../context/User';
 import AdminNav from '../../Layouts/AppBar/AdminNav';
 import './adminHome.css';
-
+import SettingsIcon from '@material-ui/icons/Settings';
 const Home = () => {
     const { user } = useContext(userContext)
     return (
         <>
-            <AdminNav location={"home"}/>
+            <AdminNav location={"home"} />
             <main className="admin">
                 <div className="grid-container">
                     <div className="grid-item">
@@ -27,8 +27,9 @@ const Home = () => {
                         </Link>
                     </div>
                     <div className="grid-item">
-                        <Link to="/">
-                            טקרנימח
+                        <SettingsIcon />
+                        <Link to="/6028e4f2ed8a283230f4bc6c/settings">
+                            הגדרות
                         </Link>
                     </div>
                     <div className="grid-item">

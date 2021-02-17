@@ -28,7 +28,7 @@ function register(req: any, res: any, next: any) {
                 business.clients.push(user._id);
                 await user.save();
                 await business.save();
-                const token = tokenise(user, "client");
+                const token = tokenise(user._id, "client");
                 res.cookie("appointU", token);
                 return res.status(201).send({ body: user, type: "client", business: businessId });
             }
@@ -42,7 +42,7 @@ function login(req: any, res: any, next: any) {
     Client.findOne({ phone: phone }, function (err: any, user: any) {
         if (err) return res.status(500).send({ msg: err.message });
         else if (user) {
-            const token = tokenise(user, "client");
+            const token = tokenise(user._id, "client");
             res.cookie("appointU", token);
             return res.status(200).send({ body: user, type: "client", business: businessId });
         }

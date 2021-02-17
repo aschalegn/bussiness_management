@@ -11,7 +11,7 @@ export interface IBusiness extends mongoose.Document {
     logo: string,
     poster: string,
     joinDate: string,
-    times: { apenAt: string, closeAt: string },
+    times: { openAt: string, closeAt: string },
     phones: [],
     about: string,
     socialMedia: [{ name: string, link: string }],
@@ -22,7 +22,8 @@ export interface IBusiness extends mongoose.Document {
         times: { openAt: string, closeAt: string, jump: number },
         availableTimes: [string],
         role: string,
-        skills: [string]
+        skills: [string],
+        password: string
     }],
     appointments: [ObjectId],
     clients: [ObjectId],

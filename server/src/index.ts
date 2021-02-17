@@ -11,6 +11,8 @@ import { parseToken } from "./util";
 import { emailEmiter } from "./eventsNotification/Email"
 import { clients } from './eventsNotification';
 import { db } from './util/config';
+import { Business } from './model/Bussiness';
+import { Client } from './model/Client';
 
 dotenv.config();
 app.use(express.json());
@@ -58,8 +60,20 @@ app.get("/api/sse/:businessId", (req: Request, res: Response) => {
 app.use("/api/business", businesRoute);
 app.use('/api/client', clientRoutes);
 app.use('/api/appointment', appointmentRoutes);
-app.get("/api/isUser", (req: Request, res: Response, next: NextFunction) => {
-    parseToken(req, res, next);
+app.get("/api/isUser", parseToken, (req: Request, res: Response, next: NextFunction) => {
+    const { type, id } = res.locals.info;
+    if (type === "business") {
+        Business.findById(id).select("-appointments -password")
+            .then((b: any) => {
+                res.status(200).send({ body: b, type })
+            })
+    }
+    if (type === "client") {
+        Client.findById(id).select(" -password")
+            .then((c: any) => {
+                res.status(200).send({ body: c, type })
+            })
+    }
 });
 
 app.get("/api/logout", (req: Request, res: Response, next: NextFunction) => {

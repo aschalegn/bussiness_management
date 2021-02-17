@@ -16,6 +16,7 @@
   border: 2px solid #a10808;
   border-radius: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
