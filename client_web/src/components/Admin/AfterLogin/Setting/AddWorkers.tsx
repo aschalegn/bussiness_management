@@ -4,8 +4,9 @@ import { baseURL } from '../../../../utils/index';
 import {
   TextField, FormControl, Select, MenuItem, InputLabel
 } from '@material-ui/core';
-import AdminNav from '../../AppBar/AdminNav';
+
 import "./AddWorkers.css"
+import AdminNav from '../../../Layouts/AppBar/AdminNav';
 export default function AddWorkers() {
   const [name, setName] = React.useState('');
   const [phone, setPhone] = React.useState('');
@@ -51,7 +52,7 @@ export default function AddWorkers() {
 
   return (
     <>
-      <AdminNav location="הוספת עובד"/>
+      {/* <AdminNav location="הוספת עובד"/> */}
       <form onSubmit={setNewWorker} className="AddWorkers">
         <TextField
           required
@@ -76,7 +77,6 @@ export default function AddWorkers() {
             <MenuItem value={"manager"}>מנהל</MenuItem>
           </Select>
         </FormControl>
-
         <TextField
           required
           autoFocus

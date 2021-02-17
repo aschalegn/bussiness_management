@@ -46,7 +46,6 @@ export default function Weekly({ appointments }: Props) {
                 )}
             </article>
             <article className="board">
-
                 {user.workers[1].availableTimes.map((time, i) =>
                     <div key={time} className="hour">
                         <div className="time">{time}</div>

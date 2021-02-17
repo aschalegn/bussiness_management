@@ -1,9 +1,11 @@
 import { NextFunction, Request, Response } from "express"
 import jwt from "jsonwebtoken";
+import { Business } from "../model/Bussiness";
 const secretKey = "123!@#";
 
-const tokenise = (body: any, type: string) => {
-    const token = jwt.sign({ body, type }, secretKey);
+const tokenise = (id: any, type: string) => {
+    const info = { id, type }
+    const token = jwt.sign(info, secretKey);
     return token;
 }
 
@@ -15,13 +17,13 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
     next();
 }
 
-const parseToken = (req: Request, res: Response, next: NextFunction) => {
+const parseToken = async (req: Request, res: Response, next: NextFunction) => {
     const cookie = req.cookies.appointU;
     if (cookie) {
-        const info = jwt.decode(cookie);
-        return res.status(200).send(info);
+        let info = jwt.decode(cookie);
+        res.locals.info = info;
+        next();
     }
-    return res.status(204).end();
 }
 
 

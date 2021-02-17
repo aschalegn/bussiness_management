@@ -12,7 +12,7 @@ const businessSchema = new Schema({
     logo: String,
     poster: String,
     joinDate: String,
-    times: [{ apenAt: String, closeAt: String }],
+    times: { openAt: String, closeAt: String },
     phones: [],
     about: String,
     socialMedia: [{ name: String, link: String }],
@@ -21,7 +21,8 @@ const businessSchema = new Schema({
         times: [{ openAt: String, closeAt: String, jump: Number }],
         availableTimes: [String],
         role: { type: String, enum: ["worker", "manager"] },
-        skills: [String]
+        skills: [String],
+        password: String
     }],
     appointments: [{
         type: mongoose.Types.ObjectId,

@@ -7,13 +7,14 @@ export const userContext = createContext({
         _id: '',
         type: '',
         name: '',
+        phones: [""],
+        email: '',
+        times: { openAt: '', closeAt: '' },
         workers: [{ availableTimes: [] }],
         appointments: [{}]
     },
-
     signUp: (body: any) => { },
     signIn: (email: string, password: string) => { },
-
     signUpClient: (fullName: any, phone: any) => { },
     signInClient: (phone: string) => { },
     signOut: () => { }
@@ -40,6 +41,8 @@ export default function UserProvider(props: any) {
         axios.get(`${baseURL}isUser`, { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
+                    console.log(res);
+                    
                     const type = res.data.type
                     const payload = { ...res.data.body, type }
                     { userDispatch({ type: "SIGN_UP", payload: payload }); }
