@@ -21,14 +21,21 @@ class AppointmentContreller {
 
     makeByClient = async (bussinessId: string, data: any, userId: string) => {
         data.client = userId;
+        console.log(data);
+        
         const appointment = new Appointment(data);
         const client = await Client.findById(userId);
         if (await client) {
-            client.appointments.push(appointment);
+            // console.log(client);
+            await client.appointments.push(appointment);
             const business = await Business.findById(bussinessId);
-            business.appointments.push(appointment);
+            
+            await business.appointments.push(appointment);
+           
             await business.save();
+            console.log(await business);
             await client.save();
+           
             await appointment.save();
             // return appointmentEmitter.emit("made", bussinessId, appointment);
             return appointment;
@@ -37,9 +44,13 @@ class AppointmentContreller {
 
     getByClient = async (userId: string) => {
         const client = await Client.findById(userId)
+            .select("client")
+            .populate({
+                path: "appointments",
+                populate: { path: "appointments" }
+            });
         if (await client) {
-            console.log(client.appointments);
-            return true
+            return client
         } else {
             console.log('error get all');
 
@@ -74,41 +85,33 @@ class AppointmentContreller {
         }
     }
 
-    update = async (appointmentId: string) => {
-        return true
+    update = async (appointmentId: string, body: any) => {
+        const appointment = await Appointment.findByIdAndUpdate(appointmentId, body);
+        console.log(appointment);
+
+        return appointment;
     }
 
     delete = async (appointmentId: string) => {
-        const appointment = await Appointment.findById(appointmentId);
+        const appointment = await Appointment.findByIdAndDelete(appointmentId);
+
         if (await appointment) {
             console.log(appointment);
+
             const client = await Client.findById(appointment.client);
-            client.appointments.filter((ap: string) => { return ap !== appointmentId });
-            const business = await Client.findById(appointment.business);
-            business.appointments.filter((ap: string) => { return ap !== appointmentId });
-            appointment.delete(); //? works
+            const deletefromClient = await client.appointments.filter((ap: string) => { return ap !== appointmentId });
+            const business = await Business.findById(appointment.business);
+            const deletefromBusiness = await business.appointments.filter((ap: string) => { return ap !== appointmentId });
+            // appointment.delete(); //? works
+            client.appointments = deletefromClient;
+            business.appointments = deletefromBusiness;
             client.save();
             business.save();
-            appointmentEmitter.emit("deleted", appointmentId);
+            // appointmentEmitter.emit("deleted", appointmentId);
             return appointment;
         }
         return false;
     }
 }
-
-
-// const getAllapoointmentbyclientId = (req: Request, res: Response) => {
-//     const { userId } = req.params;
-//     return Client.findById(userId)
-//         .then((appointment: any) => {
-//             console.log(appointment);
-
-//             // res.status(200).send(appointment);
-//         })
-//         .catch((err: any) => {
-//             console.log(err);
-//             // res.status(500);
-//         });
-// }
 
 export { AppointmentContreller };

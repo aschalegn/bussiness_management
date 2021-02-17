@@ -7,12 +7,13 @@ import moment from "moment";
 function Date(props) {
     const [selectedDate, setDate] = useState(moment());
     const [inputValue, setInputValue] = useState(moment().format("YYYY-MM-DD"));
-    const { getUserDate } = props;
+    const { getUserDate ,filterTimes} = props;
 
     const onDateChange = (date, value) => {
         setDate(date);
         setInputValue(value);
         getUserDate(value);
+        filterTimes();
     };
 
     const dateFormatter = (str) => {

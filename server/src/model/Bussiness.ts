@@ -12,13 +12,13 @@ const businessSchema = new Schema({
     logo: String,
     poster: String,
     joinDate: String,
-    times: [{ apenAt: String, closeAt: String }],
+    times: { apenAt: String, closeAt: String },
     phones: [],
     about: String,
     socialMedia: [{ name: String, link: String }],
     workers: [{
         id: String, name: String, phone: String,
-        times: [{ openAt: String, closeAt: String, jump: Number }],
+        times: { openAt: String, closeAt: String, jump: Number },
         availableTimes: [String],
         role: { type: String, enum: ["worker", "manager"] },
         skills: [String]

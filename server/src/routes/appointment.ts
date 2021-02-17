@@ -4,30 +4,13 @@ import { appointmentEmitter } from '../eventsNotification/Appointments';
 import { Appointment } from '../model/Appointment';
 const router = Router();
 
-// router.get("/:userId", (req: Request, res: Response, next: any) => {
-//     const { userId } = req.params;
-//     console.log(userId);
-
-//     Client.findById(userId, (err: any, appointments: any) => {
-//         if (err) {
-//             res.status(500).send({ msg: err.message });
-//         } else {
-//             console.log(appointments);
-
-//         }
-//     })
-// })
-
 router.get("/client/:userId", (req, res) => {
     const { userId } = req.params;
     new AppointmentContreller()
         .getByClient(userId)
-        .then(appointment => {
-            if (appointment) {
-                console.log(appointment);
-                const appoint = Appointment.find({ appointment }).populate("appointments")
-                console.log(appoint);
-
+        .then(appointments => {
+            if (appointments) {
+                res.status(200).send(appointments);
             }
         }).catch(err => {
             console.log(err);
@@ -56,17 +39,21 @@ router.post("/:bussinessId/:userId", (req, res) => {
         .then(appointment => {
             if (appointment) return res.status(201).send(appointment);
         }).catch(err => {
-            console.log(err);
+            console.log(err, 'error');
             return res.status(500).send("didnot add");
         });
 });
 
 router.patch("/:id", (req, res) => {
     let { id } = req.params;
+    let body = req.body
     new AppointmentContreller()
-        .update(id)
+        .update(id, body)
         .then(appointment => {
-            if (appointment) return res.status(200).send("updated sucssesfully");
+            if (appointment) {
+                console.log('success');
+                res.send(appointment)
+            }
         })
     return res.status(500).send("issues while updaying the appointment");
 });
@@ -76,9 +63,9 @@ router.delete("/:id", (req, res) => {
     new AppointmentContreller()
         .delete(id)
         .then(appointment => {
-            if (appointment) return res.status(200).send("deleted sucssesfully");
+            // if (appointment) return res.status(200).send("deleted sucssesfully");
         });
-    return res.status(500).send("issues while deleting the appointment");
+    // return res.status(500).send("issues while deleting the appointment");
 });
 
 export default router;

@@ -39,15 +39,19 @@ const logIn = async (email: any, password: any, res: Response) => {
 
 const addWorker = async (req: Request, res: Response) => {
     const worker = req.body;
+    worker.times = {
+        openAt: req.body.openAt,
+        closeAt: req.body.closeAt,
+        jump: req.body.jump
+    }
     const availableTimes = addSetAvailable(worker)
     worker.availableTimes = availableTimes;
     const { id } = req.params;
-    worker.id = uuidv4();
 
     Business.findById(id, (err: any, b: any) => {
         if (err) { console.log(err); }
         b.workers.push(worker);
-        b.save();
+         b.save();
         return res.status(200).send(worker)
     });
 }

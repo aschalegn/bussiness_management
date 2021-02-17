@@ -1,25 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './clientHome.css';
+import { userContext } from '../../../context/User';
+
 
 import MakeAppointment from "../AfterLogin/MakeAppointment";
-
+import AllAppointmentByClient from "../AfterLogin/AllAppointment";
+import FutureAppointment from "../AfterLogin/FutureAppointment";
 
 
 
 const Home = () => {
+    const { signOut } = useContext(userContext)
 
-    const [open, setOpen] = React.useState(false);
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-    const handleClickClose = () => {
-        setOpen(false);
-    };
+ 
     return (
         <>
             <header>
+                <button onClick={signOut}>יציאה</button>
                 <img src="https://media.istockphoto.com/photos/everything-should-be-perfect-picture-id522305300?b=1&k=6&m=522305300&s=170667a&w=0&h=s6xDPtJSyFXOhqH9K0K7XLM1_Z3xah8YZD5ND6YOOO8=" id="businessPhoto" alt="businessPhoto" />
                 <img src="./logo.jpg" id="businessLogo" alt="logo" />
             </header>
@@ -31,11 +29,11 @@ const Home = () => {
 
 
                     <div className="grid-item">
-                        <MakeAppointment />
+                        <AllAppointmentByClient />
                     </div>
 
                     <div className="grid-item">
-                        <MakeAppointment />
+                        <FutureAppointment />
                     </div>
 
                     <div className="grid-item">

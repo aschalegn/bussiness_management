@@ -11,5 +11,4 @@ router.get('/signIn/:businessId', (req: Request, res: Response, next: any) => {
     login(req, res, next);
 });
 
-
 export default router;

@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext , Fragment} from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-
-import { createStyles, Theme, makeStyles, Button, List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { userContext } from '../../../context/User';
 import HomeClient from '../../Client/HomePage/home';
 import HomeAdmin from '../../Admin/AfterLogin';
@@ -12,7 +11,7 @@ import SignUp from '../../Client/Register';
 import Home from '../../AppointU';
 import MakeAppointment from '../../Client/AfterLogin/MakeAppointment';
 import AddWorkers from '../../Layouts/Admin/Setting/AddWorkers';
-import AllAppointmentByClient from '../../Client/AfterLogin/AllAppointment';
+import FutureAppointment from '../../Client/AfterLogin/FutureAppointment';
 import ForgoPassword from '../../Admin/AfterLogin/forgoPassword/';
 import Reset from '../../Admin/AfterLogin/forgoPassword/Reset';
 import Admin from '../Admin';
@@ -20,25 +19,11 @@ import Appointments from '../../Admin/AfterLogin/Appointments/index';
 import AppointmentsProvider from '../../../context/Appointments';
 import Live from '../../Admin/AfterLogin/Appointments/Live';
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            flexGrow: 1,
-        },
-        menuButton: {
-            marginRight: theme.spacing(2),
-        },
-        title: {
-            flexGrow: 1,
-        },
-    }),
-);
 type Anchor = 'right';
 
 export default function Navbar() {
-    const classes = useStyles();
     const [state, setState] = React.useState({ right: false });
-    const { user, signOut } = useContext(userContext);
+    const { user } = useContext(userContext);
     const toggleDrawer = (anchor: Anchor, open: boolean) => (
         event: React.KeyboardEvent | React.MouseEvent,
     ) => {
@@ -51,76 +36,6 @@ export default function Navbar() {
         setState({ ...state, [anchor]: open });
     };
 
-    const listAdmin = (anchor: Anchor) => (
-        <div
-            role="presentation"
-            onClick={toggleDrawer(anchor, false)}
-            onKeyDown={toggleDrawer(anchor, false)}
-        >
-
-            <List>
-                <ListItem button>
-                    <ListItemIcon>logo</ListItemIcon>
-                    <ListItemText primary={'AppointU'} />
-                </ListItem>
-
-            </List>
-            <Divider />
-            <List>
-                <ListItem>
-                    <ListItemText>
-                        <Link to='/6028e4f2ed8a283230f4bc6c'>דף בית</Link>
-                    </ListItemText>
-                </ListItem>
-                <ListItem>
-                    <ListItemText>
-                        <Link to='/6028e4f2ed8a283230f4bc6c/addworkers'>הוספת עובדים</Link>
-                    </ListItemText>
-                </ListItem>
-                <ListItem>
-                    <ListItemText>
-                        <Button onClick={signOut}>SIGN_OUT</Button>
-                    </ListItemText>
-                </ListItem>
-            </List>
-        </div>
-
-    );
-    const listClient = (anchor: Anchor) => (
-        <div
-            role="presentation"
-            onClick={toggleDrawer(anchor, false)}
-            onKeyDown={toggleDrawer(anchor, false)}
-        >
-
-            <List>
-                <ListItem button>
-                    <ListItemIcon>logo</ListItemIcon>
-                    <ListItemText primary={'AppointU'} />
-                </ListItem>
-
-            </List>
-            <Divider />
-            <List>
-                <ListItem>
-                    <ListItemText>
-                        <Link to='/6028e4f2ed8a283230f4bc6c'>דף בית</Link>
-                    </ListItemText>
-                </ListItem>
-                <ListItem>
-                    <ListItemText>
-                        <Link to='/6028e4f2ed8a283230f4bc6c/makeappointment'>קביעת תורים</Link>
-                    </ListItemText>
-                </ListItem>
-                <ListItem>
-                    <ListItemText>
-                        <Button onClick={signOut}>SIGN_OUT</Button>
-                    </ListItemText>
-                </ListItem>
-            </List>
-        </div>
-
-    );
     const list = (anchor: Anchor) => (
         <div
             role="presentation"
@@ -174,26 +89,6 @@ export default function Navbar() {
     return (
         <div>
             <Router>
-                {/* <AppBar position="static">
-                    <Toolbar>
-                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" >
-
-                            {(['right'] as Anchor[]).map((anchor) => (
-                                <React.Fragment key={anchor}>
-                                    <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
-                                    <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
-                                        {!user ?
-                                            list(anchor)
-                                            : user.type === 'client' ? listClient(anchor)
-                                                : listAdmin(anchor)
-                                        }
-                                    </Drawer>
-                                </React.Fragment>
-                            ))}
-                        </IconButton>
-                    </Toolbar>
-                </AppBar> */}
-
                 <Switch>
                     {!user ?
                         <>
@@ -207,11 +102,13 @@ export default function Navbar() {
                         </>
                         :
                         user.type === 'client' ?
-                            <>
-                                <Route exact path='/6028e4f2ed8a283230f4bc6c' component={HomeClient} />
-                                <Route exact path='/6028e4f2ed8a283230f4bc6c/makeappointment' component={MakeAppointment} />
-                                <Route exact path='/6028e4f2ed8a283230f4bc6c/allappointmentbyclient' component={AllAppointmentByClient} />
-                            </>
+                            <AppointmentsProvider>
+                                <Fragment>
+                                    <Route exact path='/6028e4f2ed8a283230f4bc6c' component={HomeClient} />
+                                    <Route exact path='/6028e4f2ed8a283230f4bc6c/makeappointment' component={MakeAppointment} />
+                                    <Route exact path='/6028e4f2ed8a283230f4bc6c/FutureAppointment' component={FutureAppointment} />
+                                </Fragment>
+                            </AppointmentsProvider>
                             : user.type === 'business' ?
                                 <AppointmentsProvider>
                                     <Admin>
