@@ -69,8 +69,12 @@ app.get("/api/isUser", parseToken, (req: Request, res: Response, next: NextFunct
             })
     }
     if (type === "client") {
-        Client.findById(id).select(" -password")
-            .then((c: any) => {
+        Client.findById(id).select(" -password ")
+        .populate({
+            path: "businesses",
+            populate: { path: "businesses" }
+        })
+        .then((c: any) => {
                 res.status(200).send({ body: c, type })
             })
     }

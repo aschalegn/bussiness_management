@@ -17,6 +17,7 @@ import ForgoPassword from '../../Admin/AfterLogin/forgoPassword/';
 import Reset from '../../Admin/AfterLogin/forgoPassword/Reset';
 import Admin from '../Admin';
 import Appointments from '../../Admin/AfterLogin/Appointments/index';
+import Appointment from '../../Client/AfterLogin/appointment';
 import AppointmentsProvider from '../../../context/Appointments';
 import Live from '../../Admin/AfterLogin/Appointments/Live';
 import Main from '../../Admin/AfterLogin/Setting';
@@ -26,6 +27,7 @@ type Anchor = 'right';
 export default function Navbar() {
     const [state, setState] = React.useState({ right: false });
     const { user } = useContext(userContext);
+
     const toggleDrawer = (anchor: Anchor, open: boolean) => (
         event: React.KeyboardEvent | React.MouseEvent,
     ) => {
@@ -107,7 +109,7 @@ export default function Navbar() {
                             <AppointmentsProvider>
                                 <Fragment>
                                     <Route exact path='/6028e4f2ed8a283230f4bc6c' component={HomeClient} />
-                                    <Route exact path='/6028e4f2ed8a283230f4bc6c/makeappointment' component={MakeAppointment} />
+                                    <Route exact path='/6028e4f2ed8a283230f4bc6c/Appointment' component={Appointment} />
                                     <Route exact path='/6028e4f2ed8a283230f4bc6c/FutureAppointment' component={FutureAppointment} />
                                 </Fragment>
                             </AppointmentsProvider>

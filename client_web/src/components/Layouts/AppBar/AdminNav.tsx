@@ -1,8 +1,6 @@
-import axios from 'axios';
 import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 import { userContext } from '../../../context/User';
-import { baseURL } from '../../../utils';
 import "./AdminNav.css";
 type Props = {
     location?: string

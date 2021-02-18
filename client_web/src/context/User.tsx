@@ -11,7 +11,8 @@ export const userContext = createContext({
         email: '',
         times: { openAt: '', closeAt: '' },
         workers: [{ availableTimes: [], _id: '', name: '' }],
-        appointments: [{}]
+        appointments: [{}],
+        businesses:[{workers:[{_id:'',name:'',availableTimes:[]}]}]
     },
     signUp: (body: any) => { },
     signIn: (email: string, password: string) => { },

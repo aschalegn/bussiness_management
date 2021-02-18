@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
+
 export default function MakeAppointment() {
 
     const classes = useStyles();
@@ -31,13 +32,12 @@ export default function MakeAppointment() {
     const [allWorkers, setAllWorkers] = useState<any[]>([]);
     const [open, setOpen] = React.useState(false);
     const [time, setTime] = useState('');
-    // const [workerSelected, setWorkerSelected] = useState({ availableTimes: [], name: '' });
+    const [workerSelected, setWorkerSelected] = useState({ availableTimes: [], name: '' });
     const [date, setDate] = useState('');
     const [turns, setTurns] = useState<any[]>([]);
     const { user } = useContext(userContext);
 
-    let workerSelected = { availableTimes: [], name: '' }
-
+    // let workerSelected = { availableTimes: [], name: '' }
 
     useEffect(() => {
         getAppointments("6028e4f2ed8a283230f4bc6c");
@@ -68,8 +68,10 @@ export default function MakeAppointment() {
                 return w._id === event.target.value
             });
             console.log(filterWorkerById[0]);
+            setWorkerSelected(filterWorkerById[0])
+            // workerSelected = filterWorkerById[0];
+            console.log(workerSelected.name);
             
-            workerSelected = filterWorkerById[0];
             // filterTimes();
         }
         if (event.target.name === 'time') {
@@ -83,7 +85,9 @@ export default function MakeAppointment() {
             barber: workerSelected.name,
             date,
             time
-        };
+        };      
+        console.log(body.barber);
+          
         axios.post(`${baseURL}appointment/6028e4f2ed8a283230f4bc6c/${user._id}`, body)
             .then(res => {
                 if (res.status === 201) {
@@ -106,7 +110,7 @@ export default function MakeAppointment() {
             const element = allTurns[i];
             for (let j = 0; j < appointments.length; j++) {
                 const caught = appointments[j];
-                console.log(element , caught.time );
+                // console.log(element , caught.time );
                 // console.log(caught.date ,date );
                 // console.log(caught.barber ,workerSelected.name );
                 if (element === caught.time && caught.date === date && caught.barber === workerSelected.name) {
