@@ -2,16 +2,8 @@ import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
 import moment from "moment";
 import { userContext } from '../../../context/User';
 import { appointmentContext } from '../../../context/Appointments';
-import MakeAppointment from './MakeAppointment';
-import { th } from 'date-fns/locale';
-interface IAppointment {
-    client: { fullName: string },
-    barber: string,
-    date: string,
-    time: string,
-    style: string,
-    bussinesses: string,
-};
+import {IAppointment} from '../../../interfaces';
+
 
 export default function Appointment() {
 
