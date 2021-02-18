@@ -1,5 +1,5 @@
-import express, { NextFunction, Request, response, Response } from 'express';
-const app = express();
+import express, { NextFunction, Request, Response } from 'express';
+import { server, app, io } from "./util";
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -105,6 +105,6 @@ mongoose.connect(db, {
     });
 
 const PORT = process.env.PORT || 1000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`);
 });

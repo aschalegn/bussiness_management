@@ -1,6 +1,13 @@
-import { NextFunction, Request, Response } from "express"
+import express, { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { Business } from "../model/Bussiness";
+import http from "http";
+export const app = express();
+export const server = http.createServer(app);
+// import socket from ;
+export const io = require("socket.io")(server, {
+    origin: "*"
+});
+
 const secretKey = "123!@#";
 
 const tokenise = (id: any, type: string) => {
@@ -25,6 +32,5 @@ const parseToken = async (req: Request, res: Response, next: NextFunction) => {
         next();
     }
 }
-
 
 export { tokenise, authenticate, parseToken }

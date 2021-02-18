@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Info from './Info';
-import AddWorkers from './AddWorkers';
+import AddWorkers from '../Workers/AddWorkers';
 import AdminNav from '../../../Layouts/AppBar/AdminNav';
 import LogoAndPoster from './LogoAndPoster';
 
