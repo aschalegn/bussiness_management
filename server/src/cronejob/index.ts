@@ -1,6 +1,6 @@
 import crone from 'node-cron';
-// import { ICronJob } from '../interfaces/CroneJob';
 import { CronJob } from '../model/CronJob';
+
 export const setSchedualForSms = (croneJob: any, bussinessId: string) => {
     const { month, day, hour, minute, year } = croneJob.cron;
     crone.schedule(`0 ${minute} ${hour} ${day} ${month} ${year}`, () => {

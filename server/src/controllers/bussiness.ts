@@ -4,6 +4,7 @@ import { Business } from '../model/Bussiness';
 import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment';
 import { tokenise } from '../util';
+import { IBusiness } from '../interfaces/Business';
 
 const addBussiness = async (req: Request, res: Response) => {
     const body = req.body;
@@ -22,13 +23,26 @@ const addBussiness = async (req: Request, res: Response) => {
 
 const logIn = async (email: any, password: any, res: Response) => {
     if (email) {
-        const business = await Business.findOne({ email });
+        const business = await Business.find({ $or: [{ email: email }, { "workers.email": email }] }).select("-appointments");
         if (await business) {
-            const isPasswordMatch = comparePassword(password, business.password);
-            if (isPasswordMatch) {
-                const token = tokenise(business._id, "business");
-                res.cookie("appointU", token);
-                return res.status(200).send({ body: business, type: "business" });
+            let b = business[0]
+            if (b.email === email) {
+                const isPasswordMatch = comparePassword(password, b.password);
+                if (isPasswordMatch) {
+                    const token = tokenise(b._id, "business");
+                    res.cookie("appointU", token);
+                    return res.status(200).send({ body: b, type: "business" });
+                }
+            }
+            else {
+                const worker = b.workers.find((w: any) => w.email === email);
+                const isPasswordMatch = comparePassword(password, worker.password);
+                if (isPasswordMatch) {
+                    const token = tokenise(b._id, "business");
+                    res.cookie("appointU", token);
+                    console.log(worker);
+                    return res.status(200).send({ body: worker, type: "business" });
+                }
             }
             return res.status(500).send("password does not match");
         }
@@ -38,21 +52,26 @@ const logIn = async (email: any, password: any, res: Response) => {
 
 const addWorker = async (req: Request, res: Response) => {
     const worker = req.body;
-    worker.times = {
-        openAt: req.body.openAt,
-        closeAt: req.body.closeAt,
-        jump: req.body.jump
-    }
-    const availableTimes = addSetAvailable(worker)
-    worker.availableTimes = availableTimes;
-    const { id } = req.params;
+    const emailExist = await isEmailExists(worker.email);
+    if (!emailExist) {
+        worker.password = hashPassword(worker.password);
+        worker.times = {
+            openAt: worker.openAt,
+            closeAt: worker.closeAt,
+            jump: worker.jump
+        }
+        const availableTimes = addSetAvailable(worker)
+        worker.availableTimes = availableTimes;
+        const { id } = req.params;
 
-    Business.findById(id, (err: any, b: any) => {
-        if (err) { console.log(err); }
-        b.workers.push(worker);
-         b.save();
-        return res.status(200).send(worker)
-    });
+        Business.findById(id, (err: any, b: any) => {
+            if (err) { console.log(err); }
+            b.workers.push(worker);
+            b.save();
+            return res.status(200).send(worker)
+        });
+    }
+
 }
 
 const getAvailableTimes = (req: Request, res: Response) => {
@@ -71,7 +90,6 @@ const updateDetails = async (id: string, body: any) => {
     console.log(body);
     const updated = await Business.findByIdAndUpdate(id, body, { new: true });
     if (await updated) {
-        // console.log(updated);
         return updated
     }
     return false

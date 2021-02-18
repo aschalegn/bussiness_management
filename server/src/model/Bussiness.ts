@@ -17,12 +17,14 @@ const businessSchema = new Schema({
     about: String,
     socialMedia: [{ name: String, link: String }],
     workers: [{
-        id: String, name: String, phone: String,
         times: { openAt: String, closeAt: String, jump: Number },
         availableTimes: [String],
         role: { type: String, enum: ["worker", "manager"] },
+        permitions: [],
         skills: [String],
-        password: String
+        password: String,
+        phone: String,
+        email: String
     }],
     appointments: [{
         type: mongoose.Types.ObjectId,

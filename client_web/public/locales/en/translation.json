@@ -1,0 +1,21 @@
+{
+    "title": "",
+    "exit": "exit",
+    "adminNav": {
+        "currentTurn": "live appointments",
+        "turns": "appointments list",
+        "workers": "workers",
+        "settings": "settings",
+        "statistics": "staticstics",
+        "socialmedia": "social media",
+        "makeAppointment": "make appointment"
+    },
+    
+    "clientNav": {
+        "turns": "תורים",
+        "settings": "הגדרות",
+        "navigate": "נווט אל העסק",
+        "contact": "צור קשר",
+        "socialmedia": "social media"
+    }
+}

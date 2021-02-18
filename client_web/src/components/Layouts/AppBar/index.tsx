@@ -1,4 +1,4 @@
-import React, { useContext , Fragment} from 'react';
+import React, { useContext, Fragment } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { List, Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { userContext } from '../../../context/User';
@@ -11,16 +11,16 @@ import SignUp from '../../Client/Register';
 import Home from '../../AppointU';
 import MakeAppointment from '../../Client/AfterLogin/MakeAppointment';
 import FutureAppointment from '../../Client/AfterLogin/FutureAppointment';
-import AddWorkers from '../../Admin/AfterLogin/Setting/AddWorkers';
-import AllAppointmentByClient from '../../Client/AfterLogin/AllAppointment';
+import AddWorkers from '../../Admin/AfterLogin/Workers/AddWorkers';
+import WorkersHome from '../../Admin/AfterLogin/Workers/index';
 import ForgoPassword from '../../Admin/AfterLogin/forgoPassword/';
 import Reset from '../../Admin/AfterLogin/forgoPassword/Reset';
 import Admin from '../Admin';
+import Worker from '../Worker';
 import Appointments from '../../Admin/AfterLogin/Appointments/index';
 import AppointmentsProvider from '../../../context/Appointments';
 import Live from '../../Admin/AfterLogin/Appointments/Live';
 import Main from '../../Admin/AfterLogin/Setting';
-
 type Anchor = 'right';
 
 export default function Navbar() {
@@ -112,17 +112,27 @@ export default function Navbar() {
                                 </Fragment>
                             </AppointmentsProvider>
                             : user.type === 'business' ?
-                                <AppointmentsProvider>
-                                    <Admin>
-                                        <Route exact path='/:bussinesId' component={HomeAdmin} />
-                                        <Route exact path='/6028e4f2ed8a283230f4bc6c/settings' component={Main} />
-                                        <Route exact path='/:bussinesId/addWorkers' component={AddWorkers} />
-                                        <Route exact path='/:bussinesId/appointments' component={Appointments} />
-                                        <Route exact path='/:bussinesId/live' component={Live} />
-                                    </Admin>
-                                </AppointmentsProvider>
+                                <>
+                                    {user.role === 'worker' ?
+                                        <Worker>
+                                            
+                                        </Worker>
+                                        :
+                                        <AppointmentsProvider>
+                                            <Admin>
+                                                <Route exact path='/:bussinesId' component={HomeAdmin} />
+                                                <Route exact path='/6028e4f2ed8a283230f4bc6c/settings' component={Main} />
+                                                <Route exact path='/:bussinesId/addWorkers' component={AddWorkers} />
+                                                <Route exact path='/:bussinesId/workers' component={WorkersHome} />
+                                                <Route exact path='/:bussinesId/appointments' component={Appointments} />
+                                                <Route exact path='/:bussinesId/live' component={Live} />
+                                            </Admin>
+                                        </AppointmentsProvider>
+                                    }
+                                </>
                                 :
                                 <>
+                                    hgvghv
                                     <h1>404 page</h1>
                                 </>
                     }

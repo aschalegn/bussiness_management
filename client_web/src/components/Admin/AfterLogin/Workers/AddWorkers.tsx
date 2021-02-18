@@ -15,6 +15,8 @@ export default function AddWorkers() {
   const [closeAt, setCloseAt] = React.useState('');
   const [jump, setJump] = React.useState('');
   const [skills, setSkills] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [email, setEmail] = React.useState('');
 
   const handleChangeOnSelect = (event: any) => {
     if (event.target.name === 'role') {
@@ -34,7 +36,9 @@ export default function AddWorkers() {
       closeAt,
       jump,
       role,
-      skills
+      skills,
+      password,
+      email
     }
 
     axios.patch(`${baseURL}business/setting/addWorker/6028e4f2ed8a283230f4bc6c`, data)
@@ -87,7 +91,26 @@ export default function AddWorkers() {
           fullWidth
           onChange={e => setPhone(e.target.value)}
         />
-
+        <TextField
+          required
+          autoFocus
+          margin="dense"
+          id="email"
+          label="אימייל"
+          type="email"
+          fullWidth
+          onChange={e => setEmail(e.target.value)}
+        />
+        <TextField
+          required
+          autoFocus
+          margin="dense"
+          id="password"
+          label="סיסמה"
+          type="password"
+          fullWidth
+          onChange={e => setPassword(e.target.value)}
+        />
         <TextField
           autoFocus
           margin="dense"
@@ -95,7 +118,7 @@ export default function AddWorkers() {
           label="כישורים"
           type="text"
           fullWidth
-          onChange={e => setPhone(e.target.value)}
+          onChange={e => setSkills(e.target.value)}
         />
 
         <TextField

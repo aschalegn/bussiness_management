@@ -8,15 +8,15 @@ export default function Live() {
     const { appointments } = useContext(appointmentContext);
     const { user } = useContext(userContext);
 
-    const live: {}[] = [];
+    const live: Array<string> = [];
     const getThreeAp = () => {
         let now = moment().format("HH:mm");
         const firstAvailable = moment(user.workers[1].availableTimes[0], "HH:mm").format("HH:mm");
-
-        if (now < firstAvailable) {
-            live.push(user.workers[1].availableTimes[0]);
-            live.push(user.workers[1].availableTimes[1]);
-            live.push(user.workers[1].availableTimes[2]);
+        if (now > firstAvailable) {
+            for (let i = 0; i < 3; i++) {
+                const element = user.workers[1].availableTimes[i];
+                live.push(element);
+            }
         }
         else {
             for (let i = 0; i < appointments.length; i++) {

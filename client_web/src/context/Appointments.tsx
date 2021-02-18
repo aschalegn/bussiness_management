@@ -1,15 +1,15 @@
 import axios from 'axios';
 import React, { createContext, useState, useReducer, useEffect } from 'react';
 import { baseURL } from '../utils';
-
-interface IAppointment {
-    client: { fullName: string },
-    barber: string,
-    date: string,
-    time: string,
-    style: string,
-    bussiness: string,
-};
+import { IAppointment } from '../interfaces'
+// interface IAppointment {
+//     client: { fullName: string },
+//     barber: string,
+//     date: string,
+//     time: string,
+//     style: string,
+//     bussiness: string,
+// };
 
 const appointments: Array<IAppointment> = [];
 type Props = { children: JSX.Element };

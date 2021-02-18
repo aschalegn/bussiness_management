@@ -3,6 +3,8 @@ import { appointmentEmitter } from "../eventsNotification/Appointments";
 import { Appointment } from "../model/Appointment"
 import { Business } from "../model/Bussiness";
 import { Client } from "../model/Client";
+import moment from "moment";
+
 class AppointmentContreller {
     // ! non register user
     makeByBussines = async (bussinessId: string, data: any, clientId: string) => {
@@ -22,22 +24,21 @@ class AppointmentContreller {
     makeByClient = async (bussinessId: string, data: any, userId: string) => {
         data.client = userId;
         console.log(data);
-        
         const appointment = new Appointment(data);
         const client = await Client.findById(userId);
         if (await client) {
             // console.log(client);
             await client.appointments.push(appointment);
             const business = await Business.findById(bussinessId);
-            
+
             await business.appointments.push(appointment);
-           
+
             await business.save();
             console.log(await business);
             await client.save();
-           
+
             await appointment.save();
-            // return appointmentEmitter.emit("made", bussinessId, appointment);
+            appointmentEmitter.emit("made", bussinessId, appointment);
             return appointment;
         } else return false;
     }
@@ -58,10 +59,11 @@ class AppointmentContreller {
     }
 
     getByBusiness = async (userId: string) => {
-        const business = await Business.findById(userId)
+        const business = await Business.findById(userId, {})
             .select("appointments, workers")
             .populate({
                 path: "appointments",
+                //  match: { date: date }
                 populate: { path: "client" }
             });
         if (await business) {
@@ -70,12 +72,23 @@ class AppointmentContreller {
             console.log('error get all');
         }
     }
+    // Array<string>
+    getByBusinessAgr = async (id: string, date: any) => {
+        const business = await Business.findById(id)
+            .select("appointments")
+            .populate({
+                path: "appointments",
+                match: { date: date }
+            });
+        return business;
+    }
 
-    getWeekly = async (userId: string) => {
+    getWeekly = async (userId: string, date: any) => {
         const business = await Business.findById(userId)
             .select("appointments")
             .populate({
                 path: "appointments",
+                match: { date: date },
                 populate: { path: "client" }
             });
         if (await business) {
@@ -113,5 +126,13 @@ class AppointmentContreller {
         return false;
     }
 }
+
+// new AppointmentContreller()
+//     .getByBusinessAgr("6028e4f2ed8a283230f4bc6c",
+//     ["2021-02-16", "2021-02-18","2021-02-17" ]
+//     )
+//     .then(aps => {
+//         console.log(aps);
+//     });
 
 export { AppointmentContreller };

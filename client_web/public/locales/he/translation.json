@@ -1,0 +1,20 @@
+{
+    "title": "",
+    "exit": "יציאה",
+    "adminNav": {
+        "currentTurn": "תורים עכשיו",
+        "turns": "תורים",
+        "workers": "עובדים",
+        "settings": "הגדרות",
+        "statistics": "סיכום",
+        "socialmedia": "רשתות חברתיות",
+        "makeAppointment": "קבע תורים"
+    },
+    "clientNav": {
+        "turns": "תורים",
+        "settings": "הגדרות",
+        "navigate": "נווט אל העסק",
+        "contact": "צור קשר",
+        "socialmedia": "רשתות חברתיות"
+    }
+}
