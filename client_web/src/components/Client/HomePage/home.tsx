@@ -4,7 +4,7 @@ import './clientHome.css';
 import { userContext } from '../../../context/User';
 
 
-import MakeAppointment from "../AfterLogin/MakeAppointment";
+import Appointment from "../AfterLogin/appointment";
 import AllAppointmentByClient from "../AfterLogin/AllAppointment";
 import FutureAppointment from "../AfterLogin/FutureAppointment";
 
@@ -24,7 +24,7 @@ const Home = () => {
             <main className="client">
                 <section className="grid-container">
                     <div className="grid-item">
-                        <MakeAppointment />
+                        <Appointment />
                     </div>
 
 
@@ -37,15 +37,15 @@ const Home = () => {
                     </div>
 
                     <div className="grid-item">
-                        <MakeAppointment />
+                        <Appointment />
                     </div>
 
                     <div className="grid-item">
-                        <MakeAppointment />
+                        <Appointment />
                     </div>
 
                     <div className="grid-item">
-                        <MakeAppointment />
+                        <Appointment />
                     </div>
                 </section>
 

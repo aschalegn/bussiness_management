@@ -6,11 +6,12 @@ import { userContext } from '../../../context/User';
 import Date from './Date';
 import {
     Button, Dialog, DialogActions, DialogTitle,
-    createStyles, makeStyles, Theme, Grid,
-    FormControl, Select, MenuItem, InputLabel
+    createStyles, makeStyles, Theme
 } from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import "./makeAppointment.css";
+import moment from "moment";
+
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -24,32 +25,38 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
+type Props = { open: boolean, setOpen: any, worker: any, selectDay: any, selectTime: any }
 
-export default function MakeAppointment() {
+export default function MakeAppointment({ open, setOpen, worker, selectDay, selectTime }: Props) {
 
     const classes = useStyles();
     const { appointments, getAppointments } = useContext(appointmentContext);
     const [allWorkers, setAllWorkers] = useState<any[]>([]);
-    const [open, setOpen] = React.useState(false);
+    // const [open, setOpen] = React.useState(false);
     const [time, setTime] = useState('');
     const [workerSelected, setWorkerSelected] = useState({ availableTimes: [], name: '' });
     const [date, setDate] = useState('');
     const [turns, setTurns] = useState<any[]>([]);
     const { user } = useContext(userContext);
+    const [inputValue, setInputValue] = useState(moment().format("YYYY-MM-DD"));
 
     // let workerSelected = { availableTimes: [], name: '' }
+    console.log(worker, selectDay, selectTime);
+
 
     useEffect(() => {
         getAppointments("6028e4f2ed8a283230f4bc6c");
+        setInputValue(String(selectDay))
         return () => {
 
         }
     }, []);
 
-    const handleClickOpen = () => {
-        getAvailableTimes();
-        setOpen(true);
-    };
+    // const handleClickOpen = () => {
+    //     getAvailableTimes();
+    //     setOpen(true);
+    // };
+
     const handleClickClose = () => {
         setOpen(false);
     };
@@ -71,7 +78,7 @@ export default function MakeAppointment() {
             setWorkerSelected(filterWorkerById[0])
             // workerSelected = filterWorkerById[0];
             console.log(workerSelected.name);
-            
+
             // filterTimes();
         }
         if (event.target.name === 'time') {
@@ -82,12 +89,12 @@ export default function MakeAppointment() {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         const body = {
-            barber: workerSelected.name,
-            date,
-            time
-        };      
-        console.log(body.barber);
-          
+           barber: worker.name,
+           date: inputValue,
+           time: selectTime
+        };
+        console.log(body);
+
         axios.post(`${baseURL}appointment/6028e4f2ed8a283230f4bc6c/${user._id}`, body)
             .then(res => {
                 if (res.status === 201) {
@@ -100,7 +107,7 @@ export default function MakeAppointment() {
             })
     }
 
-  
+
 
     const filterTimes = () => {
         console.log(workerSelected);
@@ -116,7 +123,7 @@ export default function MakeAppointment() {
                 if (element === caught.time && caught.date === date && caught.barber === workerSelected.name) {
                     allTurns.splice(i, 1);
 
-                } 
+                }
             }
         }
         console.log(allTurns);
@@ -125,51 +132,27 @@ export default function MakeAppointment() {
 
     return (
         <>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+            {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                 קביעת תור
-            </Button>
+            </Button> */}
+            {console.log(inputValue, 'inputValue')}
             <Dialog open={open} onClose={handleClickClose} aria-labelledby="form-dialog-title">
                 <NavigateNextIcon onClick={handleClickClose} />
                 <DialogTitle id="form-turn-title"> הוספת תור</DialogTitle>
                 <form onSubmit={handleSubmit}>
-                    <FormControl className={classes.formControl}>
-                        <InputLabel id="demo-simple-select-label">בחר ספר</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            name='barber'
-                            onChange={handleChange}
-                            required
-                        >
-                            {allWorkers.map((worker: any, i: any) =>
-                                <MenuItem key={i} value={worker._id}>{worker.name}</MenuItem>
-                            )}
-                        </Select>
-                    </FormControl>
-                    <Grid container justify="space-around">
-                        <Date getUserDate={setDate} filterTimes={filterTimes}/>
-                    </Grid>
-                    <FormControl className={classes.formControl}>
-                        <InputLabel id="demo-simple-select-label">בחר שעה</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            name='time'
-                            onChange={handleChange}
-                            required
-                        >
-                            {turns.map((time: any, i: any) =>
-                                <MenuItem key={i} value={time}>{time}</MenuItem>
-                            )}
-                        </Select>
-                    </FormControl>
+                    התור הנבחר הוא <br />
+             בתאריך: {selectDay}<br />
+             בשעה: {selectTime}<br />
+             אצל: {worker.name}<br />
+                    {console.log(worker.name, selectTime, selectDay)}
+
                     <DialogActions>
 
                         <Button onClick={handleClickClose} color="secondary">
                             חזור
                         </Button>
                         <Button type='submit' color="primary">
-                            קבע
+                            לאישור
                         </Button>
                     </DialogActions>
                 </form>
