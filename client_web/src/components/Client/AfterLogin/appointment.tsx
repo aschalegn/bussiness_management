@@ -104,7 +104,7 @@ export default function Appointment() {
                             setSelectDay(arr[2])
                             setSelectTime(time)
                             let element = e.target
-                            console.log(element.hasChildNodes());
+                            // console.log(element.hasChildNodes());
                         }}>
                             {appointments.map((ap, i) => {
                                 const date = Number(new Date(ap.date).getDate());

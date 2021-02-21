@@ -34,7 +34,8 @@ interface IWorker {
     role: string
     skills: [string]
     password: string
-    email: string
+    email: string,
+    profile: string
 }
 
 interface IClient {

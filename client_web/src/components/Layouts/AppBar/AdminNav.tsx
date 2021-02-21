@@ -12,8 +12,12 @@ export default function AdminNav({ location }: Props) {
         <header className='adminHeader'>
             {location === "home" ?
                 <>
-                    <h3>{user.name}</h3>
-                    <button onClick={signOut}>יציאה</button>
+                    <div>
+                        <button onClick={signOut} className="exitAccount">יציאה</button>
+                    </div>
+                    <div>
+                        <h3>{user.name}</h3>
+                    </div>
                 </>
                 :
                 <>

@@ -1,0 +1,26 @@
+.workersPage {
+    margin-top: 15px;
+    display: flex;
+}
+
+.workersPage .worker {
+    text-align: center;
+    border: 1px solid black;
+    margin: 5px;
+    min-width: 150px;
+}
+
+.workersPage .worker img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.worker button {
+    width: 100%;
+    height: 100%;
+}
+
+.worker .MuiSvgIcon-root {
+    color: green;
+}

@@ -9,7 +9,6 @@ import Register from '../../Admin/Register';
 import SignIn from '../../Client/Login';
 import SignUp from '../../Client/Register';
 import Home from '../../AppointU';
-import MakeAppointment from '../../Client/AfterLogin/MakeAppointment';
 import FutureAppointment from '../../Client/AfterLogin/FutureAppointment';
 import AddWorkers from '../../Admin/AfterLogin/Workers/AddWorkers';
 import WorkersHome from '../../Admin/AfterLogin/Workers/index';

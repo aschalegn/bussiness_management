@@ -11,7 +11,7 @@ export default function Appointments() {
     useEffect(() => {
         getAppointments("6028e4f2ed8a283230f4bc6c");
         return () => {
-            
+
         }
     }, []);
     return (
@@ -19,7 +19,8 @@ export default function Appointments() {
             <AdminNav location="תורים" />
 
             <ul className="filterBy">
-                <li onClick={() => { setFilter("day") }}>יומי /</li>
+                <li onClick={() => { setFilter("day") }}>יומי </li>
+                <li>/</li>
                 <li onClick={() => { setFilter("week") }}>שבועי</li>
             </ul>
             <article>

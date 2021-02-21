@@ -1,0 +1,8 @@
+.imagesTab img {
+    width: 200px;
+    height: 300px;
+}
+
+.imagesTab label, input {
+    width: 100px;
+}
