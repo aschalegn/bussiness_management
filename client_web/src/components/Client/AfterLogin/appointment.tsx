@@ -1,8 +1,9 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
+import React, { ChangeEvent, Children, useContext, useEffect, useState } from 'react'
 import moment from "moment";
 import { userContext } from '../../../context/User';
 import { appointmentContext } from '../../../context/Appointments';
 import MakeAppointment from './MakeAppointment';
+import { isClassElement } from 'typescript';
 
 
 export default function Appointment() {
@@ -103,9 +104,9 @@ export default function Appointment() {
                             setOpen(!open)
                             setSelectDay(arr[2])
                             setSelectTime(time)
-                            let element = e.target
-                            console.log(element.hasChildNodes());
+                          
                         }}>
+                            
                             {appointments.map((ap, i) => {
                                 const date = Number(new Date(ap.date).getDate());
                                 if (date === days[2] && time === ap.time && ap.barber === worker.name) {
