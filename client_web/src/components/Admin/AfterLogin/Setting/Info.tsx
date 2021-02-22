@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { FormEvent, useContext } from 'react'
 import { userContext } from '../../../../context/User';
 import { baseURL } from '../../../../utils';
-
+import  "./Info.module.css";
 export default function Info() {
     const { user } = useContext(userContext);
     const initialState = {
@@ -25,7 +25,7 @@ export default function Info() {
     };
 
     return (
-        <div>
+        <div className="info">
             <h3>מידע כללי</h3>
             <form onSubmit={handleSubmit}>
                 <div className="group">

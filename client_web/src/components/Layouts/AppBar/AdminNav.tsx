@@ -21,8 +21,14 @@ export default function AdminNav({ location }: Props) {
                 </>
                 :
                 <>
-                    <Link to="/6028e4f2ed8a283230f4bc6c">Back Button</Link>
-                    <h3>{location}</h3>
+                    <div>
+                        <button className="exitAccount">
+                            <Link to="/6028e4f2ed8a283230f4bc6c">Back Button</Link>
+                        </button>
+                    </div>
+                    <div>
+                        <h3>{location}</h3>
+                    </div>
                 </>
             }
             <img src="../logo.jpg" alt="logo" />

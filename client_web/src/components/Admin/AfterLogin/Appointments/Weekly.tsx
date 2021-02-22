@@ -40,22 +40,12 @@ export default function Weekly({ appointments }: Props) {
     <section className="weekly">
 
       <article className="workers">
-        {/* {user.workers.map(worker =>
+        {user.workers.map(worker =>
           <div className="worker">
-            {user.workers.length}
-            {worker.name}
+            <img src={worker.profile} alt={worker.name} />
+            <p>{worker.name}</p>
           </div>
-        )} */}
-        <div className="worker">
-          <img src="https://cdn.pixabay.com/photo/2016/02/11/16/59/dog-1194083__340.jpg" alt="" />
-        </div>
-        <div className="worker">
-          <img src="https://cdn.pixabay.com/photo/2016/02/11/16/59/dog-1194083__340.jpg" alt="" />
-
-        </div>
-        <div className="worker">
-          <img src="https://cdn.pixabay.com/photo/2016/02/11/16/59/dog-1194083__340.jpg" alt="" />
-        </div>
+        )}
       </article>
       <table className="board">
         <tr className="days">
