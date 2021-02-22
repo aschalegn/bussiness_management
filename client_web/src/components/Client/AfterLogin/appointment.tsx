@@ -1,13 +1,11 @@
-import React, { ChangeEvent, Children, useContext, useEffect, useState } from 'react'
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
 import moment from "moment";
 import { userContext } from '../../../context/User';
 import { appointmentContext } from '../../../context/Appointments';
 import MakeAppointment from './MakeAppointment';
-import { isClassElement } from 'typescript';
-
+import './appointment.css';
 
 export default function Appointment() {
-
     const d: number[] = [];
     const s: string[] = [];
     const [days, setDays] = useState(d);
@@ -16,7 +14,7 @@ export default function Appointment() {
     const [selectTime, setSelectTime] = useState('');
     const [arr, setArr] = useState(s);
     const [isCatch, setCatch] = useState(false);
-    
+
     const { appointments, getAppointments } = useContext(appointmentContext);
     useEffect(() => {
         getAppointments("6028e4f2ed8a283230f4bc6c");
@@ -65,18 +63,68 @@ export default function Appointment() {
                     <option key={worker._id} value={worker._id} >{worker.name}</option>
                 )}
             </select>
-            <article className="days">
-                <div>שעה / תאריך</div>
-                {days.map((day, i) =>
-                    <div key={i}>{day}</div>
-                )}
-            </article>
-            <article className="board">
+
+            <table className='board'>
+                <tr className="days">
+                    {/* <th>שעה / תאריך</th> */}
+                    {days.map((day, i) =>
+                        <th key={i}>{day}</th>
+                    )}
+                </tr>
 
                 {worker.availableTimes.map((time: any, i) =>
-                    <div key={time} className="hour"  >
-                        <div className="time">{time}</div>
-                        <div className="appointment" onClick={() => {
+                    <tr key={time} className="hour"  >
+                        <td className="times" onClick={() => {
+                            setOpen(!open)
+                            setSelectDay(arr[0])
+                            setSelectTime(time)
+                        }}>   {appointments.map((ap, i) => {
+                            const date = Number(new Date(ap.date).getDate());
+                            if (date === days[0] && time === ap.time && ap.barber === worker.name) {
+
+                                return <p className='time'>{time}</p>
+                                //  <p key={i} className="red" onChange={() => setCatch(true)}>תפוס</p>
+                            }
+                             
+                        })}
+                           <p className='time'>{time}רטקר</p>
+                        </td>
+                        <td className="times" onClick={() => {
+                            setOpen(!open)
+                            setSelectDay(arr[1])
+                            setSelectTime(time)
+                        }}>
+                            <p className='time'>{time}</p>
+                        </td>
+                        <td className="times" onClick={() => {
+                            setOpen(!open)
+                            setSelectDay(arr[2])
+                            setSelectTime(time)
+                        }}>
+                            <p className='time'>{time}</p>
+                        </td>
+                        <td className="times" onClick={() => {
+                            setOpen(!open)
+                            setSelectDay(arr[3])
+                            setSelectTime(time)
+                        }}>
+                            <p className='time'>{time}</p>
+                        </td>
+                        <td className="times" onClick={() => {
+                            setOpen(!open)
+                            setSelectDay(arr[4])
+                            setSelectTime(time)
+                        }}>
+                            <p className='time'>{time}</p>
+                        </td>
+                        <td className="times" onClick={() => {
+                            setOpen(!open)
+                            setSelectDay(arr[5])
+                            setSelectTime(time)
+                        }}>
+                            <p className='time'>{time}</p>
+                        </td>
+                        {/* <td className="appointment" onClick={() => {
                             setOpen(!open)
                             setSelectDay(arr[0])
                             setSelectTime(time)
@@ -84,11 +132,11 @@ export default function Appointment() {
                             {appointments.map((ap, i) => {
                                 const date = Number(new Date(ap.date).getDate());
                                 if (date === days[0] && time === ap.time && ap.barber === worker.name) {
-                                    return <p key={i} className="red" onChange={()=>setCatch(true)}>תפוס</p>
+                                    return <p key={i} className="red" onChange={() => setCatch(true)}>תפוס</p>
                                 }
                             })}
-                        </div>
-                        <div className="appointment" onClick={() => {
+                        </td>
+                        <td className="appointment" onClick={() => {
                             setOpen(!open)
                             setSelectDay(arr[1])
                             setSelectTime(time)
@@ -99,22 +147,22 @@ export default function Appointment() {
                                     return <p key={i} className="red" >תפוס</p>
                                 }
                             })}
-                        </div>
-                        <div className="appointment" onClick={(e) => {
+                        </td>
+                        <td className="appointment" onClick={(e) => {
                             setOpen(!open)
                             setSelectDay(arr[2])
                             setSelectTime(time)
-                          
+
                         }}>
-                            
+
                             {appointments.map((ap, i) => {
                                 const date = Number(new Date(ap.date).getDate());
                                 if (date === days[2] && time === ap.time && ap.barber === worker.name) {
                                     return <p key={i} className="red">תפוס</p>
                                 }
                             })}
-                        </div>
-                        <div className="appointment" onClick={() => {
+                        </td>
+                        <td className="appointment" onClick={() => {
                             setOpen(!open)
                             setSelectDay(arr[3])
                             setSelectTime(time)
@@ -126,8 +174,8 @@ export default function Appointment() {
                                 }
                             })}
 
-                        </div>
-                        <div className="appointment" onClick={() => {
+                        </td>
+                        <td className="appointment" onClick={() => {
                             setOpen(!open)
                             setSelectDay(arr[4])
                             setSelectTime(time)
@@ -138,8 +186,8 @@ export default function Appointment() {
                                     return <p key={i} className="red">תפוס</p>
                                 }
                             })}
-                        </div>
-                        <div className="appointment" onClick={() => {
+                        </td>
+                        <td className="appointment" onClick={() => {
                             setOpen(!open)
                             setSelectDay(arr[5])
                             setSelectTime(time)
@@ -150,10 +198,10 @@ export default function Appointment() {
                                     return <p key={i} className="red">תפוס</p>
                                 }
                             })}
-                        </div>
-                    </div>
+                        </td> */}
+                    </tr>
                 )}
-            </article>
+            </table>
 
 
         </section >

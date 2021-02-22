@@ -21,6 +21,7 @@ class AppointmentContreller {
         return false;
     }
 
+
     makeByClient = async (bussinessId: string, data: any, userId: string) => {
         data.client = userId;
         console.log(data);

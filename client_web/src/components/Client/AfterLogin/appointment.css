@@ -1,0 +1,21 @@
+table {
+    caption-side: bottom;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+.days th{
+    padding: 7px 0 !important;
+}
+.times{
+        padding: 0 5px !important;
+        font-weight: bold;
+        font-size: large;
+        border-bottom: none ;
+}
+.time{
+    margin: 10px 0 0 0;
+    background: #b2dab2;
+    border-radius: 40px;
+    padding: 2px 18px;
+}

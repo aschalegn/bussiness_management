@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import moment from "moment";
 import { userContext } from '../../../../context/User';
-import {IAppointment} from "../../../../interfaces"
+import { IAppointment } from "../../../../interfaces"
 
 type Props = {
   appointments: IAppointment[]
@@ -38,47 +38,61 @@ export default function Weekly({ appointments }: Props) {
 
   return (
     <section className="weekly">
-      <select title="select worker" name="" id="" onChange={handleChange}>
-        {user.workers.map(worker =>
-          <option value={worker._id}>{worker.name}</option>
-        )}
-      </select>
-      <article className="days">
-        <div>שעה / תאריך</div>
-        {days.map((day, i) =>
-          <div key={i}>{day}</div>
-        )}
+
+      <article className="workers">
+        {/* {user.workers.map(worker =>
+          <div className="worker">
+            {user.workers.length}
+            {worker.name}
+          </div>
+        )} */}
+        <div className="worker">
+          <img src="https://cdn.pixabay.com/photo/2016/02/11/16/59/dog-1194083__340.jpg" alt="" />
+        </div>
+        <div className="worker">
+          <img src="https://cdn.pixabay.com/photo/2016/02/11/16/59/dog-1194083__340.jpg" alt="" />
+
+        </div>
+        <div className="worker">
+          <img src="https://cdn.pixabay.com/photo/2016/02/11/16/59/dog-1194083__340.jpg" alt="" />
+        </div>
       </article>
-      <article className="board">
+      <table className="board">
+        <tr className="days">
+          <th>שעה / תאריך</th>
+          {days.map((day, i) =>
+            <th key={i}>{day}</th>
+          )}
+        </tr>
         {/* {console.log(worker)} */}
         {worker.availableTimes.map((time, i) =>
-          <div key={time} className="hour" >
-            <div className="time">{time}</div>
-            <div className="appointment">
+          <tr key={time} className="hour" >
+            <td className="time">{time}</td>
+            <td className="appointment">
               {appointments.map(ap => {
                 const date = Number(new Date(ap.date).getDate());
                 if (date === days[0] && time === ap.time && ap.barber === worker.name) {
                   return <p className="red">{ap.client.fullName}</p>
                 }
               })}
-            </div>
-            <div className="appointment">
+            </td>
+            <td className="appointment">
               {appointments.map(ap => {
                 const date = Number(new Date(ap.date).getDate());
                 if (date === days[1] && time === ap.time && ap.barber === worker.name) {
                   return <p className="red">{ap.client.fullName}</p>
                 }
               })}
-            </div>
-            <div className="appointment">
+            </td>
+            <td className="appointment">
               {appointments.map(ap => {
                 const date = Number(new Date(ap.date).getDate());
                 if (date === days[2] && time === ap.time && ap.barber === worker.name) {
                   return <p className="red">{ap.client.fullName}</p>
                 }
               })}
-            </div>
-            <div className="appointment">
+            </td>
+            <td className="appointment">
               {appointments.map(ap => {
                 const date = Number(new Date(ap.date).getDate());
                 if (date === days[3] && time === ap.time && ap.barber === worker.name) {
@@ -90,26 +104,26 @@ export default function Weekly({ appointments }: Props) {
                     {ap.client.fullName}</p>
                 }
               })}
-            </div>
-            <div className="appointment">
+            </td>
+            <td className="appointment">
               {appointments.map(ap => {
                 const date = Number(new Date(ap.date).getDate());
                 if (date === days[4] && time === ap.time && ap.barber === worker.name) {
                   return <p className="red">{ap.client.fullName}</p>
                 }
               })}
-            </div>
-            <div className="appointment">
+            </td>
+            <td className="appointment">
               {appointments.map(ap => {
                 const date = Number(new Date(ap.date).getDate());
                 if (date === days[5] && time === ap.time && ap.barber === worker.name) {
                   return <p className="red">{ap.client.fullName}</p>
                 }
               })}
-            </div>
-          </div>
+            </td>
+          </tr>
         )}
-      </article>
+      </table>
     </section >
   )
 }

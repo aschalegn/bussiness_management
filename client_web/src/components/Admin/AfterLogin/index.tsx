@@ -9,10 +9,8 @@ import EqualizerIcon from '@material-ui/icons/Equalizer';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import QueueIcon from '@material-ui/icons/Queue';
-
+import "./Worker.css";
 import { Trans, useTranslation } from "react-i18next"
-
-
 
 const Home = () => {
     const { t, i18n } = useTranslation();
@@ -38,7 +36,7 @@ const Home = () => {
                     <div className="grid-item">
                         <QueueIcon />
                         <Link to="">
-                        <Trans i18nKey="adminNav.makeAppointment"></Trans>
+                            <Trans i18nKey="adminNav.makeAppointment"></Trans>
                         </Link>
                     </div>
                     <div className="grid-item">
@@ -66,7 +64,7 @@ const Home = () => {
                     </div>
                     <div className="grid-item">
                         <Link to="">
-                        <Trans i18nKey="adminNav.socialmedia"></Trans>
+                            <Trans i18nKey="adminNav.socialmedia"></Trans>
                         </Link>
                     </div>
                     <div className="grid-item">

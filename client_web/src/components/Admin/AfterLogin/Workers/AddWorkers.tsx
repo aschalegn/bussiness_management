@@ -154,6 +154,8 @@ export default function AddWorkers() {
             <MenuItem value={30}>30</MenuItem>
           </Select>
         </FormControl>
+        <label htmlFor="profile"></label>
+        <input type="file" name="profile" id="profile" title="profile" />
         <button onClick={setNewWorker} className="actionBtn">
           שמירת נתונים
         </button>

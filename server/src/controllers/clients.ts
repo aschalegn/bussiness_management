@@ -21,6 +21,7 @@ function register(req: any, res: any, next: any) {
             if (!business) {
                 return
             }
+    
 
             const user = new Client({ fullName, phone });
             if (user) {

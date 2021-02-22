@@ -4,6 +4,22 @@
     margin: auto;
 }
 
+.filterBy {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    margin: 10px auto;
+}
+
+.filterBy li {
+    list-style-type: none;
+    cursor: pointer;
+}
+
+.filterBy li:nth-child(2) {
+    cursor: default;
+}
+
 .Appointments table {
     width: 97%;
     margin: auto;
@@ -15,43 +31,45 @@
     margin: auto;
 }
 
-.days {
+.weekly .workers {
     display: flex;
-    align-items: center;
+    margin-bottom: 10px;
+   justify-content: center;
 }
 
-.days div {
-    border: 1px solid brown;
-    padding: 10px 0;
-    margin-right: 1px;
+.weekly .worker {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: teal;
+    margin-left: 10px;
 }
 
-.board {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 50px;
-}
-
-.board .hour {
-    display: flex;
-}
-
-.board .hour div.time {
-    background-color: #fff;
-    border: 1px solid brown;
-    margin-top: 1px;
-}
-.board .hour .appointment {
-    margin-right: 1px;
-    margin-top: 1px;
-    background-color: #0b680b;
-    min-height: 50px;
-}
-
-.red {
-    background-color: red;
-    height: 100%;
+.worker img {
     width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+table td {
+    border-bottom: 1px solid #dddada;
+    border-left: 1px solid brown;
+}
+
+.days th {
+    background-color: brown;
+    padding: 2% 0 !important;
+    font-weight: bold;
+    font-size: large;
+    border-left: 1px solid #802424;
+}
+
+.time {
+    padding: 1% 0 !important;
+    font-weight: bold;
+    font-size: large;
+    background-color: #dddada;
+    border-bottom: 1px solid #c9b9b9;
 }
 
 .Live {

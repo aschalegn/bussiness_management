@@ -1,5 +1,7 @@
 import { Request, Response, Router } from "express";
 import { addBussiness, addWorker, getAvailableTimes, logIn, updateDetails, updatePassword } from "../controllers/bussiness";
+import { uploadImage, uploadMulter } from "../controllers/images";
+import { Business } from "../model/Bussiness";
 
 const router = Router();
 
@@ -24,6 +26,27 @@ router.patch("/:id", (req, res) => {
         }).catch(err => {
             return res.status(500).end(err);
         });
+});
+
+router.patch("/files/:id", uploadMulter.fields([{ name: 'poster' }, { name: 'logo' }]), async (req, res) => {
+    const file: File[] = []
+    const { id } = req.params;
+    const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+    const { logo, poster } = files;
+    const business = await Business.findById(id);
+    if (await business) {
+
+        const logoUrl = logo[0].location;
+        if (logoUrl) {
+            business.logo = logoUrl;
+        }
+        const posterUrl = poster[0].location;
+        if (posterUrl) {
+            business.poster = posterUrl;
+        }
+        business.save();
+    }
+    res.send(files);
 });
 
 router.patch("/setting/addWorker/:id", (req, res) => {

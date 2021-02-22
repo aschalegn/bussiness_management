@@ -17,8 +17,8 @@ export default function Main() {
             <AdminNav location="הגדרות" />
             <Tabs value={value} onChange={handleChange} aria-label="tabs for settings">
                 <p onClick={() => { setValue(0) }}>מידע כללי</p>
-                <p onClick={() => { setValue(1) }}>עובדים</p>
-                <p onClick={() => { setValue(2) }}>תמונות</p>
+                <p onClick={() => { setValue(1) }}>תמונות</p>
+                <p onClick={() => { setValue(2) }}>v,rtu,/vusgu,</p>
             </Tabs>
             {value === 0 ?
                 <Info />
