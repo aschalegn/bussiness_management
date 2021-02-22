@@ -8,6 +8,7 @@ import './appointment.css';
 export default function Appointment() {
     const d: number[] = [];
     const s: string[] = [];
+    const a: any[] = []
     const [days, setDays] = useState(d);
     const [open, setOpen] = useState(false);
     const [selectDay, setSelectDay] = useState('');
@@ -55,6 +56,25 @@ export default function Appointment() {
         });
         setWorker(filterWorkerById[0])
     };
+
+    const filterTimes = (time: any,index:number) => {
+        let el: any
+        for (let i = 0; i < appointments.length; i++) {
+            const element = appointments[i];
+            const date = Number(new Date(element.date).getDate());
+            if (date === days[index] && time === element.time && element.barber === worker.name) {
+                el = <p className='catch' >{time}</p>
+                break;
+            }
+        }
+        return el
+    }
+
+    const clickHandler = (time:any,i:number) =>{
+        setOpen(!open)
+        setSelectDay(arr[i])
+        setSelectTime(time)
+    }
     return (
         <section className="weekly">
             {open ? <MakeAppointment open={open} setOpen={setOpen} worker={worker} selectDay={selectDay} selectTime={selectTime} /> : ''}
@@ -74,131 +94,25 @@ export default function Appointment() {
 
                 {worker.availableTimes.map((time: any, i) =>
                     <tr key={time} className="hour"  >
-                        <td className="times" onClick={() => {
-                            setOpen(!open)
-                            setSelectDay(arr[0])
-                            setSelectTime(time)
-                        }}>   {appointments.map((ap, i) => {
-                            const date = Number(new Date(ap.date).getDate());
-                            if (date === days[0] && time === ap.time && ap.barber === worker.name) {
+                        <td className="times">
+                       {filterTimes(time,0)? filterTimes(time,0): <p className='time' onClick={()=>clickHandler(time,0)}>{time}</p>}
+                        </td>
+                        <td className="times" onClick={() => clickHandler(time,1)}>
+                            {filterTimes(time,1)? filterTimes(time,1): <p className='time'>{time}</p>}
+                        </td>
+                        <td className="times" onClick={() => clickHandler(time,2)}>
+                            {filterTimes(time,2)? filterTimes(time,2): <p className='time'>{time}</p>}
+                        </td>
+                        <td className="times" onClick={() => clickHandler(time,3)}>
+                            {filterTimes(time,3)? filterTimes(time,3): <p className='time'>{time}</p>}
+                        </td>
+                        <td className="times" onClick={() => clickHandler(time,4)}>
+                            {filterTimes(time,4)? filterTimes(time,4): <p className='time'>{time}</p>}
+                        </td>
+                        <td className="times" onClick={() => clickHandler(time,5)}>
+                            {filterTimes(time,5)? filterTimes(time,5): <p className='time'>{time}</p>}
+                        </td>
 
-                                return <p className='time'>{time}</p>
-                                //  <p key={i} className="red" onChange={() => setCatch(true)}>תפוס</p>
-                            }
-                             
-                        })}
-                           <p className='time'>{time}רטקר</p>
-                        </td>
-                        <td className="times" onClick={() => {
-                            setOpen(!open)
-                            setSelectDay(arr[1])
-                            setSelectTime(time)
-                        }}>
-                            <p className='time'>{time}</p>
-                        </td>
-                        <td className="times" onClick={() => {
-                            setOpen(!open)
-                            setSelectDay(arr[2])
-                            setSelectTime(time)
-                        }}>
-                            <p className='time'>{time}</p>
-                        </td>
-                        <td className="times" onClick={() => {
-                            setOpen(!open)
-                            setSelectDay(arr[3])
-                            setSelectTime(time)
-                        }}>
-                            <p className='time'>{time}</p>
-                        </td>
-                        <td className="times" onClick={() => {
-                            setOpen(!open)
-                            setSelectDay(arr[4])
-                            setSelectTime(time)
-                        }}>
-                            <p className='time'>{time}</p>
-                        </td>
-                        <td className="times" onClick={() => {
-                            setOpen(!open)
-                            setSelectDay(arr[5])
-                            setSelectTime(time)
-                        }}>
-                            <p className='time'>{time}</p>
-                        </td>
-                        {/* <td className="appointment" onClick={() => {
-                            setOpen(!open)
-                            setSelectDay(arr[0])
-                            setSelectTime(time)
-                        }}>
-                            {appointments.map((ap, i) => {
-                                const date = Number(new Date(ap.date).getDate());
-                                if (date === days[0] && time === ap.time && ap.barber === worker.name) {
-                                    return <p key={i} className="red" onChange={() => setCatch(true)}>תפוס</p>
-                                }
-                            })}
-                        </td>
-                        <td className="appointment" onClick={() => {
-                            setOpen(!open)
-                            setSelectDay(arr[1])
-                            setSelectTime(time)
-                        }}>
-                            {appointments.map((ap, i) => {
-                                const date = Number(new Date(ap.date).getDate());
-                                if (date === days[1] && time === ap.time && ap.barber === worker.name) {
-                                    return <p key={i} className="red" >תפוס</p>
-                                }
-                            })}
-                        </td>
-                        <td className="appointment" onClick={(e) => {
-                            setOpen(!open)
-                            setSelectDay(arr[2])
-                            setSelectTime(time)
-
-                        }}>
-
-                            {appointments.map((ap, i) => {
-                                const date = Number(new Date(ap.date).getDate());
-                                if (date === days[2] && time === ap.time && ap.barber === worker.name) {
-                                    return <p key={i} className="red">תפוס</p>
-                                }
-                            })}
-                        </td>
-                        <td className="appointment" onClick={() => {
-                            setOpen(!open)
-                            setSelectDay(arr[3])
-                            setSelectTime(time)
-                        }}>
-                            {appointments.map((ap, i) => {
-                                const date = Number(new Date(ap.date).getDate());
-                                if (date === days[3] && time === ap.time && ap.barber === worker.name) {
-                                    return <p key={i} className="red">תפוס</p>
-                                }
-                            })}
-
-                        </td>
-                        <td className="appointment" onClick={() => {
-                            setOpen(!open)
-                            setSelectDay(arr[4])
-                            setSelectTime(time)
-                        }}>
-                            {appointments.map((ap, i) => {
-                                const date = Number(new Date(ap.date).getDate());
-                                if (date === days[4] && time === ap.time && ap.barber === worker.name) {
-                                    return <p key={i} className="red">תפוס</p>
-                                }
-                            })}
-                        </td>
-                        <td className="appointment" onClick={() => {
-                            setOpen(!open)
-                            setSelectDay(arr[5])
-                            setSelectTime(time)
-                        }}>
-                            {appointments.map((ap, i) => {
-                                const date = Number(new Date(ap.date).getDate());
-                                if (date === days[5] && time === ap.time && ap.barber === worker.name) {
-                                    return <p key={i} className="red">תפוס</p>
-                                }
-                            })}
-                        </td> */}
                     </tr>
                 )}
             </table>

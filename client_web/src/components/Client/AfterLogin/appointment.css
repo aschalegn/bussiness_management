@@ -8,14 +8,28 @@ table {
     padding: 7px 0 !important;
 }
 .times{
-        padding: 0 5px !important;
-        font-weight: bold;
-        font-size: large;
-        border-bottom: none ;
+    padding: 0 5px !important;
+    /* font-weight: 100; */
+    font-size: medium !important;
+    border-bottom: none;
 }
 .time{
     margin: 10px 0 0 0;
     background: #b2dab2;
     border-radius: 40px;
+    font-weight: 100;
+    font-size: medium !important;
     padding: 2px 18px;
+    cursor: pointer;
+}
+.time:hover{
+    background: #78ca78;
+}
+.catch{
+    margin: 10px 0 0 0;
+    background: #b1848488;
+    border-radius: 40px;
+}
+table td:last-of-type {
+    border-left:none;
 }
