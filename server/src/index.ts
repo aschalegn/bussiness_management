@@ -26,6 +26,10 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.get("/test", (req, res) => {
+    res.send("jkhgcfxchbjk");
+});
+
 app.use(cors({
     origin: "http://localhost:3000",
     credentials: true
@@ -71,11 +75,11 @@ app.get("/api/isUser", parseToken, (req: Request, res: Response, next: NextFunct
     }
     if (type === "client") {
         Client.findById(id).select(" -password ")
-        .populate({
-            path: "businesses",
-            populate: { path: "businesses" }
-        })
-        .then((c: any) => {
+            .populate({
+                path: "businesses",
+                populate: { path: "businesses" }
+            })
+            .then((c: any) => {
                 res.status(200).send({ body: c, type })
             })
     }

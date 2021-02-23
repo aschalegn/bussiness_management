@@ -29,13 +29,12 @@ router.patch("/:id", (req, res) => {
 });
 
 router.patch("/files/:id", uploadMulter.fields([{ name: 'poster' }, { name: 'logo' }]), async (req, res) => {
-    const file: File[] = []
+    const file: File[] = [];
     const { id } = req.params;
-    const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+    const files = req.files as { [fieldname: string]: Express.MulterS3.File[] };
     const { logo, poster } = files;
     const business = await Business.findById(id);
     if (await business) {
-
         const logoUrl = logo[0].location;
         if (logoUrl) {
             business.logo = logoUrl;
