@@ -21,7 +21,7 @@ function register(req: any, res: any, next: any) {
             if (!business) {
                 return
             }
-    
+
 
             const user = new Client({ fullName, phone });
             if (user) {
@@ -40,14 +40,17 @@ function register(req: any, res: any, next: any) {
 
 function login(req: any, res: any, next: any) {
     const { phone, businessId } = req.query;
+    console.log(phone, businessId);
+
     Client.findOne({ phone: phone }, function (err: any, user: any) {
         if (err) return res.status(500).send({ msg: err.message });
         else if (user) {
             const token = tokenise(user._id, "client");
             res.cookie("appointU", token);
             return res.status(200).send({ body: user, type: "client", business: businessId });
+        } else {
+            return res.status(401).send({ msg: 'The phone number ' + phone + ' is not associated with any account. please check and try again!' });
         }
-        return res.status(401).send({ msg: 'The phone number ' + phone + ' is not associated with any account. please check and try again!' });
     });
 }
 

@@ -7,6 +7,16 @@ table {
 .days th{
     padding: 7px 0 !important;
 }
+.days th {
+    background-color: brown;
+    font-weight: 500;
+    font-size: medium;
+    border-left: 1px solid #802424;
+}
+.dm{
+    font-weight: 100;
+    margin: 0;
+}
 .times{
     padding: 0 5px !important;
     /* font-weight: 100; */

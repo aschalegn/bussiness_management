@@ -46,7 +46,7 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  String uri = "10.8.1.75";
+  String uri = "172.20.10.3";
   void validateFormAndSendData() async {
     if (!_formKey.currentState.validate()) {
       return;
@@ -59,6 +59,7 @@ class _LoginFormState extends State<LoginForm> {
         headers: {'content-type': 'application/json'});
     print(res.statusCode);
     print(res.body);
+    Navigator.pushNamed(context, "/user");
   }
 
   @override

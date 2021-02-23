@@ -8,7 +8,9 @@ import './appointment.css';
 export default function Appointment() {
     const d: number[] = [];
     const s: string[] = [];
-    const a: any[] = []
+    const x: string[] = [];
+    const daysS: any[] = ['א', 'ב', 'ג', 'ד', 'ה', 'ו']
+    const [dM, setDM] = useState(x);
     const [days, setDays] = useState(d);
     const [open, setOpen] = useState(false);
     const [selectDay, setSelectDay] = useState('');
@@ -32,6 +34,7 @@ export default function Appointment() {
         const month = from_date.toDate().getMonth() + 1;
         const localDays = [];
         const temp = [];
+        const tmp1 = [];
         function checkDateX(x: any) {
             if (x < 10) {
                 return x = '0' + x
@@ -44,10 +47,13 @@ export default function Appointment() {
         for (let i = 0; i < 6; i++) {
             localDays.push(from_date.toDate().getDate() + i);
             const y = `${from_date.toDate().getFullYear()}-${checkDateX(month)}-${from_date.toDate().getDate() + i}`;
+            const tmp = `${from_date.toDate().getDate() + i}/${checkDateX(month)}`;
             temp.push(y);
+            tmp1.push(tmp)
         }
         setDays(localDays);
         setArr(temp);
+        setDM(tmp1);
     };
 
     const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -57,7 +63,7 @@ export default function Appointment() {
         setWorker(filterWorkerById[0])
     };
 
-    const filterTimes = (time: any,index:number) => {
+    const filterTimes = (time: any, index: number) => {
         let el: any
         for (let i = 0; i < appointments.length; i++) {
             const element = appointments[i];
@@ -70,7 +76,7 @@ export default function Appointment() {
         return el
     }
 
-    const clickHandler = (time:any,i:number) =>{
+    const clickHandler = (time: any, i: number) => {
         setOpen(!open)
         setSelectDay(arr[i])
         setSelectTime(time)
@@ -87,30 +93,30 @@ export default function Appointment() {
             <table className='board'>
                 <tr className="days">
                     {/* <th>שעה / תאריך</th> */}
-                    {days.map((day, i) =>
-                        <th key={i}>{day}</th>
+                    {daysS.map((day, i) =>
+                        <th key={i}>{day}<br /><p className='dm'>{dM[i]}</p> </th>
                     )}
                 </tr>
 
                 {worker.availableTimes.map((time: any, i) =>
                     <tr key={time} className="hour"  >
                         <td className="times">
-                       {filterTimes(time,0)? filterTimes(time,0): <p className='time' onClick={()=>clickHandler(time,0)}>{time}</p>}
+                            {filterTimes(time, 0) ? filterTimes(time, 0) : <p className='time' onClick={() => clickHandler(time, 0)}>{time}</p>}
                         </td>
-                        <td className="times" onClick={() => clickHandler(time,1)}>
-                            {filterTimes(time,1)? filterTimes(time,1): <p className='time'>{time}</p>}
+                        <td className="times" onClick={() => clickHandler(time, 1)}>
+                            {filterTimes(time, 1) ? filterTimes(time, 1) : <p className='time'>{time}</p>}
                         </td>
-                        <td className="times" onClick={() => clickHandler(time,2)}>
-                            {filterTimes(time,2)? filterTimes(time,2): <p className='time'>{time}</p>}
+                        <td className="times" onClick={() => clickHandler(time, 2)}>
+                            {filterTimes(time, 2) ? filterTimes(time, 2) : <p className='time'>{time}</p>}
                         </td>
-                        <td className="times" onClick={() => clickHandler(time,3)}>
-                            {filterTimes(time,3)? filterTimes(time,3): <p className='time'>{time}</p>}
+                        <td className="times" onClick={() => clickHandler(time, 3)}>
+                            {filterTimes(time, 3) ? filterTimes(time, 3) : <p className='time'>{time}</p>}
                         </td>
-                        <td className="times" onClick={() => clickHandler(time,4)}>
-                            {filterTimes(time,4)? filterTimes(time,4): <p className='time'>{time}</p>}
+                        <td className="times" onClick={() => clickHandler(time, 4)}>
+                            {filterTimes(time, 4) ? filterTimes(time, 4) : <p className='time'>{time}</p>}
                         </td>
-                        <td className="times" onClick={() => clickHandler(time,5)}>
-                            {filterTimes(time,5)? filterTimes(time,5): <p className='time'>{time}</p>}
+                        <td className="times" onClick={() => clickHandler(time, 5)}>
+                            {filterTimes(time, 5) ? filterTimes(time, 5) : <p className='time'>{time}</p>}
                         </td>
 
                     </tr>

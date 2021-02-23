@@ -2,25 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class SignUpForm extends StatefulWidget {
+class SignUp extends StatefulWidget {
   @override
-  _SignUpFormState createState() => _SignUpFormState();
+  _SignUpState createState() => _SignUpState();
 }
 
-class _SignUpFormState extends State<SignUpForm> {
+class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
-  String _name;
+  String _fullName;
   String _phone;
-  String _email;
-  String _password;
 
-  Widget _buildName() {
+  Widget _buildFullName() {
     return Container(
         height: 30,
         margin: EdgeInsets.fromLTRB(20, 20, 0, 20),
         child: TextFormField(
           style: TextStyle(fontSize: 16),
-          decoration: InputDecoration(labelText: "שם העסק"),
+          decoration: InputDecoration(labelText: "שם מלא"),
           cursorWidth: 3,
           validator: (value) {
             if (value.isEmpty) {
@@ -29,7 +27,7 @@ class _SignUpFormState extends State<SignUpForm> {
             return null;
           },
           onSaved: (value) {
-            _name = value;
+            _fullName = value;
           },
         ));
   }
@@ -55,68 +53,19 @@ class _SignUpFormState extends State<SignUpForm> {
         ));
   }
 
-  Widget _buildEmail() {
-    return Container(
-        height: 30,
-        margin: EdgeInsets.fromLTRB(20, 20, 0, 20),
-        child: TextFormField(
-          style: TextStyle(fontSize: 16),
-          decoration: InputDecoration(labelText: "אי-מייל"),
-          cursorWidth: 3,
-          keyboardType: TextInputType.emailAddress,
-          validator: (value) {
-            if (value.isEmpty) {
-              return "זהו שדה חובה";
-            }
-            return null;
-          },
-          onSaved: (value) {
-            _email = value;
-          },
-        ));
-  }
-
-  Widget _buildPassword() {
-    return Container(
-        height: 30,
-        margin: EdgeInsets.fromLTRB(20, 20, 0, 20),
-        child: TextFormField(
-          style: TextStyle(fontSize: 16),
-          textDirection: TextDirection.rtl,
-          decoration: InputDecoration(labelText: "סיסמה"),
-          cursorWidth: 3,
-          keyboardType: TextInputType.visiblePassword,
-          validator: (value) {
-            if (value.isEmpty) {
-              return "זהו שדה חובה";
-            }
-            if (value.length < 8) {
-              return "חייב להיות לפחות 8 תווים";
-            }
-            return null;
-          },
-          onSaved: (value) {
-            _password = value;
-          },
-        ));
-  }
-
-  String uri = "10.8.1.75";
+  String uri = "172.20.10.3";
   void validateFormAndSendData() async {
     if (!_formKey.currentState.validate()) {
       return;
     }
     _formKey.currentState.save();
-    print({_name, _phone, _email, _password});
+    print({_fullName,_phone});
 
     var body = {
-      "name": _name,
       "phone": _phone,
-      "email": _email,
-      "password": _password
     };
 
-    var res = await http.post("http://$uri:1000/api/business",
+    var res = await http.post("http://$uri:1000/api/client",
         headers: {'content-type': 'application/json'}, body: jsonEncode(body));
     print(res.body);
     Navigator.pushNamed(context, "/user");
@@ -140,10 +89,8 @@ class _SignUpFormState extends State<SignUpForm> {
                   textDirection: TextDirection.rtl,
                   child: Column(
                     children: [
-                      _buildName(),
+                      _buildFullName(),
                       _buildPhone(),
-                      _buildEmail(),
-                      _buildPassword(),
                       RaisedButton.icon(
                         onPressed: () => validateFormAndSendData(),
                         icon: Icon(Icons.check),
