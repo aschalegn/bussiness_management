@@ -48,7 +48,7 @@ class _LoginState extends State<Login> {
         "http://$uri:1000/api/client/signIn/6028e4f2ed8a283230f4bc6c?phone=$_phone",
         headers: {'content-type': 'application/json'});
     print(res.statusCode);
-    print(jsonDecode(res.body);
+    print(res.body);
     
     // Navigator.pushNamed(context, "/user");
   }

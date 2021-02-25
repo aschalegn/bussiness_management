@@ -1,0 +1,19 @@
+version: "3.4"
+services:
+  tor2u_v1_server:
+    container_name: tor2u_v1_server
+    restart: always
+    build:
+      context: ./server
+    ports:
+      - "1000:1000"
+
+  tor2u_v1_react_client:
+    container_name: tor2u_v1_react
+    restart: always
+    build:
+      context: ./client_web
+    ports:
+      - "80:80"
+    environment:
+      NODE_ENV: production
