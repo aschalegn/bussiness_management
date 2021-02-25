@@ -1,0 +1,176 @@
+.tou2U{
+    color: white;
+}
+.navbar{   
+     position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    z-index: 1111;
+    width: 100%;
+    top: 15px;
+}
+.navbar ul{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    height: 100%;
+}
+.navbar ul li{
+list-style: none;
+  padding: 0 15px;
+}
+.makeStyles-root-1{
+    position: relative;
+    max-width: 100% !important;
+    height: 400px;
+    overflow: hidden;
+}
+.makeStyles-root-1::after{
+background-color: rgba(0, 0, 0, 0.5);
+width: 100%;
+/* height: 100%; */
+top: 0;
+right: 0;
+left: 0;
+bottom: 0;
+content: '';
+position: absolute;
+}
+.mainHeader{
+    position: relative;
+}
+.mainTextHeader{
+    position: absolute;
+    top: 100px;
+    z-index: 1000;
+    color: white;
+    width: 100%;
+    text-align: center;
+}
+.btnMainHeader button{
+    color: white;
+    border: 1px solid rgb(185, 47, 47);
+    height: 6vh;
+margin: 23px 15px;
+}
+.caruselaImg img{
+max-width: 100% !important;
+/* height: 100%; */
+}
+
+.btnFotterSubmit button{
+    color: white;
+    border: 0px solid rgb(185, 47, 47);
+    box-shadow: 0px 1px 1px black;
+    height: 6vh;
+    margin: 23px 15px;
+}
+
+.services{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    color: black;
+    text-align: center;
+}
+.MuiSvgIcon-root{
+    color: black;
+    width: 20% !important;
+}
+.services article{
+    width: 32%;
+}
+.services article img{
+ width: 100%;
+ height: 55%;
+
+}
+
+footer{
+    background-color: brown;
+    height: 100%;
+    width: 100%;
+}
+
+footer form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 21px;
+}
+label +.MuiInput-formControl{
+     margin: 16px 0 0 15px !important;  
+}
+.MuiInputBase-input{
+    direction: rtl;
+ 
+}
+
+label + .MuiInputBase-input:focus{
+    color: white !important;
+}
+.MuiInputBase-input:focus{
+    color: white !important;
+}
+.MuiInputLabel-formControl {
+    top: 0;
+    right: 0;
+    left: unset  !important;
+    position: absolute;
+    transform: translate(0, 24px) scale(1);
+}
+
+.MuiFormLabel-root{
+    color: white !important;
+}
+
+.MuiInput-underline:after {
+    border-bottom: 2px solid #ffff !important;
+}
+
+.MuiInput-underline::before {
+    border-bottom: 0.5px solid #ffff !important;
+}
+
+.MuiButton-outlinedPrimary:hover {
+    border: 1px solid #ffff !important;
+    background-color: rgba(63, 81, 181, 0.04);
+}
+
+
+
+@media (max-width: 650px){
+    .mainHeader {
+        position: relative;
+        height: 240px;
+    }
+    .btnMainHeader button {
+        color: white;
+        border: 1px solid rgb(185, 47, 47);
+        height: 4vh;
+        margin: 7px 15px 0 15px;
+    }
+    .makeStyles-root-1::after {
+        background-color: rgba(0, 0, 0, 0.5);
+        width: 100%;
+        height: 56%;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        content: '';
+        position: absolute;
+    }
+    h1{
+        font-size: larger;
+    }
+    h4{
+        font-size: medium;
+    }
+}

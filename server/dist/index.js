@@ -28,6 +28,9 @@ util_1.app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+util_1.app.get("/test", function (req, res) {
+    res.send("jkhgcfxchbjk");
+});
 util_1.app.use(cors_1.default({
     origin: "http://localhost:3000",
     credentials: true
@@ -60,6 +63,19 @@ util_1.app.get("/api/sse/:businessId", function (req, res) {
 util_1.app.use("/api/business", bussiness_1.default);
 util_1.app.use('/api/client', clients_1.default);
 util_1.app.use('/api/appointment', appointment_1.default);
+util_1.app.get("/mobile/:type/:id", function (req, res) {
+    var _a = req.params, type = _a.type, id = _a.id;
+    if (type === "client") {
+        Client_1.Client.findById(id).select(" -password ")
+            .populate({
+            path: "businesses",
+            populate: { path: "businesses" }
+        })
+            .then(function (c) {
+            res.status(200).send({ body: c, type: type });
+        });
+    }
+});
 util_1.app.get("/api/isUser", util_2.parseToken, function (req, res, next) {
     var _a = res.locals.info, type = _a.type, id = _a.id;
     if (type === "business") {

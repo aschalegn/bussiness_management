@@ -38,20 +38,22 @@ function register(req: any, res: any, next: any) {
     });
 }
 
-function login(req: any, res: any, next: any) {
+async function login(req: any, res: any, next: any) {
     const { phone, businessId } = req.query;
-    console.log(phone, businessId);
+    const user = await Client.findOne({ phone: phone });
 
-    Client.findOne({ phone: phone }, function (err: any, user: any) {
-        if (err) return res.status(500).send({ msg: err.message });
-        else if (user) {
-            const token = tokenise(user._id, "client");
-            res.cookie("appointU", token);
-            return res.status(200).send({ body: user, type: "client", business: businessId });
-        } else {
-            return res.status(401).send({ msg: 'The phone number ' + phone + ' is not associated with any account. please check and try again!' });
-        }
-    });
+    if (await user) {
+        console.log(user, 'else');
+        const token = tokenise(user._id, "client");
+        res.cookie("appointU", token);
+        return res.status(200).send({ body: user, type: "client", business: businessId });
+    }
+
+    else {
+        console.log(user, phone, 'else if');
+        return res.status(401).send({ msg: 'The phone number ' + phone + ' is not associated with any account. please check and try again!' });
+    }
+
 }
 
 const deleteClient = (id: ObjectId) => { }

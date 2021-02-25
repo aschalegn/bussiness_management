@@ -1,0 +1,10 @@
+version: "2"
+services: 
+  tor2u_v1_server:
+    container_name: tor2u-v1
+    restart: always
+    build: .
+    ports: 
+      - "80:1000"
+  
+

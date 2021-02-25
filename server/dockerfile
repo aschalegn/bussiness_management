@@ -1,0 +1,21 @@
+FROM node:14
+
+WORKDIR /work/
+
+COPY ./package.json /work/package.json
+
+COPY ./tsconfig.json /work/tsconfig.json
+
+# install all depandancies
+RUN npm install
+RUN npm install -g typescript
+RUN npm install -g nodemon
+
+COPY ./src/ /work/src/
+COPY ./dist/ /work/dist/
+
+# RUN npm run tsc
+
+EXPOSE 1000
+
+CMD ["npm", "start"];

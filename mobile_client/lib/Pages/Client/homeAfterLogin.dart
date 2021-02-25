@@ -11,10 +11,11 @@ class HomeAfterLogin extends StatefulWidget {
   void getImgAndLogo() async {
 
     var res = await http.get(
-        "http://$uri:1000/api/client/signIn/6028e4f2ed8a283230f4bc6c",
+        "http://$uri:1000/api/client/signIn/service/1234567890",
         headers: {'content-type': 'application/json'});
+        
     print(res.statusCode);
-    print(res.body);
+    print('ndjgfgbkng'+ res.body);
   }
 
 class _HomeAfterLoginState extends State<HomeAfterLogin> {

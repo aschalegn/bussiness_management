@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
+
+import 'package:mobile_client/Pages/Services/storage.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -8,6 +11,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final SecureStorage secureStorage = SecureStorage();
   final _formKey = GlobalKey<FormState>();
   String _phone;
 
@@ -40,11 +44,13 @@ class _LoginState extends State<Login> {
     _formKey.currentState.save();
     print({_phone});
 
-    var res = await http.get("http://$uri:1000/api/client/signIn/services?phone=$_phone",
+    var res = await http.get(
+        "http://$uri:1000/api/client/signIn/6028e4f2ed8a283230f4bc6c?phone=$_phone",
         headers: {'content-type': 'application/json'});
     print(res.statusCode);
-    print(res.body);
-    Navigator.pushNamed(context, "/user");
+    print(jsonDecode(res.body);
+    
+    // Navigator.pushNamed(context, "/user");
   }
 
   @override

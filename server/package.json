@@ -5,14 +5,14 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "nodemon dist/index.js",
-    "tsc": "tsc -w",
+    "tsc": "tsc",
+    "tsc-dev": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/cookie-parser": "^1.4.2",
-    "@types/dotenv": "^8.2.0",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/node-cron": "^2.0.3",
     "@types/nodemailer": "^6.4.0",
@@ -41,8 +41,8 @@
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.9",
     "@types/express": "^4.17.11",
-    "@types/moment": "^2.13.0",
     "@types/mongoose": "^5.10.3",
-    "@types/multer": "^1.4.5"
+    "@types/multer": "^1.4.5",
+    "@types/multer-s3": "^2.7.9"
   }
 }

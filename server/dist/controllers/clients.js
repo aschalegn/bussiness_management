@@ -83,19 +83,30 @@ function register(req, res, next) {
 }
 exports.register = register;
 function login(req, res, next) {
-    var _a = req.query, phone = _a.phone, businessId = _a.businessId;
-    console.log(phone, businessId);
-    Client_1.Client.findOne({ phone: phone }, function (err, user) {
-        if (err)
-            return res.status(500).send({ msg: err.message });
-        else if (user) {
-            var token = util_1.tokenise(user._id, "client");
-            res.cookie("appointU", token);
-            return res.status(200).send({ body: user, type: "client", business: businessId });
-        }
-        else {
-            return res.status(401).send({ msg: 'The phone number ' + phone + ' is not associated with any account. please check and try again!' });
-        }
+    return __awaiter(this, void 0, void 0, function () {
+        var _a, phone, businessId, user, token;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    _a = req.query, phone = _a.phone, businessId = _a.businessId;
+                    return [4 /*yield*/, Client_1.Client.findOne({ phone: phone })];
+                case 1:
+                    user = _b.sent();
+                    return [4 /*yield*/, user];
+                case 2:
+                    if (_b.sent()) {
+                        console.log(user, 'else');
+                        token = util_1.tokenise(user._id, "client");
+                        res.cookie("appointU", token);
+                        return [2 /*return*/, res.status(200).send({ body: user, type: "client", business: businessId })];
+                    }
+                    else {
+                        console.log(user, phone, 'else if');
+                        return [2 /*return*/, res.status(401).send({ msg: 'The phone number ' + phone + ' is not associated with any account. please check and try again!' })];
+                    }
+                    return [2 /*return*/];
+            }
+        });
     });
 }
 exports.login = login;
