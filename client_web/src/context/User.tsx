@@ -52,7 +52,9 @@ export default function UserProvider(props: any) {
                     const payload = { ...res.data.body, type }
                     { userDispatch({ type: "SIGN_UP", payload: payload }); }
                 }
-            })
+            }).catch(err => {
+                console.log(err);
+            });
     }, []);
 
     const signUp = (body: any) => {
