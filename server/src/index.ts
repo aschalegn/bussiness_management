@@ -26,7 +26,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get("/test", (req, res) => {
+app.get("/api/test", (req, res) => {
     res.send("jkhgcfxchbjk");
 });
 
