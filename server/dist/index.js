@@ -28,7 +28,7 @@ util_1.app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-util_1.app.get("/test", function (req, res) {
+util_1.app.get("/api/test", function (req, res) {
     res.send("jkhgcfxchbjk");
 });
 util_1.app.use(cors_1.default({
@@ -93,6 +93,9 @@ util_1.app.get("/api/isUser", util_2.parseToken, function (req, res, next) {
             .then(function (c) {
             res.status(200).send({ body: c, type: type });
         });
+    }
+    else {
+        res.status(500).send();
     }
 });
 util_1.app.get("/api/logout", function (req, res, next) {

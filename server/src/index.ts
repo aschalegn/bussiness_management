@@ -98,6 +98,9 @@ app.get("/api/isUser", parseToken, (req: Request, res: Response, next: NextFunct
                 res.status(200).send({ body: c, type })
             })
     }
+    else{
+        res.status(500).send()
+    }
 });
 
 app.get("/api/logout", (req: Request, res: Response, next: NextFunction) => {
