@@ -138,8 +138,13 @@ export default function Navbar() {
                                 </>
                                 :
                                 <>
-                                    hgvghv
-                                    <h1>404 page</h1>
+                                    <Route exact path='/' component={Home} />
+                                    <Route exact path='/signin' component={SignIn} />
+                                    <Route exact path='/signup' component={SignUp} />
+                                    <Route exact path='/admin/login' component={LogIn} />
+                                    <Route exact path='/admin/register' component={Register} />
+                                    <Route exact path='/admin/forgotpassword' component={ForgoPassword} />
+                                    <Route exact path='/admin/forgotpassword/:random' component={Reset} />
                                 </>
                     }
                 </Switch>
