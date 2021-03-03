@@ -27,15 +27,17 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
 const parseToken = (req: Request, res: Response, next: NextFunction) => {
     const cookie = req.cookies.appointU;
     if (cookie) {
+        console.log(cookie);
+        
         let info = jwt.decode(cookie);
         res.locals.info = info;
         return next();
     }
-    console.log("failed");
-    
-    // else {
-    return res.status(300).send("no user");
-    // }
+
+    else {
+        console.log("failed");
+        return res.status(300).send("no user");
+    }
 }
 
 export { tokenise, authenticate, parseToken }
