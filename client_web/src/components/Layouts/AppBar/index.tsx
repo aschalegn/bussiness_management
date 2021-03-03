@@ -93,12 +93,12 @@ export default function Navbar() {
 
 
         <div>
-            {console.log(user)}
+            {console.log(!user)}
             {
             }
             <Router>
                 <Switch>
-                    {!user  ?
+                    {(!user || user.type=== 'undefined')  ?
                         <>
                             <Route exact path='/' component={Home} />
                             <Route exact path='/signin' component={SignIn} />
