@@ -34,7 +34,7 @@ const parseToken = (req: Request, res: Response, next: NextFunction) => {
     console.log("failed");
     
     // else {
-    return res.status(500).send()
+    return res.status(500).end()
     // }
 }
 
