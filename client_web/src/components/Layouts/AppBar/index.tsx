@@ -90,10 +90,13 @@ export default function Navbar() {
     );
 
     return (
-        
-        
+
+
         <div>
-            {console.log(!user || user.type === "undefined")}
+            {
+            // console.log(!user)
+            console.log(user.type === "undefined")
+            }
             <Router>
                 <Switch>
                     {!user || user.type === "undefined" ?
