@@ -90,10 +90,13 @@ export default function Navbar() {
     );
 
     return (
+        
+        
         <div>
+            {console.log(user)}
             <Router>
                 <Switch>
-                    {!user ?
+                    {!user || !user.type === "undefined" ?
                         <>
                             <Route exact path='/' component={Home} />
                             <Route exact path='/signin' component={SignIn} />
@@ -116,7 +119,7 @@ export default function Navbar() {
                                 <>
                                     {user.role === 'worker' ?
                                         <Worker>
-                                            
+
                                         </Worker>
                                         :
                                         <AppointmentsProvider>
