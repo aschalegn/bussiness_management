@@ -31,6 +31,9 @@ const parseToken = async (req: Request, res: Response, next: NextFunction) => {
         res.locals.info = info;
         next();
     }
+    else{
+        res.status(500).send()
+    }
 }
 
 export { tokenise, authenticate, parseToken }
