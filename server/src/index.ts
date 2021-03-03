@@ -26,9 +26,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get("/api/test", (req, res) => {
-    res.send("jkhgcfxchbjk");
-});
 
 app.use(cors({
     origin: "http://localhost:3000",
@@ -66,6 +63,9 @@ app.use("/api/business", businesRoute);
 app.use('/api/client', clientRoutes);
 app.use('/api/appointment', appointmentRoutes);
 
+app.get("/api/test", (req, res) => {
+    res.send("jkhgcfxchbjk");
+});
 app.get("/mobile/:type/:id", (req: Request, res: Response) => {
     const {type, id } = req.params;
     if (type === "client") {
