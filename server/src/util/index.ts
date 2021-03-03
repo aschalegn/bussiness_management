@@ -29,11 +29,13 @@ const parseToken = (req: Request, res: Response, next: NextFunction) => {
     if (cookie) {
         let info = jwt.decode(cookie);
         res.locals.info = info;
-        next();
+        return next();
     }
-    else {
-        res.status(500).send()
-    }
+    console.log("failed");
+    
+    // else {
+    return res.status(500).send()
+    // }
 }
 
 export { tokenise, authenticate, parseToken }

@@ -66,6 +66,7 @@ app.use('/api/appointment', appointmentRoutes);
 app.get("/api/test", (req, res) => {
     res.send("jkhgcfxchbjk");
 });
+
 app.get("/mobile/:type/:id", (req: Request, res: Response) => {
     const {type, id } = req.params;
     if (type === "client") {
