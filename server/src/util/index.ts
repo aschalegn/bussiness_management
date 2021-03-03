@@ -24,14 +24,14 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
     next();
 }
 
-const parseToken = async (req: Request, res: Response, next: NextFunction) => {
+const parseToken = (req: Request, res: Response, next: NextFunction) => {
     const cookie = req.cookies.appointU;
     if (cookie) {
         let info = jwt.decode(cookie);
         res.locals.info = info;
         next();
     }
-    else{
+    else {
         res.status(500).send()
     }
 }
