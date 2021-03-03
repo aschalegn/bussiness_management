@@ -99,7 +99,7 @@ export default function Navbar() {
             }
             <Router>
                 <Switch>
-                    {!user || user.type === "undefined" ?
+                    {!user  ?
                         <>
                             <Route exact path='/' component={Home} />
                             <Route exact path='/signin' component={SignIn} />
