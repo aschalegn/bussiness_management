@@ -34,7 +34,7 @@ const parseToken = (req: Request, res: Response, next: NextFunction) => {
     console.log("failed");
     
     // else {
-    return res.status(300).end()
+    return res.status(300).send("no user");
     // }
 }
 
