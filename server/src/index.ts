@@ -32,40 +32,9 @@ app.use(cors({
     credentials: true
 }));
 
-// Server sent events
-app.get("/api/sse/:businessId", (req: Request, res: Response) => {
-    const { businessId } = req.params;
-    const isChanneliExists = clients.find(cl => cl.business === businessId);
-    // console.log(isChanneliExists);
-
-    // ! if chanell exists
-    if (isChanneliExists) {
-        // const isClientExists = clients[isChanneliExists].clients.find(r => {
-        // return r === res;
-        // });
-        // if (!isClientExists) {
-        // clients[isChanneliExists].clients.push(res);
-        // }
-    }
-    // ! if business chanel not exsits
-    else {
-        const newChannel = { business: businessId, clients: [res] };
-        clients.push(newChannel);
-    }
-    res.set("Content-Type", "text/event-stream");
-    res.set("Connection", "keep-alive");
-    res.set("Cache-Controll", "no-cache");
-    res.set("Access-Controll-Allow-Origin", "*");
-    return res.status(200).end();
-});
-
 app.use("/api/business", businesRoute);
 app.use('/api/client', clientRoutes);
 app.use('/api/appointment', appointmentRoutes);
-
-app.get("/api/test", (req, res) => {
-    res.send("jkhgcfxchbjk");
-});
 
 app.get("/mobile/:type/:id", (req: Request, res: Response) => {
     const {type, id } = req.params;
@@ -81,14 +50,14 @@ app.get("/mobile/:type/:id", (req: Request, res: Response) => {
     }
 })
 
-app.get("/api/isUser", parseToken, (req: Request, res: Response, next: NextFunction) => {
+app.get("/api/isuser", parseToken, (req: Request, res: Response, next: NextFunction) => {
     const { type, id } = res.locals.info;
     if (type === "business") {
         Business.findById(id).select("-appointments -password")
             .then((b: any) => {
                 res.status(200).send({ body: b, type })
             })
-    }
+    };
     if (type === "client") {
         Client.findById(id).select(" -password ")
             .populate({

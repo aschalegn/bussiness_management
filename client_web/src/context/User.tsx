@@ -44,7 +44,7 @@ const userReducer = (state: any, action: any) => {
 export default function UserProvider(props: any) {
     const [user, userDispatch] = useReducer(userReducer, null);
     useEffect(() => {
-        axios.get(`${baseURL}isUser`, { withCredentials: true })
+        axios.get(`${baseURL}isuser`, { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
                     const type = res.data.type

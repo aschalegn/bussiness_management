@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import http from "http";
 export const app = express();
 export const server = http.createServer(app);
-// import socket from ;
 export const io = require("socket.io")(server, {
     origin: "*"
 });
@@ -14,7 +13,7 @@ const tokenise = (id: any, type: string) => {
     const info = { id, type }
     const token = jwt.sign(info, secretKey);
     return token;
-}
+};
 
 const authenticate = (req: Request, res: Response, next: NextFunction) => {
     const cookie = req.cookies.appointU;
@@ -27,16 +26,12 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
 const parseToken = (req: Request, res: Response, next: NextFunction) => {
     const cookie = req.cookies.appointU;
     if (cookie) {
-        console.log(cookie);
-        
         let info = jwt.decode(cookie);
         res.locals.info = info;
         return next();
     }
-
     else {
-        console.log("failed");
-        return res.status(300).send("no user");
+        return res.status(204);
     }
 }
 

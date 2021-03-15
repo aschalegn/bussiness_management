@@ -122,7 +122,7 @@ const Home = () => {
                         <p>מערכת לניהול לקוחות</p>
                     </article>
                     <article>
-                        <img src="icons/undraw_Connecting_Teams_8ntu.svg" alt="sms"/>
+                        <img src="icons/wallet.svg" alt="sms"/>
                         <p>תשלומים</p>
                     </article>
                     <article>
