@@ -89,7 +89,7 @@ function login(req, res, next) {
             switch (_b.label) {
                 case 0:
                     _a = req.query, phone = _a.phone, businessId = _a.businessId;
-                    return [4 /*yield*/, Client_1.Client.findOne({ phone: phone })];
+                    return [4 /*yield*/, Client_1.Client.findOne({ phone: phone }).select("-appointments")];
                 case 1:
                     user = _b.sent();
                     return [4 /*yield*/, user];
@@ -98,7 +98,7 @@ function login(req, res, next) {
                         console.log(user, 'else');
                         token = util_1.tokenise(user._id, "client");
                         res.cookie("appointU", token);
-                        return [2 /*return*/, res.status(200).send({ body: user, type: "client", business: businessId })];
+                        return [2 /*return*/, res.status(200).send({ body: user.phone, type: "client", business: businessId })];
                     }
                     else {
                         console.log(user, phone, 'else if');

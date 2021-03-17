@@ -29,7 +29,7 @@ util_1.app.use(function (req, res, next) {
     next();
 });
 util_1.app.get("/test", function (req, res) {
-    res.send("jkhgcfxchbjk");
+    res.send("test");
 });
 util_1.app.use(cors_1.default({
     origin: "http://localhost:3000",

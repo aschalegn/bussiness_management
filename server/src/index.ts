@@ -27,7 +27,7 @@ app.use(function (req, res, next) {
 });
 
 app.get("/test", (req, res) => {
-    res.send("jkhgcfxchbjk");
+    res.send("test");
 });
 
 app.use(cors({
