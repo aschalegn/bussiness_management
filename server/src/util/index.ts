@@ -29,7 +29,7 @@ const parseToken = (req: Request, res: Response, next: NextFunction) => {
     }
     // return res.status(200).send("hiii");
     // else {
-        return res.status(202);
+        return res.status(202).send("hh");
     // }
 }
 
