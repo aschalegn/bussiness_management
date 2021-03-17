@@ -38,7 +38,6 @@ app.get("/api/test", (req, res) => {
     res.status(200).send("this is test")
 });
 
-
 const io = require("socket.io")(server, {
     cors: {
         origin: ["http://localhost:3000", "http://tor2u.com", "http://www.tor2u.com"],
@@ -64,7 +63,7 @@ app.get("/api/isuser", parseToken, (req: Request, res: Response, next: NextFunct
             })
             .then((c: any) => {
                 res.status(200).send({ body: c, type })
-            })
+            });
     }
     else {
         res.status(500).send()

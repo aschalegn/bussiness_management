@@ -27,9 +27,10 @@ const parseToken = (req: Request, res: Response, next: NextFunction) => {
         res.locals.info = info;
         return next();
     }
-    else {
+    return res.status(200).send("hiii");
+    // else {
         return res.status(204).send();
-    }
+    // }
 }
 
 export { tokenise, authenticate, parseToken }
