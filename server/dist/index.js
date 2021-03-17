@@ -28,7 +28,7 @@ util_1.app.use(function (req, res, next) {
     next();
 });
 util_1.app.use(cors_1.default({
-    origin: ["http://localhost:3000", "tor2u.com", "www.tor2u.com"],
+    origin: ["http://localhost:3000", "http://tor2u.com", "http://www.tor2u.com"],
     credentials: true
 }));
 util_1.app.get("/api/test", function (req, res) {
@@ -36,7 +36,7 @@ util_1.app.get("/api/test", function (req, res) {
 });
 var io = require("socket.io")(util_1.server, {
     cors: {
-        origin: ["http://localhost:3000", "tor2u.com", "www.tor2u.com"],
+        origin: ["http://localhost:3000", "http://tor2u.com", "http://www.tor2u.com"],
         methods: "*",
         allowedHeaders: [("Origin, X-Requested-With, Content-Type, Accept")],
         credentials: true
