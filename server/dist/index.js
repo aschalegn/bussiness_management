@@ -18,29 +18,29 @@ var bussiness_1 = __importDefault(require("./routes/bussiness"));
 var clients_1 = __importDefault(require("./routes/clients"));
 var appointment_1 = __importDefault(require("./routes/appointment"));
 var appointmentEmitter = require("./eventsNotification/Appointments");
+dotenv_1.default.config();
+util_1.app.use(express_1.default.json());
+util_1.app.use(express_1.default.urlencoded({ extended: false }));
+util_1.app.use(cookie_parser_1.default());
+util_1.app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+util_1.app.use(cors_1.default({
+    origin: ["http://localhost:3000", "tor2u.com", "www.tor2u.com"],
+    credentials: true
+}));
 var io = require("socket.io")(util_1.server, {
     cors: {
-        origin: "*",
+        origin: ["http://localhost:3000", "tor2u.com", "www.tor2u.com"],
         methods: ["GET", "POST"],
-        allowedHeaders: ["my-custom-header"],
+        allowedHeaders: ["Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"],
         credentials: true
     }
 });
 io.on("connection", function (socket) {
     appointmentEmitter(io, socket);
-});
-dotenv_1.default.config();
-util_1.app.use(express_1.default.json());
-util_1.app.use(express_1.default.urlencoded({ extended: false }));
-util_1.app.use(cookie_parser_1.default());
-util_1.app.use(cors_1.default({
-    origin: ["http://localhost:3000", "tor2u.com", "www.tor2u.com"],
-    credentials: true
-}));
-util_1.app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
 });
 //* Routing
 util_1.app.use("/api/business", bussiness_1.default);

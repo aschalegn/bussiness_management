@@ -16,33 +16,35 @@ import appointmentRoutes from './routes/appointment';
 import { Socket } from 'socket.io';
 
 const appointmentEmitter = require("./eventsNotification/Appointments");
-const io = require("socket.io")(server, {
-    cors: {
-        origin: "*",
-        methods: ["GET", "POST"],
-        allowedHeaders: ["my-custom-header"],
-        credentials: true
-    }
-});
-
-io.on("connection", (socket: Socket) => {
-    appointmentEmitter(io, socket);
-});
 
 dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(cors({
-    origin: ["http://localhost:3000", "tor2u.com", "www.tor2u.com"],
-    credentials: true
-}));
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
+});
+
+app.use(cors({
+    origin: ["http://localhost:3000", "tor2u.com", "www.tor2u.com"],
+    credentials: true
+}));
+
+const io = require("socket.io")(server, {
+    cors: {
+        origin: ["http://localhost:3000", "tor2u.com", "www.tor2u.com"],
+        methods: ["GET", "POST"],
+        allowedHeaders: ["Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"],
+        credentials: true
+    }
+});
+
+io.on("connection", (socket: Socket) => {
+    appointmentEmitter(io, socket);
 });
 
 //* Routing
