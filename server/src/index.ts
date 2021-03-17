@@ -38,24 +38,12 @@ app.use(cors({
     origin: ["http://localhost:3000", "tor2u.com", "www.tor2u.com"],
     credentials: true
 }));
+
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-
-<<<<<<< HEAD
-app.get("/test", (req, res) => {
-    res.send("test");
-});
-
-app.use(cors({
-    origin: "http://localhost:3000",
-    credentials: true
-}));
-=======
->>>>>>> 15a310e61bd292d736a0240bac996551dad78238
-
 
 //* Routing
 app.use("/api/business", businesRoute);
