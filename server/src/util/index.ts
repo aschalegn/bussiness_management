@@ -27,9 +27,9 @@ const parseToken = (req: Request, res: Response, next: NextFunction) => {
         res.locals.info = info;
         return next();
     }
-    return res.status(200).send("hiii");
+    // return res.status(200).send("hiii");
     // else {
-        return res.status(204).send();
+        return res.status(202);
     // }
 }
 
