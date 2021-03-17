@@ -42,13 +42,7 @@ util_1.app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-util_1.app.get("/test", function (req, res) {
-    res.send("test");
-});
-util_1.app.use(cors_1.default({
-    origin: "http://localhost:3000",
-    credentials: true
-}));
+//* Routing
 util_1.app.use("/api/business", bussiness_1.default);
 util_1.app.use('/api/client', clients_1.default);
 util_1.app.use('/api/appointment', appointment_1.default);

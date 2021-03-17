@@ -42,7 +42,7 @@ export default function LogIn() {
 
   return (
     <Container component="main" maxWidth="xs">
-      {user ?
+      {(user && user.type) ?
         <Redirect to={`/6028e4f2ed8a283230f4bc6c`} />
         : ''
       }
