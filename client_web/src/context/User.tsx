@@ -46,9 +46,11 @@ export default function UserProvider(props: any) {
     useEffect(() => {
         axios.get(`${baseURL}isuser`, { withCredentials: true })
             .then(res => {
-                console.log(baseURL);
-                
-                if (res.status === 200) {
+                if (res.status === 500 || res.status === 502||res.status === 404) {
+                    console.log("failed");
+                    console.log(res);
+                }
+               else  if (res.status === 200) {
                     console.log("ksjdbjdvbj");
                     console.log(res);
                     
