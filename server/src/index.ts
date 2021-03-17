@@ -30,17 +30,17 @@ app.use(function (req, res, next) {
 });
 
 app.use(cors({
-    origin: "*",
+    origin: ["http://localhost:3000", "tor2u.com", "www.tor2u.com"],
     credentials: true
 }));
-app.get("/api/test", (req, res) => { 
+app.get("/api/test", (req, res) => {
     res.status(200).send("this is test")
 })
-// ["http://localhost:3000", "tor2u.com", "www.tor2u.com"]
-// ["http://localhost:3000", "tor2u.com", "www.tor2u.com"]
+
+
 const io = require("socket.io")(server, {
     cors: {
-        origin: "*",
+        origin: ["http://localhost:3000", "tor2u.com", "www.tor2u.com"],
         methods: "*",
         allowedHeaders: [("Origin, X-Requested-With, Content-Type, Accept")],
         credentials: true

@@ -43,8 +43,7 @@ export default function LogIn() {
   return (
     <Container component="main" maxWidth="xs">
       {(user && user.type !== "undefined") ?
-        // <Redirect to={`/6028e4f2ed8a283230f4bc6c`} />
-        console.log(user)
+        <Redirect to={`/6028e4f2ed8a283230f4bc6c`} />
         : ''
       }
       <CssBaseline />
