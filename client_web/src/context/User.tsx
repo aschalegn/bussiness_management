@@ -46,17 +46,13 @@ export default function UserProvider(props: any) {
     useEffect(() => {
         axios.get(`${baseURL}isuser`, { withCredentials: true })
             .then(res => {
-                if (res.status === 500 || res.status === 502||res.status === 404) {
-                    console.log("failed");
-                    console.log(res);
-                }
-               else  if (res.status === 200) {
-                    console.log("ksjdbjdvbj");
-                    console.log(res);
-                    
+                console.log(res);
+
+                if (res.status === 200) {
+                    console.log("on useEffect");
                     const type = res.data.type
-                    const payload = { ...res.data.body, type }
-                    { userDispatch({ type: "SIGN_UP", payload: payload }); }
+                    const payload = { ...res.data.body, type };
+                    userDispatch({ type: "SIGN_UP", payload: payload });
                 }
             }).catch(err => {
                 console.log(err);
