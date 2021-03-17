@@ -31,7 +31,7 @@ util_1.app.use(cors_1.default({
     origin: "*",
     credentials: true
 }));
-util_1.app.get("/test", function (req, res) {
+util_1.app.get("/api/test", function (req, res) {
     res.status(200).send("this is test");
 });
 // ["http://localhost:3000", "tor2u.com", "www.tor2u.com"]

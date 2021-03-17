@@ -33,7 +33,7 @@ app.use(cors({
     origin: "*",
     credentials: true
 }));
-app.get("/test", (req, res) => { 
+app.get("/api/test", (req, res) => { 
     res.status(200).send("this is test")
 })
 // ["http://localhost:3000", "tor2u.com", "www.tor2u.com"]
