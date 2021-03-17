@@ -5,7 +5,8 @@ import Button from '@material-ui/core/Button';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import TextField from '@material-ui/core/TextField';
-import SmsIcon from '@material-ui/icons/Sms';
+import { HashLink } from "react-router-hash-link"
+import { Link } from 'react-router-dom';
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const tutorialSteps = [
@@ -70,10 +71,17 @@ const Home = () => {
             <header className='mainHeader'>
                 <nav className='navbar'>
                     <ul>
-                        <li>אודות</li>
-                        <li>שאלות נפוצות</li>
-                        <li>הרשם עכשיו</li>
-                        <li>כניסה למערכת</li>
+                        <li>
+                            <Link to="">אודות</Link>
+                        </li>
+                        <li>
+                            <Link to="">שאלות נפוצות</Link>
+                        </li>
+                        <li>
+                            <Link to="/admin/register">הרשם עכשיו</Link></li>
+                        <li>
+                            <Link to="/admin/login">כניסה למערכת</Link>
+                        </li>
                     </ul>
                 </nav>
 
@@ -97,8 +105,12 @@ const Home = () => {
                     <h1>מערכת לניהול תורים</h1>
                     <h4>קליק אחד והתור נקבע</h4>
                     <div className='btnMainHeader'>
-                        <Button variant="outlined" color="primary" >  צור קשר </Button>
-                        <Button variant="outlined" color="primary">    התחברות </Button>
+                        <Button variant="outlined" color="primary" >
+                            <HashLink to="#contact"> צור קשר </HashLink>
+                        </Button>
+                        <Button variant="outlined" color="primary">
+                            <Link to="/admin/login"> התחברות</Link>
+                        </Button>
                     </div>
                 </div>
             </header>
@@ -106,27 +118,27 @@ const Home = () => {
             <main>
                 <section className='services'>
                     <article>
-                        <img src="icons/undraw_message_sent_1030.svg" alt="sms"/>
+                        <img src="icons/undraw_message_sent_1030.svg" alt="sms" />
                         <p>שליחת הודעות</p>
                     </article>
                     <article>
-                        <img src="icons/undraw_Mobile_application_mr4r.svg" alt="app"/>
+                        <img src="icons/undraw_Mobile_application_mr4r.svg" alt="app" />
                         <p>אפליקציה לסמארטפון</p>
                     </article>
                     <article>
-                        <img src="icons/undraw_Booking_re_gw4j.svg" alt="sms"/>
+                        <img src="icons/undraw_Booking_re_gw4j.svg" alt="sms" />
                         <p>מערכת לקביעת תורים</p>
                     </article>
                     <article>
-                        <img src="icons/undraw_Connecting_Teams_8ntu.svg" alt="sms"/>
+                        <img src="icons/undraw_Connecting_Teams_8ntu.svg" alt="sms" />
                         <p>מערכת לניהול לקוחות</p>
                     </article>
                     <article>
-                        <img src="icons/wallet.svg" alt="sms"/>
+                        <img src="icons/wallet.svg" alt="sms" />
                         <p>תשלומים</p>
                     </article>
                     <article>
-                        <img src="icons/undraw_message_sent_1030.svg" alt="sms"/>
+                        <img src="icons/undraw_message_sent_1030.svg" alt="sms" />
                         <p>שליחת הודעות</p>
                     </article>
                 </section>
@@ -135,7 +147,7 @@ const Home = () => {
             </main>
 
             <footer>
-                <form action="">
+                <form id="contact">
                     <div>
                         <TextField id="standard-basic" label="שם מלא" type='text' />
                         <TextField id="standard-basic" label="טלפון" type='text' />

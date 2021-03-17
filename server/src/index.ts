@@ -1,43 +1,58 @@
 import express, { NextFunction, Request, Response } from 'express';
-import { server, app, io } from "./util";
+import { server, app } from "./util";
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import businesRoute from "./routes/bussiness";
-import clientRoutes from './routes/clients';
-import appointmentRoutes from './routes/appointment';
 import cookieParser from "cookie-parser";
 import { parseToken } from "./util";
 import { emailEmiter } from "./eventsNotification/Email"
-import { clients } from './eventsNotification';
 import { db } from './util/config';
 import { Business } from './model/Bussiness';
 import { Client } from './model/Client';
+
+import businesRoute from "./routes/bussiness";
+import clientRoutes from './routes/clients';
+import appointmentRoutes from './routes/appointment';
+import { Socket } from 'socket.io';
+
+const appointmentEmitter = require("./eventsNotification/Appointments");
+const io = require("socket.io")(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"],
+        allowedHeaders: ["my-custom-header"],
+        credentials: true
+    }
+});
+
+io.on("connection", (socket: Socket) => {
+    appointmentEmitter(io, socket);
+});
 
 dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-//* Routing
+app.use(cors({
+    origin: ["http://localhost:3000", "tor2u.com", "www.tor2u.com"],
+    credentials: true
+}));
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 
 
-app.use(cors({
-    origin: "http://localhost:3000",
-    credentials: true
-}));
 
+//* Routing
 app.use("/api/business", businesRoute);
 app.use('/api/client', clientRoutes);
 app.use('/api/appointment', appointmentRoutes);
 
 app.get("/mobile/:type/:id", (req: Request, res: Response) => {
-    const {type, id } = req.params;
+    const { type, id } = req.params;
     if (type === "client") {
         Client.findById(id).select(" -password ")
             .populate({
@@ -47,8 +62,8 @@ app.get("/mobile/:type/:id", (req: Request, res: Response) => {
             .then((c: any) => {
                 res.status(200).send({ body: c, type })
             })
-    }
-})
+    };
+});
 
 app.get("/api/isuser", parseToken, (req: Request, res: Response, next: NextFunction) => {
     const { type, id } = res.locals.info;
@@ -68,7 +83,7 @@ app.get("/api/isuser", parseToken, (req: Request, res: Response, next: NextFunct
                 res.status(200).send({ body: c, type })
             })
     }
-    else{
+    else {
         res.status(500).send()
     }
 });

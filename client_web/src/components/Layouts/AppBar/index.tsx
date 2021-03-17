@@ -86,13 +86,10 @@ export default function Navbar() {
         </ListItem>
       </List>
     </div>
-
   );
 
   return (
     <div>
-      {console.log(!user)}
-      {/* {console.log(user.type === 'undefined')} */}
       <Router>
         <Switch>
           {(!user || !user.type) ?
@@ -135,13 +132,6 @@ export default function Navbar() {
                 </>
                 :
                 <>
-                  {/* <Route exact path='/' component={Home} />
-                  <Route exact path='/signin' component={SignIn} />
-                  <Route exact path='/signup' component={SignUp} />
-                  <Route exact path='/admin/login' component={LogIn} />
-                  <Route exact path='/admin/register' component={Register} />
-                  <Route exact path='/admin/forgotpassword' component={ForgoPassword} />
-                  <Route exact path='/admin/forgotpassword/:random' component={Reset} /> */}
                   <h1>404 page</h1>
                 </>
           }

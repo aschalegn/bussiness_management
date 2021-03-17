@@ -1,11 +1,9 @@
 import express, { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import http from "http";
+import { Socket } from "socket.io";
 export const app = express();
 export const server = http.createServer(app);
-export const io = require("socket.io")(server, {
-    origin: "*"
-});
 
 const secretKey = "123!@#";
 
