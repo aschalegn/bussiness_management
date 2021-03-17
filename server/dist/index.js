@@ -28,37 +28,24 @@ util_1.app.use(function (req, res, next) {
     next();
 });
 util_1.app.use(cors_1.default({
-    origin: ["http://localhost:3000", "tor2u.com", "www.tor2u.com"],
+    origin: "*",
     credentials: true
 }));
+util_1.app.get("/test", function (req, res) {
+    res.status(200).send("this is test");
+});
+// ["http://localhost:3000", "tor2u.com", "www.tor2u.com"]
+// ["http://localhost:3000", "tor2u.com", "www.tor2u.com"]
 var io = require("socket.io")(util_1.server, {
     cors: {
-        origin: ["http://localhost:3000", "tor2u.com", "www.tor2u.com"],
-        methods: ["GET", "POST"],
-        allowedHeaders: ["Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"],
+        origin: "*",
+        methods: "*",
+        allowedHeaders: [("Origin, X-Requested-With, Content-Type, Accept")],
         credentials: true
     }
 });
 io.on("connection", function (socket) {
     appointmentEmitter(io, socket);
-});
-//* Routing
-util_1.app.use("/api/business", bussiness_1.default);
-util_1.app.use('/api/client', clients_1.default);
-util_1.app.use('/api/appointment', appointment_1.default);
-util_1.app.get("/mobile/:type/:id", function (req, res) {
-    var _a = req.params, type = _a.type, id = _a.id;
-    if (type === "client") {
-        Client_1.Client.findById(id).select(" -password ")
-            .populate({
-            path: "businesses",
-            populate: { path: "businesses" }
-        })
-            .then(function (c) {
-            res.status(200).send({ body: c, type: type });
-        });
-    }
-    ;
 });
 util_1.app.get("/api/isuser", util_2.parseToken, function (req, res, next) {
     var _a = res.locals.info, type = _a.type, id = _a.id;
@@ -82,6 +69,24 @@ util_1.app.get("/api/isuser", util_2.parseToken, function (req, res, next) {
     else {
         res.status(500).send();
     }
+});
+//* Routing
+util_1.app.use("/api/business", bussiness_1.default);
+util_1.app.use('/api/client', clients_1.default);
+util_1.app.use('/api/appointment', appointment_1.default);
+util_1.app.get("/mobile/:type/:id", function (req, res) {
+    var _a = req.params, type = _a.type, id = _a.id;
+    if (type === "client") {
+        Client_1.Client.findById(id).select(" -password ")
+            .populate({
+            path: "businesses",
+            populate: { path: "businesses" }
+        })
+            .then(function (c) {
+            res.status(200).send({ body: c, type: type });
+        });
+    }
+    ;
 });
 util_1.app.get("/api/logout", function (req, res, next) {
     res.clearCookie("appointU");

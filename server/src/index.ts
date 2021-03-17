@@ -30,40 +30,25 @@ app.use(function (req, res, next) {
 });
 
 app.use(cors({
-    origin: ["http://localhost:3000", "tor2u.com", "www.tor2u.com"],
+    origin: "*",
     credentials: true
 }));
-
+app.get("/test", (req, res) => { 
+    res.status(200).send("this is test")
+})
+// ["http://localhost:3000", "tor2u.com", "www.tor2u.com"]
+// ["http://localhost:3000", "tor2u.com", "www.tor2u.com"]
 const io = require("socket.io")(server, {
     cors: {
-        origin: ["http://localhost:3000", "tor2u.com", "www.tor2u.com"],
-        methods: ["GET", "POST"],
-        allowedHeaders: ["Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"],
+        origin: "*",
+        methods: "*",
+        allowedHeaders: [("Origin, X-Requested-With, Content-Type, Accept")],
         credentials: true
     }
 });
 
 io.on("connection", (socket: Socket) => {
     appointmentEmitter(io, socket);
-});
-
-//* Routing
-app.use("/api/business", businesRoute);
-app.use('/api/client', clientRoutes);
-app.use('/api/appointment', appointmentRoutes);
-
-app.get("/mobile/:type/:id", (req: Request, res: Response) => {
-    const { type, id } = req.params;
-    if (type === "client") {
-        Client.findById(id).select(" -password ")
-            .populate({
-                path: "businesses",
-                populate: { path: "businesses" }
-            })
-            .then((c: any) => {
-                res.status(200).send({ body: c, type })
-            })
-    };
 });
 
 app.get("/api/isuser", parseToken, (req: Request, res: Response, next: NextFunction) => {
@@ -87,6 +72,25 @@ app.get("/api/isuser", parseToken, (req: Request, res: Response, next: NextFunct
     else {
         res.status(500).send()
     }
+});
+
+//* Routing
+app.use("/api/business", businesRoute);
+app.use('/api/client', clientRoutes);
+app.use('/api/appointment', appointmentRoutes);
+
+app.get("/mobile/:type/:id", (req: Request, res: Response) => {
+    const { type, id } = req.params;
+    if (type === "client") {
+        Client.findById(id).select(" -password ")
+            .populate({
+                path: "businesses",
+                populate: { path: "businesses" }
+            })
+            .then((c: any) => {
+                res.status(200).send({ body: c, type })
+            })
+    };
 });
 
 app.get("/api/logout", (req: Request, res: Response, next: NextFunction) => {

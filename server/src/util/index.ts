@@ -22,8 +22,8 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
 }
 
 const parseToken = (req: Request, res: Response, next: NextFunction) => {
-    const cookie = req.cookies.appointU;
-    if (cookie) {
+    const cookie = req.cookies;
+    if (cookie.appointU) {
         let info = jwt.decode(cookie);
         res.locals.info = info;
         return next();
