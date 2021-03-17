@@ -1,6 +1,5 @@
 import React, { createContext, useReducer, useEffect } from 'react';
 import axios from 'axios';
-import { baseURL } from '../utils';
 import { IWorker, IAppointment } from "../interfaces";
 const workers: IWorker[] = [];
 const appointments: IAppointment[] = [];
