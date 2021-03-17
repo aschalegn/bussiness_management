@@ -44,7 +44,7 @@ const userReducer = (state: any, action: any) => {
 export default function UserProvider(props: any) {
     const [user, userDispatch] = useReducer(userReducer, null);
     useEffect(() => {
-        axios.get(`${baseURL}isuser`, { withCredentials: true })
+        axios.get(`isuser`, { withCredentials: true })
             .then(res => {
                 console.log(res);
 
@@ -60,7 +60,7 @@ export default function UserProvider(props: any) {
     }, []);
 
     const signUp = (body: any) => {
-        axios.post(`${baseURL}/business`, body, { withCredentials: true })
+        axios.post(`/business`, body, { withCredentials: true })
             .then(res => {
                 if (res.status === 201) {
                     const type = res.data.type
@@ -73,7 +73,7 @@ export default function UserProvider(props: any) {
     }
 
     const signIn = (email: string, password: string) => {
-        axios.get(`${baseURL}business/login?email=${email}&password=${password}`, { withCredentials: true })
+        axios.get(`business/login?email=${email}&password=${password}`, { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
                     const type = res.data.type
@@ -88,7 +88,7 @@ export default function UserProvider(props: any) {
 
     const signUpClient = (fullName: any, phone: any) => {
         const body = { fullName, phone };
-        axios.post(`${baseURL}client/signUp/6028e4f2ed8a283230f4bc6c`, body, { withCredentials: true })
+        axios.post(`client/signUp/6028e4f2ed8a283230f4bc6c`, body, { withCredentials: true })
             .then(res => {
                 if (res.status === 201) {
                     const type = res.data.type
@@ -102,7 +102,7 @@ export default function UserProvider(props: any) {
     }
 
     const signOut = () => {
-        axios.get(`${baseURL}logout`, { withCredentials: true })
+        axios.get(`logout`, { withCredentials: true })
             .then(res => {
                 if (res.status === 200)
                     userDispatch({ type: "SIGN_OUT" });
@@ -110,7 +110,7 @@ export default function UserProvider(props: any) {
     }
 
     const signInClient = (phone: string) => {
-        axios.get(`${baseURL}client/signIn/services?phone=${phone}`, { withCredentials: true })
+        axios.get(`client/signIn/services?phone=${phone}`, { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
                     const type = res.data.type;
