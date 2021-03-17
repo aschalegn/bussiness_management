@@ -35,7 +35,7 @@ app.use(cors({
 }));
 
 app.get("/api/test", (req, res) => {
-    res.status(200).send("this is test")
+    res.status(200).send("this is test");
 });
 
 const io = require("socket.io")(server, {
