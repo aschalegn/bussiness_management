@@ -34,6 +34,9 @@ util_1.app.use(cors_1.default({
 util_1.app.get("/api/test", function (req, res) {
     res.status(200).send("this is test");
 });
+util_1.app.get("/api/test2", function (req, res) {
+    res.status(200).send("this is test");
+});
 var io = require("socket.io")(util_1.server, {
     cors: {
         origin: ["http://localhost:3000", "http://tor2u.com", "http://www.tor2u.com"],

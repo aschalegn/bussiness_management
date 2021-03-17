@@ -33,11 +33,13 @@ app.use(cors({
     origin: ["http://localhost:3000", "http://tor2u.com", "http://www.tor2u.com"],
     credentials: true
 }));
+
 app.get("/api/test", (req, res) => {
     res.status(200).send("this is test")
-})
-
-
+});
+app.get("/api/test2", (req, res) => {
+    res.status(200).send("this is test")
+});
 const io = require("socket.io")(server, {
     cors: {
         origin: ["http://localhost:3000", "http://tor2u.com", "http://www.tor2u.com"],
