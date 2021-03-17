@@ -5,7 +5,7 @@ import Backend from "i18next-http-backend";
 
 i18n.use(LanguageDetectior).use(Backend).use(initReactI18next).init({
     fallbackLng: "he",
-    debug: true,
+    debug: false,
     detection: {
         order: ["queryString", 'cookie'],
         cache: ["cookie"]
