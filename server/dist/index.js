@@ -47,22 +47,21 @@ util_1.app.get("/api/isuser", util_2.parseToken, function (req, res, next) {
     if (type === "business") {
         Bussiness_1.Business.findById(id).select("-appointments -password")
             .then(function (b) {
-            res.status(200).send({ body: b, type: type });
+            return res.status(200).send({ body: b, type: type });
         });
     }
-    ;
-    if (type === "client") {
+    else if (type === "client") {
         Client_1.Client.findById(id).select(" -password ")
             .populate({
             path: "businesses",
             populate: { path: "businesses" }
         })
             .then(function (c) {
-            res.status(200).send({ body: c, type: type });
+            return res.status(200).send({ body: c, type: type });
         });
     }
     else {
-        res.status(500).send();
+        return res.status(500).send();
     }
 });
 util_1.app.get("/api/test2", function (req, res) {
