@@ -29,7 +29,7 @@ const parseToken = (req: Request, res: Response, next: NextFunction) => {
         return next();
     }
     else {
-        return res.status(204);
+        return res.status(204).send();
     }
 }
 
