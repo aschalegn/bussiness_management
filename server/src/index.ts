@@ -37,9 +37,8 @@ app.use(cors({
 app.get("/api/test", (req, res) => {
     res.status(200).send("this is test")
 });
-app.get("/api/test2", (req, res) => {
-    res.status(200).send("this is test")
-});
+
+
 const io = require("socket.io")(server, {
     cors: {
         origin: ["http://localhost:3000", "http://tor2u.com", "http://www.tor2u.com"],
@@ -47,10 +46,6 @@ const io = require("socket.io")(server, {
         allowedHeaders: [("Origin, X-Requested-With, Content-Type, Accept")],
         credentials: true
     }
-});
-
-io.on("connection", (socket: Socket) => {
-    appointmentEmitter(io, socket);
 });
 
 app.get("/api/isuser", parseToken, (req: Request, res: Response, next: NextFunction) => {
@@ -74,6 +69,9 @@ app.get("/api/isuser", parseToken, (req: Request, res: Response, next: NextFunct
     else {
         res.status(500).send()
     }
+});
+app.get("/api/test2", (req, res) => {
+    res.status(200).send("this is test2")
 });
 
 //* Routing
@@ -104,6 +102,10 @@ app.get("/api/forgotPassword", (req, res) => {
     const { email } = req.query;
     emailEmiter.emit("forgotPassword", email);
     return res.status(200).send();
+});
+
+io.on("connection", (socket: Socket) => {
+    appointmentEmitter(io, socket);
 });
 
 //* DB Connection

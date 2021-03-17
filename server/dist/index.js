@@ -34,9 +34,6 @@ util_1.app.use(cors_1.default({
 util_1.app.get("/api/test", function (req, res) {
     res.status(200).send("this is test");
 });
-util_1.app.get("/api/test2", function (req, res) {
-    res.status(200).send("this is test");
-});
 var io = require("socket.io")(util_1.server, {
     cors: {
         origin: ["http://localhost:3000", "http://tor2u.com", "http://www.tor2u.com"],
@@ -44,9 +41,6 @@ var io = require("socket.io")(util_1.server, {
         allowedHeaders: [("Origin, X-Requested-With, Content-Type, Accept")],
         credentials: true
     }
-});
-io.on("connection", function (socket) {
-    appointmentEmitter(io, socket);
 });
 util_1.app.get("/api/isuser", util_2.parseToken, function (req, res, next) {
     var _a = res.locals.info, type = _a.type, id = _a.id;
@@ -70,6 +64,9 @@ util_1.app.get("/api/isuser", util_2.parseToken, function (req, res, next) {
     else {
         res.status(500).send();
     }
+});
+util_1.app.get("/api/test2", function (req, res) {
+    res.status(200).send("this is test2");
 });
 //* Routing
 util_1.app.use("/api/business", bussiness_1.default);
@@ -97,6 +94,9 @@ util_1.app.get("/api/forgotPassword", function (req, res) {
     var email = req.query.email;
     Email_1.emailEmiter.emit("forgotPassword", email);
     return res.status(200).send();
+});
+io.on("connection", function (socket) {
+    appointmentEmitter(io, socket);
 });
 //* DB Connection
 mongoose_1.default.connect(config_1.db, {
