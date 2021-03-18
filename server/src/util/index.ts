@@ -1,7 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import http from "http";
-import { Socket } from "socket.io";
 export const app = express();
 export const server = http.createServer(app);
 
@@ -24,13 +23,16 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
 const parseToken = (req: Request, res: Response, next: NextFunction) => {
     const cookie = req.cookies.appointU;
     if (cookie) {
+        console.log("yes", cookie);
+
         let info = jwt.decode(cookie);
         res.locals.info = info;
         return next();
     }
     else {
+        console.log("no", cookie);
         return res.status(204);
     }
-}
+};
 
 export { tokenise, authenticate, parseToken }

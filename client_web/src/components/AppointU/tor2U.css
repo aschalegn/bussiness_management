@@ -1,8 +1,9 @@
-.tou2U{
+.tor2U {
     color: white;
 }
-.navbar{   
-     position: absolute;
+
+.navbar {
+    position: absolute;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -13,38 +14,57 @@
     width: 100%;
     top: 15px;
 }
-.navbar ul{
+
+.navbar ul {
     display: flex;
     justify-content: center;
     width: 100%;
     align-items: center;
     height: 100%;
 }
-.navbar ul li{
-list-style: none;
-  padding: 0 15px;
+
+.navbar ul li {
+    list-style: none;
+    padding: 0 15px;
 }
-.makeStyles-root-1{
+
+a {
+    text-decoration: none;
+}
+
+.navbar a {
+    color: white;
+}
+
+.tor2U .btnMainHeader a {
+    color: whitesmoke;
+    font-size: 1.1rem !important;
+}
+
+.tor2u_corousale {
     position: relative;
     max-width: 100% !important;
     height: 400px;
     overflow: hidden;
 }
-.makeStyles-root-1::after{
-background-color: rgba(0, 0, 0, 0.5);
-width: 100%;
-/* height: 100%; */
-top: 0;
-right: 0;
-left: 0;
-bottom: 0;
-content: '';
-position: absolute;
+
+.tor2u_corousale::after {
+    background-color: #000000;
+    opacity: .502;
+    width: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    content: '';
+    position: absolute;
 }
-.mainHeader{
+
+.mainHeader {
     position: relative;
 }
-.mainTextHeader{
+
+.mainTextHeader {
     position: absolute;
     top: 100px;
     z-index: 1000;
@@ -52,18 +72,20 @@ position: absolute;
     width: 100%;
     text-align: center;
 }
-.btnMainHeader button{
+
+.btnMainHeader button {
     color: white;
     border: 1px solid rgb(185, 47, 47);
     height: 6vh;
-margin: 23px 15px;
-}
-.caruselaImg img{
-max-width: 100% !important;
-/* height: 100%; */
+    margin: 23px 15px;
 }
 
-.btnFotterSubmit button{
+.caruselaImg img {
+    max-width: 100% !important;
+    /* height: 100%; */
+}
+
+.btnFotterSubmit button {
     color: white;
     border: 0px solid rgb(185, 47, 47);
     box-shadow: 0px 1px 1px black;
@@ -71,7 +93,7 @@ max-width: 100% !important;
     margin: 23px 15px;
 }
 
-.services{
+.services {
     display: flex;
     justify-content: space-evenly;
     margin-top: 20px;
@@ -79,73 +101,86 @@ max-width: 100% !important;
     color: black;
     text-align: center;
 }
-.MuiSvgIcon-root{
+
+.MuiSvgIcon-root {
     color: black;
     width: 20% !important;
 }
-.services article{
+
+.services article {
     width: 32%;
 }
-.services article img{
- width: 100%;
- height: 55%;
 
+.services article img {
+    width: 100%;
+    height: 55%;
 }
 
-footer{
+.commonQA {
+    color: black;
+    width: 90%;
+    margin: auto;
+    /* background-color: green; */
+}
+.commonQA h1{
+    margin: auto;
+}
+
+footer {
     background-color: brown;
     height: 100%;
     width: 100%;
 }
 
-footer form{
+footer form {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 21px;
 }
-label +.MuiInput-formControl{
-     margin: 16px 0 0 15px !important;  
-}
-.MuiInputBase-input{
-    direction: rtl;
- 
+
+footer label+.MuiInput-formControl {
+    margin: 16px 0 0 15px !important;
 }
 
-label + .MuiInputBase-input:focus{
+footer .MuiInputBase-input {
+    direction: rtl;
+}
+
+footer label+.MuiInputBase-input:focus {
     color: white !important;
 }
-.MuiInputBase-input:focus{
+
+footer .MuiInputBase-input:focus {
     color: white !important;
 }
-.MuiInputLabel-formControl {
+
+footer .MuiInputLabel-formControl {
     top: 0;
     right: 0;
-    left: unset  !important;
+    left: unset !important;
     position: absolute;
     transform: translate(0, 24px) scale(1);
 }
 
-.MuiFormLabel-root{
+footer .MuiFormLabel-root {
     color: white !important;
 }
 
-.MuiInput-underline:after {
+footer .MuiInput-underline:after {
     border-bottom: 2px solid #ffff !important;
 }
 
-.MuiInput-underline::before {
+footer .MuiInput-underline::before {
     border-bottom: 0.5px solid #ffff !important;
 }
 
-.MuiButton-outlinedPrimary:hover {
+footer .MuiButton-outlinedPrimary:hover {
     border: 1px solid #ffff !important;
     background-color: rgba(63, 81, 181, 0.04);
 }
 
-
-
-@media (max-width: 650px){
+@media (max-width: 650px) {
     .mainHeader {
         position: relative;
         height: 240px;
@@ -156,7 +191,7 @@ label + .MuiInputBase-input:focus{
         height: 4vh;
         margin: 7px 15px 0 15px;
     }
-    .makeStyles-root-1::after {
+    .tor2u_corousale::after {
         background-color: rgba(0, 0, 0, 0.5);
         width: 100%;
         height: 56%;
@@ -167,10 +202,10 @@ label + .MuiInputBase-input:focus{
         content: '';
         position: absolute;
     }
-    h1{
+    h1 {
         font-size: larger;
     }
-    h4{
+    h4 {
         font-size: medium;
     }
 }

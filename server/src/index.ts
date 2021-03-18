@@ -16,34 +16,63 @@ import appointmentRoutes from './routes/appointment';
 import { Socket } from 'socket.io';
 
 const appointmentEmitter = require("./eventsNotification/Appointments");
-const io = require("socket.io")(server, {
-    cors: {
-        origin: "*",
-        methods: ["GET", "POST"],
-        allowedHeaders: ["my-custom-header"],
-        credentials: true
-    }
-});
-
-io.on("connection", (socket: Socket) => {
-    appointmentEmitter(io, socket);
-});
 
 dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(cors({
-    origin: ["http://localhost:3000", "tor2u.com", "www.tor2u.com"],
-    credentials: true
-}));
+
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 
+app.use(cors({
+    origin: ["http://localhost:3000", "http://tor2u.com", "http://www.tor2u.com"],
+    credentials: true
+}));
+
+app.get("/api/test", (req, res) => {
+    res.status(200).send("this is test");
+});
+
+const io = require("socket.io")(server, {
+    cors: {
+        origin: ["http://localhost:3000", "http://tor2u.com", "http://www.tor2u.com"],
+        methods: "*",
+        allowedHeaders: [("Origin, X-Requested-With, Content-Type, Accept")],
+        credentials: true
+    }
+});
+
+app.get("/api/isuser", parseToken, (req: Request, res: Response, next: NextFunction) => {
+    const { type, id } = res.locals.info;
+    if (type === "business") {
+        Business.findById(id).select("-appointments -password")
+            .then((b: any) => {
+                return res.status(200).send({ body: b, type })
+            })
+    }
+    else if (type === "client") {
+        Client.findById(id).select(" -password ")
+            .populate({
+                path: "businesses",
+                populate: { path: "businesses" }
+            })
+            .then((c: any) => {
+                return res.status(200).send({ body: c, type })
+            });
+    }
+    else {
+       return  res.status(500).send()
+    }
+});
+
+app.get("/api/test2", (req, res) => {
+    res.status(200).send("this is test2")
+});
 
 //* Routing
 app.use("/api/business", businesRoute);
@@ -64,29 +93,6 @@ app.get("/mobile/:type/:id", (req: Request, res: Response) => {
     };
 });
 
-app.get("/api/isuser", parseToken, (req: Request, res: Response, next: NextFunction) => {
-    const { type, id } = res.locals.info;
-    if (type === "business") {
-        Business.findById(id).select("-appointments -password")
-            .then((b: any) => {
-                res.status(200).send({ body: b, type })
-            })
-    };
-    if (type === "client") {
-        Client.findById(id).select(" -password ")
-            .populate({
-                path: "businesses",
-                populate: { path: "businesses" }
-            })
-            .then((c: any) => {
-                res.status(200).send({ body: c, type })
-            })
-    }
-    else {
-        res.status(500).send()
-    }
-});
-
 app.get("/api/logout", (req: Request, res: Response, next: NextFunction) => {
     res.clearCookie("appointU");
     return res.status(200).end();
@@ -96,6 +102,10 @@ app.get("/api/forgotPassword", (req, res) => {
     const { email } = req.query;
     emailEmiter.emit("forgotPassword", email);
     return res.status(200).send();
+});
+
+io.on("connection", (socket: Socket) => {
+    appointmentEmitter(io, socket);
 });
 
 //* DB Connection

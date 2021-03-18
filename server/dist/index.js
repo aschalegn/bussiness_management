@@ -18,29 +18,54 @@ var bussiness_1 = __importDefault(require("./routes/bussiness"));
 var clients_1 = __importDefault(require("./routes/clients"));
 var appointment_1 = __importDefault(require("./routes/appointment"));
 var appointmentEmitter = require("./eventsNotification/Appointments");
-var io = require("socket.io")(util_1.server, {
-    cors: {
-        origin: "*",
-        methods: ["GET", "POST"],
-        allowedHeaders: ["my-custom-header"],
-        credentials: true
-    }
-});
-io.on("connection", function (socket) {
-    appointmentEmitter(io, socket);
-});
 dotenv_1.default.config();
 util_1.app.use(express_1.default.json());
 util_1.app.use(express_1.default.urlencoded({ extended: false }));
 util_1.app.use(cookie_parser_1.default());
-util_1.app.use(cors_1.default({
-    origin: ["http://localhost:3000", "tor2u.com", "www.tor2u.com"],
-    credentials: true
-}));
 util_1.app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
+});
+util_1.app.use(cors_1.default({
+    origin: ["http://localhost:3000", "http://tor2u.com", "http://www.tor2u.com"],
+    credentials: true
+}));
+util_1.app.get("/api/test", function (req, res) {
+    res.status(200).send("this is test");
+});
+var io = require("socket.io")(util_1.server, {
+    cors: {
+        origin: ["http://localhost:3000", "http://tor2u.com", "http://www.tor2u.com"],
+        methods: "*",
+        allowedHeaders: [("Origin, X-Requested-With, Content-Type, Accept")],
+        credentials: true
+    }
+});
+util_1.app.get("/api/isuser", util_2.parseToken, function (req, res, next) {
+    var _a = res.locals.info, type = _a.type, id = _a.id;
+    if (type === "business") {
+        Bussiness_1.Business.findById(id).select("-appointments -password")
+            .then(function (b) {
+            return res.status(200).send({ body: b, type: type });
+        });
+    }
+    else if (type === "client") {
+        Client_1.Client.findById(id).select(" -password ")
+            .populate({
+            path: "businesses",
+            populate: { path: "businesses" }
+        })
+            .then(function (c) {
+            return res.status(200).send({ body: c, type: type });
+        });
+    }
+    else {
+        return res.status(500).send();
+    }
+});
+util_1.app.get("/api/test2", function (req, res) {
+    res.status(200).send("this is test2");
 });
 //* Routing
 util_1.app.use("/api/business", bussiness_1.default);
@@ -60,29 +85,6 @@ util_1.app.get("/mobile/:type/:id", function (req, res) {
     }
     ;
 });
-util_1.app.get("/api/isuser", util_2.parseToken, function (req, res, next) {
-    var _a = res.locals.info, type = _a.type, id = _a.id;
-    if (type === "business") {
-        Bussiness_1.Business.findById(id).select("-appointments -password")
-            .then(function (b) {
-            res.status(200).send({ body: b, type: type });
-        });
-    }
-    ;
-    if (type === "client") {
-        Client_1.Client.findById(id).select(" -password ")
-            .populate({
-            path: "businesses",
-            populate: { path: "businesses" }
-        })
-            .then(function (c) {
-            res.status(200).send({ body: c, type: type });
-        });
-    }
-    else {
-        res.status(500).send();
-    }
-});
 util_1.app.get("/api/logout", function (req, res, next) {
     res.clearCookie("appointU");
     return res.status(200).end();
@@ -91,6 +93,9 @@ util_1.app.get("/api/forgotPassword", function (req, res) {
     var email = req.query.email;
     Email_1.emailEmiter.emit("forgotPassword", email);
     return res.status(200).send();
+});
+io.on("connection", function (socket) {
+    appointmentEmitter(io, socket);
 });
 //* DB Connection
 mongoose_1.default.connect(config_1.db, {
