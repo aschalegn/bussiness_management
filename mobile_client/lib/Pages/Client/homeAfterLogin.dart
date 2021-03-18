@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_client/Pages/Client/appointment.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mobile_client/Pages/Client/signin.dart';
 
 class HomeAfterLogin extends StatefulWidget {
   @override
@@ -22,22 +23,32 @@ class _HomeAfterLoginState extends State<HomeAfterLogin> {
   @override
   void initState() {
     super.initState();
-    getData();
     getImgAndLogo();
+    print('object');
   }
 
-  String displayPhone;
+  bool isLoggedIn = false;
+  Object userObj;
 
-  getData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      displayPhone = prefs.get('displayPhone');
-    });
+  _exit() async {
+    //get user from storage
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String userId = prefs.getString('username');
+    print(userId);
+
+//remove user from storage
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    sharedPreferences.setString('username', null);
+
+//back to login page
+    Navigator.push(
+        context, new MaterialPageRoute(builder: (context) => Signin()));
   }
 
   display() {
-    if (displayPhone != null) {
-      return Text("Welcome back $displayPhone!");
+    if (userObj != null) {
+      return Text("Welcome back $userObj!");
     }
   }
 
@@ -46,6 +57,13 @@ class _HomeAfterLoginState extends State<HomeAfterLogin> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Home After Client Login"),
+        leading: IconButton(
+          icon: Icon(Icons.logout),
+          onPressed: () {
+            _exit();
+            print('exit');
+          },
+        ),
       ),
       body: Column(
         children: [

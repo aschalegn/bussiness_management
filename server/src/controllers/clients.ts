@@ -46,7 +46,7 @@ async function login(req: any, res: any, next: any) {
         console.log(user, 'else');
         const token = tokenise(user._id, "client");
         res.cookie("appointU", token);
-        return res.status(200).send({ body: user.phone, type: "client", business: businessId });
+        return res.status(200).send({ body: user, type: "client", business: businessId });
     }
 
     else {

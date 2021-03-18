@@ -16,27 +16,56 @@ class _SigninState extends State<Signin> {
   final _formKey = GlobalKey<FormState>();
   String uri = "10.100.102.15";
 
-  User user = User();
-  Future<User> save() async {
-    var res = await http.get(
-        "http://$uri:1000/api/client/signIn/6028e4f2ed8a283230f4bc6c?phone=${user.phone}",
+  @override
+  void initState() {
+    super.initState();
+    _getDataFromStorage();
+  }
+
+  _getDataFromStorage() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String userId = prefs.getString('username');
+    print('sdghdjjyktktk');
+    print(userId);
+  }
+
+  String _phone;
+  bool isLoggedIn = false;
+  Object userObj;
+
+  Future<List<User>> save() async {
+    List<User> list;
+    final res = await http.get(
+        "http://$uri:1000/api/client/signIn/6028e4f2ed8a283230f4bc6c?phone=$_phone",
         headers: {'Context-Type': 'application/json;charSet=UTF-8'});
-    // List<dynamic> data = jsonDecode(res.body);
-    print('huhhhhhhhhh');
-    print(res.statusCode);
-    // print(data);
 
     if (res.statusCode == 200) {
-      Navigator.push(context,
-          new MaterialPageRoute(builder: (context) => HomeAfterLogin()));
+      final decodedResponse = jsonDecode(res.body);
+      final myObject = User.fromJson(decodedResponse);
+      print(myObject.body.id);
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('username', myObject.body.id);
+
+      setState(() {
+        isLoggedIn = true;
+        userObj = myObject.body;
+      });
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomeAfterLogin(
+                //  userObj: userObj,
+                )),
+      );
     } else if (res.statusCode == 401 || res.statusCode == 404) {
-     return (user);
+      print(res.statusCode);
+      return list;
     }
+    print(userObj);
   }
 
   @override
   Widget build(BuildContext cnotext) {
-
     return Scaffold(
         body: Stack(children: [
       Container(
@@ -51,9 +80,8 @@ class _SigninState extends State<Signin> {
                 Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: TextFormField(
-                      controller: TextEditingController(text: user.phone),
                       onChanged: (value) {
-                        user.phone = value;
+                        _phone = value;
                       },
                       validator: (value) {
                         if (value.isEmpty) {

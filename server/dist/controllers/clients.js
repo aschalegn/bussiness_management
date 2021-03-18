@@ -98,7 +98,7 @@ function login(req, res, next) {
                         console.log(user, 'else');
                         token = util_1.tokenise(user._id, "client");
                         res.cookie("appointU", token);
-                        return [2 /*return*/, res.status(200).send({ body: user.phone, type: "client", business: businessId })];
+                        return [2 /*return*/, res.status(200).send({ body: user, type: "client", business: businessId })];
                     }
                     else {
                         console.log(user, phone, 'else if');

@@ -44,18 +44,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-<<<<<<< HEAD
-app.get("/test", (req, res) => {
-    res.send("test");
-});
-
-app.use(cors({
-    origin: "http://localhost:3000",
-    credentials: true
-}));
-=======
->>>>>>> 15a310e61bd292d736a0240bac996551dad78238
-
 
 //* Routing
 app.use("/api/business", businesRoute);
