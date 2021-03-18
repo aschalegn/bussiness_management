@@ -45,10 +45,7 @@ export default function UserProvider(props: any) {
     useEffect(() => {
         axios.get(`/api/isuser`, { withCredentials: true })
             .then(res => {
-                console.log(res);
-
                 if (res.status === 200) {
-                    console.log("on useEffect");
                     const type = res.data.type
                     const payload = { ...res.data.body, type };
                     userDispatch({ type: "SIGN_UP", payload: payload });

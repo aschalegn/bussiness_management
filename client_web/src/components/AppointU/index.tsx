@@ -7,6 +7,7 @@ import { autoPlay } from 'react-swipeable-views-utils';
 import TextField from '@material-ui/core/TextField';
 import { HashLink } from "react-router-hash-link"
 import { Link } from 'react-router-dom';
+import CommonQA from './CommonQA';
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const tutorialSteps = [
@@ -50,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.default,
     },
     img: {
-        // height: 255,
         display: 'block',
         maxWidth: 400,
         overflow: 'hidden',
@@ -66,8 +66,9 @@ const Home = () => {
     const handleStepChange = (step: number) => {
         setActiveStep(step);
     };
+
     return (
-        <div className='tou2U'>
+        <div className='tor2U'>
             <header className='mainHeader'>
                 <nav className='navbar'>
                     <ul>
@@ -75,7 +76,7 @@ const Home = () => {
                             <Link to="">אודות</Link>
                         </li>
                         <li>
-                            <Link to="">שאלות נפוצות</Link>
+                            <HashLink to="/#commonQA">שאלות נפוצות</HashLink>
                         </li>
                         <li>
                             <Link to="/admin/register">הרשם עכשיו</Link></li>
@@ -85,7 +86,7 @@ const Home = () => {
                     </ul>
                 </nav>
 
-                <div className={classes.root}>
+                <div className={`${classes.root} tor2u_corousale`}>
                     <AutoPlaySwipeableViews
                         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
                         index={activeStep}
@@ -106,7 +107,7 @@ const Home = () => {
                     <h4>קליק אחד והתור נקבע</h4>
                     <div className='btnMainHeader'>
                         <Button variant="outlined" color="primary" >
-                            <HashLink to="#contact"> צור קשר </HashLink>
+                            <HashLink to="/#contact"> צור קשר </HashLink>
                         </Button>
                         <Button variant="outlined" color="primary">
                             <Link to="/admin/login"> התחברות</Link>
@@ -142,8 +143,10 @@ const Home = () => {
                         <p>שליחת הודעות</p>
                     </article>
                 </section>
-                <section></section>
-                <section></section>
+               
+                <section className="commonQA" id="commonQA">
+                    <CommonQA />
+                </section>
             </main>
 
             <footer>

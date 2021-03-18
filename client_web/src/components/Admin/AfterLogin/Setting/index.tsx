@@ -7,7 +7,6 @@ import Services from './Services';
 
 export default function Main() {
     const [value, setValue] = useState(0);
-
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setValue(newValue);
     };

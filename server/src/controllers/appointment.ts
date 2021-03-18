@@ -73,6 +73,7 @@ class AppointmentContreller {
             console.log('error get all');
         }
     }
+    
     // Array<string>
     getByBusinessAgr = async (id: string, date: any) => {
         const business = await Business.findById(id)

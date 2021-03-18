@@ -31,13 +31,13 @@
     margin: auto;
 }
 
-.weekly .workers {
+ .workers {
     display: flex;
     margin-bottom: 10px;
     justify-content: center;
 }
 
-.weekly .worker {
+ .worker {
     width: 100px;
     height: 130px;
     border-radius: 50%;
@@ -52,7 +52,7 @@
     border-radius: 50%;
 }
 
-.weekly .worker p {
+ .worker p {
     position: absolute;
     top: 90%;
 }

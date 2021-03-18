@@ -1,14 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
+import {
+  Avatar, Button, CssBaseline, TextField,
+  Grid, Typography, Container
+} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import { userContext } from '../../../context/User';
 
 const useStyles = makeStyles((theme) => ({
@@ -41,9 +38,9 @@ export default function LogIn() {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="sm">
       {user ?
-        <Redirect to={`/6028e4f2ed8a283230f4bc6c`} />
+        <Redirect to="/6028e4f2ed8a283230f4bc6c" />
         : ''
       }
       <CssBaseline />
@@ -94,7 +91,7 @@ export default function LogIn() {
           <Grid container justify="center">
             <Grid item xs>
               <Link to='/admin/forgotpassword' >
-                Forgot password?
+                שכחת סיסמה?
               </Link>
             </Grid>
             <Grid item >

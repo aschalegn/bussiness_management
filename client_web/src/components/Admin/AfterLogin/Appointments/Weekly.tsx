@@ -29,19 +29,15 @@ export default function Weekly({ appointments }: Props) {
     setDays(localDays);
   };
 
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const filterWorkerById = user.workers.filter((w: any, i: any) => {
-      return w._id === e.target.value
-    });
-    setWorker(filterWorkerById[0])
+  const handleChange = (index: number) => {
+    setWorker(user.workers[index]);
   };
 
   return (
     <section className="weekly">
-
       <article className="workers">
-        {user.workers.map(worker =>
-          <div className="worker">
+        {user.workers.map((worker, i) =>
+          <div className="worker" onClick={() => handleChange(i)}>
             <img src={worker.profile} alt={worker.name} />
             <p>{worker.name}</p>
           </div>
