@@ -45,7 +45,7 @@ async function login(req: any, res: any, next: any) {
     if (await user) {
         const token = tokenise(user._id, "client");
         res.cookie("appointU", token);
-        return res.status(200).send({ body: user.phone, type: "client", business: businessId });
+        return res.status(200).send({ body: user, type: "client", business: businessId });
     }
     else {
         return res.status(204).send({ msg: 'The phone number ' + phone + ' is not associated with any account. please check and try again!' });
