@@ -17,10 +17,10 @@ var Client_1 = require("./model/Client");
 var bussiness_1 = __importDefault(require("./routes/bussiness"));
 var clients_1 = __importDefault(require("./routes/clients"));
 var appointment_1 = __importDefault(require("./routes/appointment"));
-var appointmentEmitter = require("./eventsNotification/Appointments");
+var Appointments_1 = require("./eventsNotification/Appointments");
 dotenv_1.default.config();
 util_1.app.use(express_1.default.json());
-util_1.app.use(express_1.default.urlencoded({ extended: false }));
+util_1.app.use(express_1.default.urlencoded({ extended: true }));
 util_1.app.use(cookie_parser_1.default());
 util_1.app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -95,7 +95,7 @@ util_1.app.get("/api/forgotPassword", function (req, res) {
     return res.status(200).send();
 });
 io.on("connection", function (socket) {
-    appointmentEmitter(io, socket);
+    Appointments_1.EmitterIO(io, socket);
 });
 //* DB Connection
 mongoose_1.default.connect(config_1.db, {

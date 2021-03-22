@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = exports.register = void 0;
+exports.deleteClient = exports.login = exports.register = void 0;
 var Bussiness_1 = require("../model/Bussiness");
 var Client_1 = require("../model/Client");
 var util_1 = require("../util");
@@ -48,9 +48,11 @@ function register(req, res, next) {
         if (err) {
             return res.status(500).send({ msg: err.message });
         }
+        ;
         if (u) {
             return res.status(400).send({ msg: 'This phone address is already associated with another account.' });
         }
+        ;
         Bussiness_1.Business.findById(businessId, function (err, business) { return __awaiter(_this, void 0, void 0, function () {
             var user, token;
             return __generator(this, function (_a) {
@@ -75,13 +77,16 @@ function register(req, res, next) {
                         token = util_1.tokenise(user._id, "client");
                         res.cookie("appointU", token);
                         return [2 /*return*/, res.status(201).send({ body: user, type: "client", business: businessId })];
-                    case 3: return [2 /*return*/, res.status(500).send("omkjhgghbj")];
+                    case 3:
+                        ;
+                        return [2 /*return*/, res.status(500).send("omkjhgghbj")];
                 }
             });
         }); });
     });
 }
 exports.register = register;
+;
 function login(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
         var _a, phone, businessId, user, token;
@@ -95,19 +100,20 @@ function login(req, res, next) {
                     return [4 /*yield*/, user];
                 case 2:
                     if (_b.sent()) {
-                        console.log(user, 'else');
                         token = util_1.tokenise(user._id, "client");
                         res.cookie("appointU", token);
                         return [2 /*return*/, res.status(200).send({ body: user.phone, type: "client", business: businessId })];
                     }
                     else {
-                        console.log(user, phone, 'else if');
-                        return [2 /*return*/, res.status(401).send({ msg: 'The phone number ' + phone + ' is not associated with any account. please check and try again!' })];
+                        return [2 /*return*/, res.status(204).send({ msg: 'The phone number ' + phone + ' is not associated with any account. please check and try again!' })];
                     }
+                    ;
                     return [2 /*return*/];
             }
         });
     });
 }
 exports.login = login;
+;
 var deleteClient = function (id) { };
+exports.deleteClient = deleteClient;

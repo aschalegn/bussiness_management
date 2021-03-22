@@ -26,7 +26,7 @@ export default function Dayli({ appointments }: Props) {
         <section>
             <article className="workers">
                 {user.workers.map((worker, i) =>
-                    <div className="worker" onClick={() => handleChange(i)}>
+                    <div className="worker" onClick={() => handleChange(i)} key={i}>
                         <img src={worker.profile} alt={worker.name} />
                         <p>{worker.name}</p>
                     </div>
@@ -42,21 +42,16 @@ export default function Dayli({ appointments }: Props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {/* {worker.availableTimes.map((time, i) => { */}
                     {appointments.map((ap, i) => {
-                        console.log(ap);
-                        // && time === ap.time
-                        // const date = Number(new Date(ap.date).getDate());
                         if (ap.date === today) {
-                            < tr key={i}>
-                                {ap.client.fullName}
+                            return < tr key={i}>
+                                <td>{ap.time}</td>
+                                <td>{ap.client.fullName}</td>
+                                <td>{ap.style || "לא נבחר"}</td>
                             </tr>
-                            // return <p className="red"></p>
                         };
 
                     })}
-                    {/* } */}
-                    {/* )} */}
                 </tbody>
             </table>
         </section >

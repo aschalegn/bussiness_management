@@ -9,7 +9,7 @@ const appointmentSchema: Schema = new Schema({
     barber: String,
     date: String,
     time: String,
-    style: String,
+    style: { type: Object },
     bussiness: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Business'

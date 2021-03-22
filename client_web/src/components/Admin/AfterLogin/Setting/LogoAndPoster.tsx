@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { ChangeEvent, FormEvent, useContext, useState } from 'react';
 import { userContext } from '../../../../context/User';
 import { baseURL } from '../../../../utils';
-import "./LogoAndPoster.module.css";
+import "./LogoAndPoster.css";
 export default function LogoAndPoster() {
     const [logo, setLogo] = useState<string | Blob>("d");
     const [poster, setPoster] = useState<string | Blob>("");
@@ -11,9 +11,6 @@ export default function LogoAndPoster() {
         if (e.target.name === "logo") {
             const files = e.target.files;
             if (files) {
-                // if (files[0].size > 1024 * 5) {
-                //     alert("file to big");
-                // }
                 setLogo(files[0]);
             }
         }

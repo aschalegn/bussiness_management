@@ -6,7 +6,7 @@ interface IAppointment extends mongoose.Document {
     date: string,
     time: string,
     style: string,
-    bussiness:string
+    bussiness: string,
 }
 
 export { IAppointment }

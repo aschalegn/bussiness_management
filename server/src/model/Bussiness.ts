@@ -5,10 +5,14 @@ const businessSchema = new Schema({
     name: { type: String, required: true },
     email: String,
     password: { type: String, required: true },
-    services: {
-        main: [],
-        details: [{ name: String, price: Number }]
-    },
+    services: [
+        {
+            name: String,
+            price: Number,
+            img: String
+        }
+    ],
+    category: String,
     logo: String,
     poster: String,
     joinDate: String,

@@ -16,23 +16,20 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
     const cookie = req.cookies.appointU;
     if (cookie) {
         console.log(cookie);
-    }
+    };
     next();
-}
+};
 
 const parseToken = (req: Request, res: Response, next: NextFunction) => {
     const cookie = req.cookies.appointU;
     if (cookie) {
-        console.log("yes", cookie);
-
         let info = jwt.decode(cookie);
         res.locals.info = info;
         return next();
     }
     else {
-        console.log("no", cookie);
         return res.status(204);
-    }
+    };
 };
 
-export { tokenise, authenticate, parseToken }
+export { tokenise, authenticate, parseToken}

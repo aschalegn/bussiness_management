@@ -37,78 +37,80 @@ export default function Weekly({ appointments }: Props) {
     <section className="weekly">
       <article className="workers">
         {user.workers.map((worker, i) =>
-          <div className="worker" onClick={() => handleChange(i)}>
+          <div className="worker" onClick={() => handleChange(i)} key={i}>
             <img src={worker.profile} alt={worker.name} />
             <p>{worker.name}</p>
           </div>
         )}
       </article>
       <table className="board">
-        <tr className="days">
-          <th>שעה / תאריך</th>
-          {days.map((day, i) =>
-            <th key={i}>{day}</th>
-          )}
-        </tr>
-        {/* {console.log(worker)} */}
-        {worker.availableTimes.map((time, i) =>
-          <tr key={time} className="hour" >
-            <td className="time">{time}</td>
-            <td className="appointment">
-              {appointments.map(ap => {
-                const date = Number(new Date(ap.date).getDate());
-                if (date === days[0] && time === ap.time && ap.barber === worker.name) {
-                  return <p className="red">{ap.client.fullName}</p>
-                }
-              })}
-            </td>
-            <td className="appointment">
-              {appointments.map(ap => {
-                const date = Number(new Date(ap.date).getDate());
-                if (date === days[1] && time === ap.time && ap.barber === worker.name) {
-                  return <p className="red">{ap.client.fullName}</p>
-                }
-              })}
-            </td>
-            <td className="appointment">
-              {appointments.map(ap => {
-                const date = Number(new Date(ap.date).getDate());
-                if (date === days[2] && time === ap.time && ap.barber === worker.name) {
-                  return <p className="red">{ap.client.fullName}</p>
-                }
-              })}
-            </td>
-            <td className="appointment">
-              {appointments.map(ap => {
-                const date = Number(new Date(ap.date).getDate());
-                if (date === days[3] && time === ap.time && ap.barber === worker.name) {
-                  return <p className="red"
-                  //  onClick={() => {
-                  //     alert(`clicked ${ap.date} ${ap.time}`);
-                  // }}
-                  >
-                    {ap.client.fullName}</p>
-                }
-              })}
-            </td>
-            <td className="appointment">
-              {appointments.map(ap => {
-                const date = Number(new Date(ap.date).getDate());
-                if (date === days[4] && time === ap.time && ap.barber === worker.name) {
-                  return <p className="red">{ap.client.fullName}</p>
-                }
-              })}
-            </td>
-            <td className="appointment">
-              {appointments.map(ap => {
-                const date = Number(new Date(ap.date).getDate());
-                if (date === days[5] && time === ap.time && ap.barber === worker.name) {
-                  return <p className="red">{ap.client.fullName}</p>
-                }
-              })}
-            </td>
+        <tbody>
+          <tr className="days">
+            <th>שעה / תאריך</th>
+            {days.map((day, i) =>
+              <th key={i}>{day}</th>
+            )}
           </tr>
-        )}
+          {/* {console.log(worker)} */}
+          {worker.availableTimes.map((time, i) =>
+            <tr key={time} className="hour" >
+              <td className="time">{time}</td>
+              <td className="appointment">
+                {appointments.map((ap, i) => {
+                  const date = Number(new Date(ap.date).getDate());
+                  if (date === days[0] && time === ap.time && ap.barber === worker.name) {
+                    return <p className="red" key={i}>{ap.client.fullName}</p>
+                  }
+                })}
+              </td>
+              <td className="appointment">
+                {appointments.map((ap, i) => {
+                  const date = Number(new Date(ap.date).getDate());
+                  if (date === days[1] && time === ap.time && ap.barber === worker.name) {
+                    return <p className="red" key={i}>{ap.client.fullName}</p>
+                  }
+                })}
+              </td>
+              <td className="appointment">
+                {appointments.map((ap, i) => {
+                  const date = Number(new Date(ap.date).getDate());
+                  if (date === days[2] && time === ap.time && ap.barber === worker.name) {
+                    return <p className="red" key={i}>{ap.client.fullName}</p>
+                  }
+                })}
+              </td>
+              <td className="appointment">
+                {appointments.map((ap, i) => {
+                  const date = Number(new Date(ap.date).getDate());
+                  if (date === days[3] && time === ap.time && ap.barber === worker.name) {
+                    return <p className="red" key={i}
+                    //  onClick={() => {
+                    //     alert(`clicked ${ap.date} ${ap.time}`);
+                    // }}
+                    >
+                      {ap.client.fullName}</p>
+                  }
+                })}
+              </td>
+              <td className="appointment">
+                {appointments.map((ap, i) => {
+                  const date = Number(new Date(ap.date).getDate());
+                  if (date === days[4] && time === ap.time && ap.barber === worker.name) {
+                    return <p className="red" key={i}>{ap.client.fullName}</p>
+                  }
+                })}
+              </td>
+              <td className="appointment">
+                {appointments.map((ap, i) => {
+                  const date = Number(new Date(ap.date).getDate());
+                  if (date === days[5] && time === ap.time && ap.barber === worker.name) {
+                    return <p className="red" key={i}>{ap.client.fullName}</p>
+                  }
+                })}
+              </td>
+            </tr>
+          )}
+        </tbody>
       </table>
     </section >
   )

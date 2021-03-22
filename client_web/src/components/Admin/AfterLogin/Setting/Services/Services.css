@@ -1,0 +1,28 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.Services {
+    margin-top: 20px;
+}
+
+.Services .group {
+    width: 80%;
+    display: flex;
+    margin-top: 10px;
+}
+
+.Services .group label {
+    width: 30%;
+}
+
+.Services h4 {
+    margin-top: 3%;
+}
+
+.Services input {
+    text-align: center;
+    width: 70%;
+    height: 40px;
+}

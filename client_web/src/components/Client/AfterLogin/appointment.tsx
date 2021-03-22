@@ -42,25 +42,22 @@ export default function Appointment() {
             else {
                 return x
             }
+        };
 
-        }
         for (let i = 0; i < 6; i++) {
             localDays.push(from_date.toDate().getDate() + i);
             const y = `${from_date.toDate().getFullYear()}-${checkDateX(month)}-${from_date.toDate().getDate() + i}`;
             const tmp = `${from_date.toDate().getDate() + i}/${checkDateX(month)}`;
             temp.push(y);
             tmp1.push(tmp)
-        }
+        };
         setDays(localDays);
         setArr(temp);
         setDM(tmp1);
     };
 
     const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-        const filterWorkerById = user.businesses[0].workers.filter((w: any, i: any) => {
-            return w._id === e.target.value
-        });
-        setWorker(filterWorkerById[0])
+         setWorker(user.businesses[0].workers[Number(e.target.value)]);
     };
 
     const filterTimes = (time: any, index: number) => {
@@ -71,56 +68,58 @@ export default function Appointment() {
             if (date === days[index] && time === element.time && element.barber === worker.name) {
                 el = <p className='catch' >{time}</p>
                 break;
-            }
-        }
-        return el
+            };
+        };
+        return el;
     }
 
     const clickHandler = (time: any, i: number) => {
-        setOpen(!open)
-        setSelectDay(arr[i])
-        setSelectTime(time)
-    }
+        setOpen(!open);
+        setSelectDay(arr[i]);
+        setSelectTime(time);
+    };
+
     return (
         <section className="weekly">
             {open ? <MakeAppointment open={open} setOpen={setOpen} worker={worker} selectDay={selectDay} selectTime={selectTime} /> : ''}
-            <select name="" id="" onChange={handleChange}>
-                {user.businesses[0].workers.map(worker =>
-                    <option key={worker._id} value={worker._id} >{worker.name}</option>
+            <select name="worker" id="worker" onChange={handleChange} title="select worker">
+                {user.businesses[0].workers.map((worker, i) =>
+                    <option key={i} value={i} >{worker.name}</option>
                 )}
             </select>
 
             <table className='board'>
-                <tr className="days">
-                    {/* <th>שעה / תאריך</th> */}
-                    {daysS.map((day, i) =>
-                        <th key={i}>{day}<br /><p className='dm'>{dM[i]}</p> </th>
-                    )}
-                </tr>
-
-                {worker.availableTimes.map((time: any, i) =>
-                    <tr key={time} className="hour"  >
-                        <td className="times">
-                            {filterTimes(time, 0) ? filterTimes(time, 0) : <p className='time' onClick={() => clickHandler(time, 0)}>{time}</p>}
-                        </td>
-                        <td className="times" onClick={() => clickHandler(time, 1)}>
-                            {filterTimes(time, 1) ? filterTimes(time, 1) : <p className='time'>{time}</p>}
-                        </td>
-                        <td className="times" onClick={() => clickHandler(time, 2)}>
-                            {filterTimes(time, 2) ? filterTimes(time, 2) : <p className='time'>{time}</p>}
-                        </td>
-                        <td className="times" onClick={() => clickHandler(time, 3)}>
-                            {filterTimes(time, 3) ? filterTimes(time, 3) : <p className='time'>{time}</p>}
-                        </td>
-                        <td className="times" onClick={() => clickHandler(time, 4)}>
-                            {filterTimes(time, 4) ? filterTimes(time, 4) : <p className='time'>{time}</p>}
-                        </td>
-                        <td className="times" onClick={() => clickHandler(time, 5)}>
-                            {filterTimes(time, 5) ? filterTimes(time, 5) : <p className='time'>{time}</p>}
-                        </td>
-
+                <thead>
+                    <tr className="days">
+                        {daysS.map((day, i) =>
+                            <th key={i}>{day}<br /><p className='dm'>{dM[i]}</p> </th>
+                        )}
                     </tr>
-                )}
+                </thead>
+                <tbody>
+                    {worker.availableTimes.map((time: any, i) =>
+                        <tr key={time} className="hour"  >
+                            <td className="times">
+                                {filterTimes(time, 0) || <p className='time' onClick={() => clickHandler(time, 0)}>{time}</p>}
+                            </td>
+                            <td className="times">
+                                {filterTimes(time, 1) || <p className='time' onClick={() => clickHandler(time, 1)}>{time}</p>}
+                            </td>
+                            <td className="times">
+                                {filterTimes(time, 2) || <p className='time' onClick={() => clickHandler(time, 2)}>{time}</p>}
+                            </td>
+                            <td className="times">
+                                {filterTimes(time, 3) || <p className='time' onClick={() => clickHandler(time, 3)}>{time}</p>}
+                            </td>
+                            <td className="times">
+                                {filterTimes(time, 4) || <p className='time' onClick={() => clickHandler(time, 4)}>{time}</p>}
+                            </td>
+                            <td className="times">
+                                {filterTimes(time, 5) || <p className='time' onClick={() => clickHandler(time, 5)}>{time}</p>}
+                            </td>
+                        </tr>
+                    )}
+                </tbody>
             </table>
 
 

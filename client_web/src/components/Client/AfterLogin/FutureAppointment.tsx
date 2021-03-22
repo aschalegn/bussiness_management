@@ -36,7 +36,6 @@ export default function FutureAppointment() {
         };
         axios.patch(`${baseURL}appointment/${futurTurn._id}`, data)
             .then(res => {
-                console.log(res);
                 alert('התור עודכן בהצלחה');
                 setOpen(false);
             })
