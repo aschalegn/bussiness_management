@@ -1,5 +1,6 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import moment from "moment";
+import 'moment-timezone';
 import { userContext } from '../../../../context/User';
 import { IAppointment } from "../../../../interfaces"
 
@@ -9,22 +10,20 @@ type Props = {
 
 export default function Weekly({ appointments }: Props) {
   const { user } = useContext(userContext);
-  const d: number[] = [];
-  const [days, setDays] = useState(d);
+  const [days, setDays] = useState<String[]>([""]);
   const [worker, setWorker] = useState(user.workers[0]);
-  interface Ida {
-    date: number, aps: IAppointment[]
-  }
-
+  const d = ["א", "ב", "ג", "ד", "ה", "ו", "ש"];
   useEffect(() => {
     getCurrentWeekDays();
   }, []);
 
   const getCurrentWeekDays = () => {
-    const from_date = moment().startOf('week');
+    const from_date = moment().startOf('week').toDate();
     const localDays = [];
     for (let i = 0; i < 6; i++) {
-      localDays.push(from_date.toDate().getDate() + i);
+      const date = new Date(moment(from_date).add(i + 1, "days").toString());
+      date.setUTCHours(0, 0, 0, 0);
+      localDays.push(date.toISOString());
     }
     setDays(localDays);
   };
@@ -48,16 +47,15 @@ export default function Weekly({ appointments }: Props) {
           <tr className="days">
             <th>שעה / תאריך</th>
             {days.map((day, i) =>
-              <th key={i}>{day}</th>
+              <th key={i}>{new Date(day.toString()).getDate()} <br />{d[i]}</th>
             )}
           </tr>
-          {/* {console.log(worker)} */}
           {worker.availableTimes.map((time, i) =>
             <tr key={time} className="hour" >
               <td className="time">{time}</td>
               <td className="appointment">
                 {appointments.map((ap, i) => {
-                  const date = Number(new Date(ap.date).getDate());
+                  const date = new Date(ap.date).toISOString();
                   if (date === days[0] && time === ap.time && ap.barber === worker.name) {
                     return <p className="red" key={i}>{ap.client.fullName}</p>
                   }
@@ -65,7 +63,7 @@ export default function Weekly({ appointments }: Props) {
               </td>
               <td className="appointment">
                 {appointments.map((ap, i) => {
-                  const date = Number(new Date(ap.date).getDate());
+                  const date = new Date(ap.date).toISOString();
                   if (date === days[1] && time === ap.time && ap.barber === worker.name) {
                     return <p className="red" key={i}>{ap.client.fullName}</p>
                   }
@@ -73,7 +71,7 @@ export default function Weekly({ appointments }: Props) {
               </td>
               <td className="appointment">
                 {appointments.map((ap, i) => {
-                  const date = Number(new Date(ap.date).getDate());
+                  const date = new Date(ap.date).toISOString();
                   if (date === days[2] && time === ap.time && ap.barber === worker.name) {
                     return <p className="red" key={i}>{ap.client.fullName}</p>
                   }
@@ -81,20 +79,16 @@ export default function Weekly({ appointments }: Props) {
               </td>
               <td className="appointment">
                 {appointments.map((ap, i) => {
-                  const date = Number(new Date(ap.date).getDate());
+                  const date = new Date(ap.date).toISOString();
                   if (date === days[3] && time === ap.time && ap.barber === worker.name) {
-                    return <p className="red" key={i}
-                    //  onClick={() => {
-                    //     alert(`clicked ${ap.date} ${ap.time}`);
-                    // }}
-                    >
+                    return <p className="red" key={i}>
                       {ap.client.fullName}</p>
                   }
                 })}
               </td>
               <td className="appointment">
                 {appointments.map((ap, i) => {
-                  const date = Number(new Date(ap.date).getDate());
+                  const date = new Date(ap.date).toISOString();
                   if (date === days[4] && time === ap.time && ap.barber === worker.name) {
                     return <p className="red" key={i}>{ap.client.fullName}</p>
                   }
@@ -102,7 +96,7 @@ export default function Weekly({ appointments }: Props) {
               </td>
               <td className="appointment">
                 {appointments.map((ap, i) => {
-                  const date = Number(new Date(ap.date).getDate());
+                  const date = new Date(ap.date).toISOString();
                   if (date === days[5] && time === ap.time && ap.barber === worker.name) {
                     return <p className="red" key={i}>{ap.client.fullName}</p>
                   }

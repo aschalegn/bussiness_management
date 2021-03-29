@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { Business } from '../model/Bussiness';
 import moment from 'moment';
 import { tokenise } from '../util';
+import { IService } from "../interfaces/Servece";
 
 const addBussiness = async (req: Request, res: Response) => {
     const body = req.body;
@@ -22,15 +23,15 @@ const addBussiness = async (req: Request, res: Response) => {
 const logIn = async (email: any, password: any, res: Response) => {
     if (email) {
         const business = await Business.find({ $or: [{ email: email }, { "workers.email": email }] }).select("-appointments");
-        if (await business) {
-            let b = business[0]
+        if (await business.length > 0) {
+            let b = business[0];
             if (b.email === email) {
                 const isPasswordMatch = comparePassword(password, b.password);
                 if (isPasswordMatch) {
                     const token = tokenise(b._id, "business");
                     res.cookie("appointU", token);
                     return res.status(200).send({ body: b, type: "business" });
-                }
+                };
             }
             else {
                 const worker = b.workers.find((w: any) => w.email === email);
@@ -40,13 +41,13 @@ const logIn = async (email: any, password: any, res: Response) => {
                     res.cookie("appointU", token);
                     console.log(worker);
                     return res.status(200).send({ body: worker, type: "business" });
-                }
-            }
+                };
+            };
             return res.status(500).send("password does not match");
-        }
+        };
         return res.status(500).send("could not find the user");
-    }
-}
+    };
+};
 
 const addWorker = async (req: Request, res: Response) => {
     const worker = req.body;

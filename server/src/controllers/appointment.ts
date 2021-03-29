@@ -24,7 +24,7 @@ class AppointmentContreller {
     makeByClient = async (bussinessId: string, data: any, userId: string) => {
         data.client = userId;
         const appointment = new Appointment(data);
-        const client = await Client.findById(userId);
+                const client = await Client.findById(userId);
         if (await client) {
             await client.appointments.push(appointment);
             const business = await Business.findById(bussinessId);
@@ -44,7 +44,7 @@ class AppointmentContreller {
             .select("client")
             .populate({
                 path: "appointments",
-                populate: { path: "appointments" }
+                // populate: { path: "appointments" }
             });
         if (await client) {
             return client;
@@ -73,17 +73,18 @@ class AppointmentContreller {
             .select("appointments")
             .populate({
                 path: "appointments",
-                match: { date: date }
+                populate: { path: "client" },
+                // match: { date: date }
             });
         return business;
-    }
+    };
 
     getWeekly = async (userId: string, date: any) => {
         const business = await Business.findById(userId)
             .select("appointments")
             .populate({
                 path: "appointments",
-                match: { date: date },
+                // match: { date: date },
                 populate: { path: "client" }
             });
         if (await business) {
@@ -120,7 +121,7 @@ class AppointmentContreller {
 
 // new AppointmentContreller()
 //     .getByBusinessAgr("6028e4f2ed8a283230f4bc6c",
-//     ["2021-02-16", "2021-02-18","2021-02-17" ]
+//         ["2021-03-26"]
 //     )
 //     .then(aps => {
 //         console.log(aps);

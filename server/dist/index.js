@@ -17,6 +17,7 @@ var Client_1 = require("./model/Client");
 var bussiness_1 = __importDefault(require("./routes/bussiness"));
 var clients_1 = __importDefault(require("./routes/clients"));
 var appointment_1 = __importDefault(require("./routes/appointment"));
+var statistics_1 = __importDefault(require("./routes/statistics"));
 var Appointments_1 = require("./eventsNotification/Appointments");
 dotenv_1.default.config();
 util_1.app.use(express_1.default.json());
@@ -31,9 +32,6 @@ util_1.app.use(cors_1.default({
     origin: ["http://localhost:3000", "http://tor2u.com", "http://www.tor2u.com"],
     credentials: true
 }));
-util_1.app.get("/api/test", function (req, res) {
-    res.status(200).send("this is test");
-});
 var io = require("socket.io")(util_1.server, {
     cors: {
         origin: ["http://localhost:3000", "http://tor2u.com", "http://www.tor2u.com"],
@@ -64,13 +62,11 @@ util_1.app.get("/api/isuser", util_2.parseToken, function (req, res, next) {
         return res.status(500).send();
     }
 });
-util_1.app.get("/api/test2", function (req, res) {
-    res.status(200).send("this is test2");
-});
 //* Routing
 util_1.app.use("/api/business", bussiness_1.default);
 util_1.app.use('/api/client', clients_1.default);
 util_1.app.use('/api/appointment', appointment_1.default);
+util_1.app.use('/api/statistics', statistics_1.default);
 util_1.app.get("/mobile/:type/:id", function (req, res) {
     var _a = req.params, type = _a.type, id = _a.id;
     if (type === "client") {

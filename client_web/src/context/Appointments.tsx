@@ -33,15 +33,10 @@ export default function AppointmentsProvider({ children }: Props) {
 
     useEffect(() => {
         io.on("appontmentAdded", (data: any) => {
-            console.log(data);
-            const businessId = data.businessId
+            const { businessId } = data;
             if (user._id === businessId) {
-                console.log("metch");
                 dispatch({ type: 'ADD_APPOINTMENT', payload: data.data })
-            }
-            else {
-                console.log("not match");
-            }
+            };
         });
     }, []);
 
@@ -49,8 +44,6 @@ export default function AppointmentsProvider({ children }: Props) {
         axios.get(`/api/appointment/business/${id}`)
             .then(res => {
                 if (res.status === 200) {
-                    console.log(res.data);
-
                     dispatch({ type: "GET_APPOINTMENTS", payload: res.data });
                 }
             });

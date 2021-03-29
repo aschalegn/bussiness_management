@@ -22,14 +22,14 @@ const Home = () => {
                 <div className="grid-container">
                     <div className="grid-item">
                         <CalendarTodayIcon />
-                        <Link to="/6028e4f2ed8a283230f4bc6c/live">
+                        <Link to={`${user._id}/live`}>
                             <Trans i18nKey="adminNav.currentTurn"></Trans>
                         </Link>
                         {/* {t("adminNav.currentTurn")} */}
                     </div>
                     <div className="grid-item">
                         <DateRangeIcon />
-                        <Link to="/6028e4f2ed8a283230f4bc6c/appointments">
+                        <Link to={`${user._id}/appointments`}>
                             <Trans i18nKey="adminNav.turns"></Trans>
                         </Link>
                     </div>
@@ -41,19 +41,19 @@ const Home = () => {
                     </div>
                     <div className="grid-item">
                         <SettingsIcon />
-                        <Link to="/6028e4f2ed8a283230f4bc6c/settings">
+                        <Link to={`${user._id}/settings`}>
                             <Trans i18nKey="adminNav.settings"></Trans>
                         </Link>
                     </div>
                     <div className="grid-item">
                         <EqualizerIcon />
-                        <Link to="">
+                        <Link to={`${user._id}/statistic`}>
                             <Trans i18nKey="adminNav.statistics"></Trans>
                         </Link>
                     </div>
                     <div className="grid-item">
                         <PeopleAltIcon />
-                        <Link to="/6028e4f2ed8a283230f4bc6c/workers">
+                        <Link to={`${user._id}/workers`}>
                             <Trans i18nKey="adminNav.workers"></Trans>
                         </Link>
                     </div>

@@ -1,0 +1,13 @@
+.Statistics {}
+
+.Statistics form {
+    background-color: teal;
+    /* width: 90%; */
+    /* margin: auto; */
+    display: flex;
+    justify-content: center;
+}
+
+.Statistics form .group {
+    margin-right: 5%;
+}

@@ -21,6 +21,7 @@ import Appointment from '../../Client/AfterLogin/appointment';
 import AppointmentsProvider from '../../../context/Appointments';
 import Live from '../../Admin/AfterLogin/Appointments/Live';
 import Main from '../../Admin/AfterLogin/Setting';
+import Statistics from '../../Admin/AfterLogin/Statistics';
 type Anchor = 'right';
 
 export default function Navbar() {
@@ -126,6 +127,7 @@ export default function Navbar() {
                         <Route exact path='/:bussinesId/workers' component={WorkersHome} />
                         <Route exact path='/:bussinesId/appointments' component={Appointments} />
                         <Route exact path='/:bussinesId/live' component={Live} />
+                        <Route exact path='/:bussinesId/statistic' component={Statistics} />
                       </Admin>
                     </AppointmentsProvider>
                   }
