@@ -43,6 +43,7 @@ class _SigninState extends State<Signin> {
       final decodedResponse = jsonDecode(res.body);
       final myObject = User.fromJson(decodedResponse);
       print(myObject.body.id);
+      print(myObject.body.businesses);
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('username', myObject.body.id);
 

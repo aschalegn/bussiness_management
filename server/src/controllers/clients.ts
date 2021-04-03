@@ -39,14 +39,18 @@ function register(req: any, res: any, next: any) {
 }
 
 async function login(req: any, res: any, next: any) {
-    const { phone, businessId } = req.query;
-    const user = await Client.findOne({ phone: phone }).select("-appointments");
+    const { phone } = req.query;
+    const user = await Client.findOne({ phone: phone }).select("-appointments")
+    .populate({
+        path: "businesses",
+        populate: { path: "businesses" }
+    })
 
     if (await user) {
         console.log(user, 'else');
         const token = tokenise(user._id, "client");
         res.cookie("appointU", token);
-        return res.status(200).send({ body: user, type: "client", business: businessId });
+        return res.status(200).send({ body: user, type: "client" });
     }
 
     else {

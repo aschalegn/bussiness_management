@@ -56,7 +56,7 @@ export default function UserProvider(props: any) {
     }, []);
 
     const signUp = (body: any) => {
-        axios.post(`/api//business`, body, { withCredentials: true })
+        axios.post(`/api/business`, body, { withCredentials: true })
             .then(res => {
                 if (res.status === 201) {
                     const type = res.data.type
