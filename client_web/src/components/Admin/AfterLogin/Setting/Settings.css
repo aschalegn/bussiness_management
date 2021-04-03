@@ -1,0 +1,22 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.Settings {
+    text-align: center;
+}
+
+.Settings .MuiTabs-flexContainer {
+    justify-content: space-evenly;
+    margin-bottom: 0px;
+}
+
+.Settings .MuiTabs-flexContainer p {
+    font-size: 1.2rem !important;
+}
+
+.Settings .PrivateTabIndicator-root-1 {
+    top: 70%;
+    background-color: brown !important;
+}

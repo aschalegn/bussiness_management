@@ -36,7 +36,6 @@ export default function FutureAppointment() {
         };
         axios.patch(`${baseURL}appointment/${futurTurn._id}`, data)
             .then(res => {
-                console.log(res);
                 alert('התור עודכן בהצלחה');
                 setOpen(false);
             })
@@ -61,19 +60,20 @@ export default function FutureAppointment() {
 
     return (
         <>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                תור עתידי
-            </Button>
-            <Dialog open={open} onClose={handleClickClose} aria-labelledby="form-dialog-title">
-                <NavigateNextIcon onClick={handleClickClose} />
-                <h4> התור העתידי שנקבע לך הוא בתאריך <br /><br />ה-  <b>{futurTurn.date} </b>בשעה <b>{futurTurn.time}</b> אצל <b>{futurTurn.barber}</b></h4>
-                <p>מצפים לראותך</p>
-                <p>(שם העסק) צוות</p>
-                <p>ניתן לבטל או לעדכן תור עד <b>שעתיים לפני התור</b></p>
-                <button onClick={updateTurn}>עדכון</button>
-                <br /><br />
-                <button onClick={deleteTurn}>מחיקה</button>
-            </Dialog>
+            <Button variant="outlined" color="primary" onClick={handleClickOpen}> תור עתידי </Button>
+            {futurTurn ?
+                <Dialog open={open} onClose={handleClickClose} aria-labelledby="form-dialog-title">
+                    <NavigateNextIcon onClick={handleClickClose} />
+                    <h4> התור העתידי שנקבע לך הוא בתאריך <br /><br />ה-  <b>{futurTurn.date} </b>בשעה <b>{futurTurn.time}</b> אצל <b>{futurTurn.barber}</b></h4>
+                    <p>מצפים לראותך</p>
+                    <p>(שם העסק) צוות</p>
+                    <p>ניתן לבטל או לעדכן תור עד <b>שעתיים לפני התור</b></p>
+                    <button onClick={updateTurn}>עדכון</button>
+                    <br /><br />
+                    <button onClick={deleteTurn}>מחיקה</button>
+                </Dialog>
+                :
+                ''}
         </>
     )
 }

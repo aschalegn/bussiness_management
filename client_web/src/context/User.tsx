@@ -1,8 +1,9 @@
 import React, { createContext, useReducer, useEffect } from 'react';
 import axios from 'axios';
-import { IWorker, IAppointment } from "../interfaces";
+import { IWorker, IAppointment, IBusiness } from "../interfaces";
 const workers: IWorker[] = [];
 const appointments: IAppointment[] = [];
+const businesses: IBusiness[] = [];
 export const userContext = createContext({
     user: {
         workers,
@@ -13,10 +14,12 @@ export const userContext = createContext({
         phones: [""],
         email: '',
         times: { openAt: '', closeAt: '' },
-        businesses: [{ workers: [{ _id: '', name: '', availableTimes: [] }] }],
+        businesses,
         role: "",
         logo: '',
         poster: '',
+        category: '',
+        services: [{ name: '', price: 0, img: '' }]
     },
     signUp: (body: any) => { },
     signIn: (email: string, password: string) => { },

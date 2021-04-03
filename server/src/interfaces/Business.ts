@@ -4,10 +4,8 @@ export interface IBusiness extends mongoose.Document {
     name: string,
     email: string,
     password: string,
-    services: {
-        main: [],
-        details: [{ name: string, price: Number }]
-    },
+    catrgory: string,
+    services: [{ name: string, price: number, img: string }],
     logo: string,
     poster: string,
     joinDate: string,

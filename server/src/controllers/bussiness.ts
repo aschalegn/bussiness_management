@@ -1,10 +1,9 @@
 import { Request, Response } from 'express';
 import bcrypt from "bcryptjs";
 import { Business } from '../model/Bussiness';
-import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment';
 import { tokenise } from '../util';
-import { IBusiness } from '../interfaces/Business';
+import { IService } from "../interfaces/Servece";
 
 const addBussiness = async (req: Request, res: Response) => {
     const body = req.body;
@@ -24,15 +23,15 @@ const addBussiness = async (req: Request, res: Response) => {
 const logIn = async (email: any, password: any, res: Response) => {
     if (email) {
         const business = await Business.find({ $or: [{ email: email }, { "workers.email": email }] }).select("-appointments");
-        if (await business) {
-            let b = business[0]
+        if (await business.length > 0) {
+            let b = business[0];
             if (b.email === email) {
                 const isPasswordMatch = comparePassword(password, b.password);
                 if (isPasswordMatch) {
                     const token = tokenise(b._id, "business");
                     res.cookie("appointU", token);
                     return res.status(200).send({ body: b, type: "business" });
-                }
+                };
             }
             else {
                 const worker = b.workers.find((w: any) => w.email === email);
@@ -42,13 +41,13 @@ const logIn = async (email: any, password: any, res: Response) => {
                     res.cookie("appointU", token);
                     console.log(worker);
                     return res.status(200).send({ body: worker, type: "business" });
-                }
-            }
+                };
+            };
             return res.status(500).send("password does not match");
-        }
+        };
         return res.status(500).send("could not find the user");
-    }
-}
+    };
+};
 
 const addWorker = async (req: Request, res: Response) => {
     const worker = req.body;
@@ -70,9 +69,8 @@ const addWorker = async (req: Request, res: Response) => {
             b.save();
             return res.status(200).send(worker)
         });
-    }
-
-}
+    };
+};
 
 const getAvailableTimes = (req: Request, res: Response) => {
     const { id } = req.params;
@@ -84,15 +82,15 @@ const getAvailableTimes = (req: Request, res: Response) => {
             console.log(err);
             res.status(500);
         });
-}
+};
 
 const updateDetails = async (id: string, body: any) => {
     console.log(body);
     const updated = await Business.findByIdAndUpdate(id, body, { new: true });
     if (await updated) {
-        return updated
+        return updated;
     }
-    return false
+    return false;
 };
 
 async function updatePassword(email: string, password: string) {
@@ -102,26 +100,26 @@ async function updatePassword(email: string, password: string) {
         business.password = hash;
         business.save();
         return true;
-    }
+    };
     return false;
-}
+};
 
 // * Util Functions
 async function isEmailExists(email: string): Promise<Boolean> {
     const isFound = await Business.findOne({ email });
     if (await isFound) return true;
     return false;
-}
+};
 
 function hashPassword(password: string): String {
     const hash = bcrypt.hashSync(password, 10);
     return hash;
-}
+};
 
 function comparePassword(password: any, hash: string): boolean {
     const isMatch = bcrypt.compareSync(password, hash);
     return isMatch;
-}
+};
 
 const addSetAvailable = (worker: any) => {
     const jump = worker.jump
@@ -132,10 +130,17 @@ const addSetAvailable = (worker: any) => {
     while (start < end) {
         timesBetween.push(start.clone().format("kk:mm"))
         start.add(jump, "m");
-    }
-    return timesBetween
-}
+    };
+    return timesBetween;
+};
 
+const addService = async (businessId: string, body: IService, file: Express.MulterS3.File) => {
+    const business = await Business.findById(businessId);
+    console.log(body);
+    body.img = file.location;
+    business.services.push(body);
+    await business.save();
+    return business.services;
+};
 
-
-export { addBussiness, logIn, addWorker, getAvailableTimes, updatePassword, updateDetails };
+export { addBussiness, logIn, addWorker, getAvailableTimes, updatePassword, updateDetails, addService };

@@ -1,5 +1,8 @@
 import { Request, Response, Router } from "express";
-import { addBussiness, addWorker, getAvailableTimes, logIn, updateDetails, updatePassword } from "../controllers/bussiness";
+import {
+    addBussiness, addWorker, getAvailableTimes,
+    logIn, updateDetails, updatePassword, addService
+} from "../controllers/bussiness";
 import { uploadImage, uploadMulter } from "../controllers/images";
 import { Business } from "../model/Bussiness";
 
@@ -28,8 +31,8 @@ router.patch("/:id", (req, res) => {
         });
 });
 
+// logo and poster image
 router.patch("/files/:id", uploadMulter.fields([{ name: 'poster' }, { name: 'logo' }]), async (req, res) => {
-    const file: File[] = [];
     const { id } = req.params;
     const files = req.files as { [fieldname: string]: Express.MulterS3.File[] };
     const { logo, poster } = files;
@@ -50,11 +53,22 @@ router.patch("/files/:id", uploadMulter.fields([{ name: 'poster' }, { name: 'log
 
 router.patch("/setting/addWorker/:id", (req, res) => {
     addWorker(req, res);
-})
+});
+
+router.patch("/setting/services/:id", uploadMulter.single("img"), (req, res) => {
+    const file = req.file as Express.MulterS3.File;
+    const body = req.body;
+    const { id } = req.params;
+    addService(id, body, file)
+        .then(service => {
+            return res.status(201).send(service);
+        });
+});
+
 
 router.get("/:id", (req, res) => {
     getAvailableTimes(req, res);
-})
+});
 
 router.patch("/updatePassword", (req, res) => {
     const { email, password } = req.body;

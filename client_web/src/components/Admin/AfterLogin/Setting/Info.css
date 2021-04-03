@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.info .group {
+    width: 80%;
+    display: flex;
+    margin-top: 10px;
+}
+
+.info .group label {
+    width: 30%;
+}
+
+.info h4 {
+    margin-top: 3%;
+}
+
+.info input {
+    text-align: center;
+    width: 70%;
+    height: 40px;
+}
+
+@media only screen and (max-width: 425px) {
+    .info .group {
+        width: 95%;
+    }
+}

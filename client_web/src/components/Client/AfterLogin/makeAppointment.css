@@ -1,6 +1,38 @@
-.MuiTypography-h6{
+.makeAppointment {
+    text-align: center;
+}
+
+.MuiTypography-h6 {
     color: rgb(184, 27, 27);
     font-size: xx-large;
     text-align: center;
     font-size: 2rem !important;
+}
+
+.makeAppointment .ap_title {
+    margin: 10px auto;
+}
+
+.select_style {
+    display: flex;
+    max-width: 100%;
+    margin: auto;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.select_style article {
+    padding: 5px 0;
+    margin-top: 10px;
+    width: 32%;
+}
+
+.select_style .selected {
+    border: 2px solid green;
+}
+
+.select_style img {
+    width: 80%;
+    height: 150px;
+    border-radius: 50%;
 }

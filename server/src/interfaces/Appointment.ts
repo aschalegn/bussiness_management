@@ -1,4 +1,5 @@
 import mongoose, { ObjectId } from "mongoose";
+import { IService } from "./Servece";
 
 interface IAppointment extends mongoose.Document {
     client: string,
@@ -6,7 +7,7 @@ interface IAppointment extends mongoose.Document {
     date: string,
     time: string,
     style: string,
-    bussiness:string
+    bussiness: string,
 }
 
 export { IAppointment }

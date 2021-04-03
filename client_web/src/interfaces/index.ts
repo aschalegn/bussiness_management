@@ -1,12 +1,16 @@
+interface IService {
+    name: string
+    img: string
+    price: number
+}
+
 interface IBusiness {
     _id: string,
     name: string,
     email: string,
     password: string,
-    services: {
-        main: [],
-        details: [{ name: string, price: Number }]
-    },
+    catrgory: string,
+    services: [IService],
     logo: string,
     poster: string,
     joinDate: string,
@@ -56,4 +60,4 @@ interface IAppointment {
     bussiness: string
 };
 
-export type { IBusiness, IAppointment, IWorker, IClient } 
+export type { IBusiness, IAppointment, IWorker, IClient, IService }

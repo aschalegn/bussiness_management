@@ -13,15 +13,15 @@ import { Client } from './model/Client';
 import businesRoute from "./routes/bussiness";
 import clientRoutes from './routes/clients';
 import appointmentRoutes from './routes/appointment';
+import statRoutes from './routes/statistics';
 import { Socket } from 'socket.io';
 
-const appointmentEmitter = require("./eventsNotification/Appointments");
+import { EmitterIO } from "./eventsNotification/Appointments"
 
 dotenv.config();
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -33,10 +33,6 @@ app.use(cors({
     origin: ["http://localhost:3000", "http://tor2u.com", "http://www.tor2u.com"],
     credentials: true
 }));
-
-app.get("/api/test", (req, res) => {
-    res.status(200).send("this is test");
-});
 
 const io = require("socket.io")(server, {
     cors: {
@@ -66,18 +62,15 @@ app.get("/api/isuser", parseToken, (req: Request, res: Response, next: NextFunct
             });
     }
     else {
-       return  res.status(500).send()
+        return res.status(500).send()
     }
-});
-
-app.get("/api/test2", (req, res) => {
-    res.status(200).send("this is test2")
 });
 
 //* Routing
 app.use("/api/business", businesRoute);
 app.use('/api/client', clientRoutes);
 app.use('/api/appointment', appointmentRoutes);
+app.use('/api/statistics', statRoutes);
 
 app.get("/mobile/:type/:id", (req: Request, res: Response) => {
     const { type, id } = req.params;
@@ -105,7 +98,7 @@ app.get("/api/forgotPassword", (req, res) => {
 });
 
 io.on("connection", (socket: Socket) => {
-    appointmentEmitter(io, socket);
+    EmitterIO(io, socket);
 });
 
 //* DB Connection
