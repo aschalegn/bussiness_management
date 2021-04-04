@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
-import * as d3 from "d3";
+import * as d3 from 'd3';
 import "./Statistics.css";
 import { IAppointment, IService } from '../../../../interfaces';
 import { DateType } from '@date-io/type';
