@@ -1,11 +1,15 @@
+import 'dart:ffi';
+
+import 'package:mobile_client/interfaces/bussiness.dart';
+
 class Body {
   String id, fullName, phone;
-
-  Body(this.id, this.fullName, this.phone);
+ Business businesses;
+  Body(this.id, this.fullName, this.phone, this.businesses);
 
   factory Body.fromJson(dynamic json) {
     return Body(json['_id'] as String, json['fullName'] as String,
-        json['phone'] as String);
+        json['phone'] as String, json['businesses']);
   }
 }
 

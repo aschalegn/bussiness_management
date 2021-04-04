@@ -89,20 +89,25 @@ exports.register = register;
 ;
 function login(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, phone, businessId, user, token;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var phone, user, token;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
-                    _a = req.query, phone = _a.phone, businessId = _a.businessId;
-                    return [4 /*yield*/, Client_1.Client.findOne({ phone: phone }).select("-appointments")];
+                    phone = req.query.phone;
+                    return [4 /*yield*/, Client_1.Client.findOne({ phone: phone }).select("-appointments")
+                            .populate({
+                            path: "businesses",
+                            populate: { path: "businesses" }
+                        })];
                 case 1:
-                    user = _b.sent();
+                    user = _a.sent();
                     return [4 /*yield*/, user];
                 case 2:
-                    if (_b.sent()) {
+                    if (_a.sent()) {
+                        console.log(user, 'else');
                         token = util_1.tokenise(user._id, "client");
                         res.cookie("appointU", token);
-                        return [2 /*return*/, res.status(200).send({ body: user, type: "client", business: businessId })];
+                        return [2 /*return*/, res.status(200).send({ body: user, type: "client" })];
                     }
                     else {
                         return [2 /*return*/, res.status(204).send({ msg: 'The phone number ' + phone + ' is not associated with any account. please check and try again!' })];

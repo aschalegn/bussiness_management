@@ -52,6 +52,7 @@ export default function AppointmentsProvider({ children }: Props) {
         });
     }, []);
 
+
     const getAppointments = (id: string) => {
         axios.get(`/api/appointment/business/${id}`)
             .then(res => {
