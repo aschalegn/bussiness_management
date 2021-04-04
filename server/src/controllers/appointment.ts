@@ -112,7 +112,7 @@ class AppointmentContreller {
             business.appointments = deletefromBusiness;
             client.save();
             business.save();
-            // appointmentEmitter.emit("deleted", appointmentId);
+            appointmentEmitter.emit("deleted", appointmentId);
             return appointment;
         };
         return false;

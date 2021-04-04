@@ -20,9 +20,15 @@ const appointmentReducer = (state: any, action: any) => {
         case "ADD_APPOINTMENT":
             state = [...state, payload];
             break;
+        case "DELETE_APPOINTMENT":
+            state = state.filter((ap: IAppointment) => {
+                return ap._id !== payload;
+            });
+            break;
         default:
             break;
     }
+
     return state;
 }
 
@@ -36,6 +42,12 @@ export default function AppointmentsProvider({ children }: Props) {
             const { businessId } = data;
             if (user._id === businessId) {
                 dispatch({ type: 'ADD_APPOINTMENT', payload: data.data })
+            };
+        });
+        io.on("appontmentDeleted", (data: any) => {
+            const { businessId } = data;
+            if (user._id === businessId) {
+                dispatch({ type: 'DELETE_APPOINTMENT', payload: data.data })
             };
         });
     }, []);
