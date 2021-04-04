@@ -3,7 +3,6 @@ import axios from 'axios';
 import * as d3 from 'd3';
 import "./Statistics.css";
 import { IAppointment, IService } from '../../../../interfaces';
-import { DateType } from '@date-io/type';
 
 export default function Statistics() {
     const d3Board = useRef(null);
@@ -11,33 +10,25 @@ export default function Statistics() {
     const [to_date, setTo] = useState<String>("");
     const [appointments, setAppointments] = useState<IAppointment[]>([]);
     const [services, setServices] = useState<IService[]>([]);
-    const width = 500;
+    const width = 600, height = 300;
+
     useEffect(() => {
         getStat();
     }, []);
 
-    d3.select(d3Board.current)
-        .attr("width", "100%")
-        .attr("height", "85vh")
-        .selectAll("rect")
-        .data(appointments)
-        .enter()
-        .append("rect")
-        .attr("width", function (d, i) {
-            return 30;
-        })
-        .attr("height", function (d, i) {
-            return 50;
-        })
-        .attr("x", function (d, i) {
-            return i * (10 + 30);
-        }).attr("y", "80%")
+    useEffect(() => {
+        if (appointments.length > 0 && services.length > 0) {
+            drawBar(appointments, services);
+        }
+    }, [appointments, services]);
+
+    const chart = d3.select(d3Board.current)
+        .attr("width", width + 60)
+        .attr("height", height + 80)
 
     const drawBar = (aps: IAppointment[], services: IService[]) => {
-        const dates = [];
         let minDate = new Date(aps[0].date);
         let maxDate = new Date(aps[0].date);
-        const byDate = [{}];
         for (let i = 0; i < aps.length; i++) {
             const current = new Date(aps[i].date);
             if (current > maxDate) {
@@ -46,16 +37,27 @@ export default function Statistics() {
             if (current < minDate) {
                 minDate = current;
             }
-            dates.push(current);
         };
-        
+
         const xAxix = d3.scaleTime()
             .domain([minDate, maxDate])
             .range([0, width]);
 
         const yAxis = d3.scaleLinear()
-            .domain([])
-            .range([]);
+            .domain([100, 0])
+            .range([0, height]);
+
+        chart.append("g")
+            .attr('transform', `translate(20, ${height + 30})`)
+            .call(d3.axisBottom(xAxix))
+            .append("text")
+            .text("תאריכים");
+
+        chart.append("g")
+            .attr("transform", "rotate(-90)")
+            .attr("transform", "translate(20,30)")
+            .style("text-anchor", "middle")
+            .call(d3.axisLeft(yAxis));
     }
 
     const getStat = () => {
@@ -64,7 +66,6 @@ export default function Statistics() {
                 if (res.status === 200) {
                     setAppointments(res.data.dates);
                     setServices(res.data.services);
-                    drawBar(res.data.dates, res.data.services)
                 }
             }).catch(err => {
                 console.log(err);
@@ -87,6 +88,7 @@ export default function Statistics() {
                             onChange={(e) => { setTo(e.target.value) }} />
                     </div>
                 </form>
+                <button title="load chart" onClick={() => { drawBar(appointments, services) }}>Load Chart</button>
             </div>
             <svg ref={d3Board}></svg>
         </section>

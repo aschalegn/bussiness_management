@@ -11,11 +11,11 @@ const EmitterIO = (io: any, socket: Socket) => {
     });
 
     appointmentEmitter.on("deleted", (businessId: string, data: string) => {
-
+        socket.emit("appontmentDeleted", businessId, data);
     });
 
     appointmentEmitter.on("updated", (businessId: string, data: IAppointment) => {
-
+        
     });
 };
 
