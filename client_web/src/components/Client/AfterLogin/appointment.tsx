@@ -80,7 +80,7 @@ export default function Appointment() {
     };
 
     return (
-        <section className="weekly">
+        <section className="weeklyClient">
             {open ? <MakeAppointment open={open} setOpen={setOpen} worker={worker} selectDay={selectDay} selectTime={selectTime} /> : ''}
             <select name="worker" id="worker" onChange={handleChange} title="select worker">
                 {user.businesses[0].workers.map((worker, i) =>
