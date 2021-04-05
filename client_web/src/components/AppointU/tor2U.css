@@ -14,7 +14,9 @@
     width: 100%;
     top: 15px;
 }
-
+/* .navbar.active{
+    background-color: black;
+} */
 .navbar ul {
     display: flex;
     justify-content: center;
@@ -93,7 +95,11 @@ a {
     margin: 23px 15px;
 }
 
-.services {
+.services header h1{
+    /* position: relative; */
+    margin: 25px 0 10px 0 ;
+}
+.servicesType {
     display: flex;
     justify-content: space-evenly;
     margin-top: 20px;
@@ -107,15 +113,17 @@ a {
     width: 20% !important;
 }
 
-.services article {
+.servicesType article {
     width: 32%;
 }
 
-.services article img {
-    width: 100%;
+.servicesType article img {
+    width: 55%;
     height: 55%;
 }
-
+.servicesType article p {
+    font-size: small;
+}
 .commonQA {
     color: black;
     width: 90%;
@@ -209,3 +217,30 @@ footer .MuiButton-outlinedPrimary:hover {
         font-size: medium;
     }
 }
+
+.MuiAppBar-colorPrimary{
+ background-color: rgba(0, 0, 0, 0) !important;
+ border: none !important;
+}
+
+.MuiAppBar-colorPrimary.active{
+    background-color: rgb(175 175 175) !important;
+    border: none !important;
+}
+
+.MuiSvgIcon-root {
+    margin-left: auto;
+}
+
+.weServices{
+    color: black;
+    text-align: center;
+}
+
+.about article p {
+    text-align: center;
+    width: 80%;
+    margin: auto;
+    color: black;
+}
+  

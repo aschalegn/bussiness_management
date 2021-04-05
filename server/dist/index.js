@@ -14,6 +14,7 @@ var Email_1 = require("./eventsNotification/Email");
 var config_1 = require("./util/config");
 var Bussiness_1 = require("./model/Bussiness");
 var Client_1 = require("./model/Client");
+var tor2u_1 = __importDefault(require("./routes/tor2u"));
 var bussiness_1 = __importDefault(require("./routes/bussiness"));
 var clients_1 = __importDefault(require("./routes/clients"));
 var appointment_1 = __importDefault(require("./routes/appointment"));
@@ -63,6 +64,7 @@ util_1.app.get("/api/isuser", util_2.parseToken, function (req, res, next) {
     }
 });
 //* Routing
+util_1.app.use(tor2u_1.default);
 util_1.app.use("/api/business", bussiness_1.default);
 util_1.app.use('/api/client', clients_1.default);
 util_1.app.use('/api/appointment', appointment_1.default);

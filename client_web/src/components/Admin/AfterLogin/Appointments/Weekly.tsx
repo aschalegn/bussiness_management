@@ -60,8 +60,6 @@ export default function Weekly({ appointments }: Props) {
                   const date = new Date(ap.date).toISOString();
                   // console.log(date, days[1]);
                   if (date === days[0] && time === ap.time && ap.barber === worker.name) {
-                   
-                   
                     return <p className="red" key={i}>{ap.client.fullName}</p>
                   }
                 })}

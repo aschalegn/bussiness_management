@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './tor2U.css';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useMediaQuery, useTheme, makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
@@ -8,6 +9,10 @@ import TextField from '@material-ui/core/TextField';
 import { HashLink } from "react-router-hash-link"
 import { Link } from 'react-router-dom';
 import CommonQA from './CommonQA';
+import LeftSideNavbar from './leftNavbar';
+import TopNavbar from './topNavbar';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const tutorialSteps = [
@@ -59,34 +64,52 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Home = () => {
-    const classes = useStyles();
+    const corousaleClasses = useStyles();
     const theme = useTheme();
-    const [activeStep, setActiveStep] = React.useState(0);
+    const [activeStep, setActiveStep] = useState(0);
+    const [fullName, setFullName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
+    const [sent, setSent] = useState(false);
+
+    useEffect(() => {
+        Aos.init({ duration: 1200 });
+    }, [])
 
     const handleStepChange = (step: number) => {
         setActiveStep(step);
     };
+    //BreakPoints
+    const isMatch = useMediaQuery(theme.breakpoints.down('md'));
+
+    const formSubmit = () => {
+        const data = {
+            fullName: fullName,
+            phone: phone,
+            email: email,
+        }
+        console.log(data);
+        axios.post('/api/forma', data)
+            .then(res => {
+                if (res.status === 200) {
+                    setSent(true);
+                    console.log(res);
+                }
+                else {
+                    console.log(`error code ${res.status}`)
+                }
+            })
+            .catch((err) => {
+                console.log(err.message);
+
+            })
+    }
 
     return (
         <div className='tor2U'>
             <header className='mainHeader'>
-                <nav className='navbar'>
-                    <ul>
-                        <li>
-                            <Link to="">אודות</Link>
-                        </li>
-                        <li>
-                            <HashLink to="/#commonQA">שאלות נפוצות</HashLink>
-                        </li>
-                        <li>
-                            <Link to="/admin/register">הרשם עכשיו</Link></li>
-                        <li>
-                            <Link to="/admin/login">כניסה למערכת</Link>
-                        </li>
-                    </ul>
-                </nav>
-
-                <div className={`${classes.root} tor2u_corousale`}>
+                {isMatch ? (<LeftSideNavbar />) : (<TopNavbar />)}
+                <div className={`${corousaleClasses.root} tor2u_corousale`}>
                     <AutoPlaySwipeableViews
                         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
                         index={activeStep}
@@ -96,7 +119,7 @@ const Home = () => {
                         {tutorialSteps.map((step, index) => (
                             <div key={step.label} className='caruselaImg'>
                                 {Math.abs(activeStep - index) <= 2 ? (
-                                    <img className={classes.img} src={step.imgPath} alt={step.label} />
+                                    <img className={corousaleClasses.img} src={step.imgPath} alt={step.label} />
                                 ) : null}
                             </div>
                         ))}
@@ -115,50 +138,83 @@ const Home = () => {
                     </div>
                 </div>
             </header>
-
-            <main>
-                <section className='services'>
-                    <article>
+            <main className='aboutUs'>
+                <header data-aos='fade-up'> <h1 className='weServices'>אודותינו</h1> </header>
+                <section className='about'>
+                    <article data-aos='fade-up'>
+                        <p >
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                             Et similique blanditiis, dolorem expedita repudiandae consequatur,
+                              a nam, illo quia ipsa necessitatibus vitae. Saepe aut eius quo, 
+                              unde architecto maiores velit.
+                              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                             Et similique blanditiis, dolorem expedita repudiandae consequatur,
+                              a nam, illo quia ipsa necessitatibus vitae. Saepe aut eius quo, 
+                              unde architecto maiores velit.
+                              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                             Et similique blanditiis, dolorem expedita repudiandae consequatur,
+                              a nam, illo quia ipsa necessitatibus vitae. Saepe aut eius quo, 
+                              unde architecto maiores velit.
+                              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                             Et similique blanditiis, dolorem expedita repudiandae consequatur,
+                              a nam, illo quia ipsa necessitatibus vitae. Saepe aut eius quo, 
+                              unde architecto maiores velit.
+                              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                             Et similique blanditiis, dolorem expedita repudiandae consequatur,
+                              a nam, illo quia ipsa necessitatibus vitae. Saepe aut eius quo, 
+                              unde architecto maiores velit.
+                              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                             Et similique blanditiis, dolorem expedita repudiandae consequatur,
+                              a nam, illo quia ipsa necessitatibus vitae. Saepe aut eius quo, 
+                              unde architecto maiores velit.
+                        </p>
+                    </article>
+                </section>
+            </main>
+            <main className="services">
+                <header data-aos='fade-up'> <h1 className='weServices'>השירותים שלנו</h1> </header>
+                <section className='servicesType'>
+                    <article data-aos='fade-up'>
                         <img src="icons/undraw_message_sent_1030.svg" alt="sms" />
                         <p>שליחת הודעות</p>
                     </article>
-                    <article>
+                    <article data-aos='fade-up'>
                         <img src="icons/undraw_Mobile_application_mr4r.svg" alt="app" />
                         <p>אפליקציה לסמארטפון</p>
                     </article>
-                    <article>
+                    <article data-aos='fade-up'>
                         <img src="icons/undraw_Booking_re_gw4j.svg" alt="sms" />
                         <p>מערכת לקביעת תורים</p>
                     </article>
-                    <article>
+                    <article data-aos='fade-up'>
                         <img src="icons/undraw_Connecting_Teams_8ntu.svg" alt="sms" />
                         <p>מערכת לניהול לקוחות</p>
                     </article>
-                    <article>
+                    <article data-aos='fade-up'>
                         <img src="icons/wallet.svg" alt="sms" />
                         <p>תשלומים</p>
                     </article>
-                    <article>
+                    <article data-aos='fade-up'>
                         <img src="icons/undraw_message_sent_1030.svg" alt="sms" />
                         <p>שליחת הודעות</p>
                     </article>
                 </section>
-               
-                <section className="commonQA" id="commonQA">
+
+                <section data-aos='fade-up' className="commonQA" id="commonQA">
                     <CommonQA />
                 </section>
             </main>
 
             <footer>
-                <form id="contact">
+                <form id="contact" data-aos='fade-in'>
                     <div>
-                        <TextField id="standard-basic" label="שם מלא" type='text' />
-                        <TextField id="standard-basic" label="טלפון" type='text' />
-                        <TextField id="standard-basic" label="מייל" type='email' />
+                        <TextField id="standard-basic" label="שם מלא" type='text' onChange={(e) => { setFullName(e.target.value) }} />
+                        <TextField id="standard-basic" label="טלפון" type='text' onChange={(e) => { setPhone(e.target.value) }} />
+                        <TextField id="standard-basic" label="מייל" type='email' onChange={(e) => { setEmail(e.target.value) }} />
                     </div>
 
                     <div className='btnFotterSubmit'>
-                        <Button type='submit' variant="outlined" color="primary" > שלח </Button>
+                        <Button type='button' variant="outlined" color="primary" onClick={formSubmit}> שלח </Button>
                     </div>
                 </form>
                 <div className='copyrights'><p>כל הזכויות שמורים 2021 Tor2U</p>  </div>
