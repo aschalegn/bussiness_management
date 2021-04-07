@@ -4,6 +4,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 const useStyles = makeStyles(theme => ({
         menuIconContainer: {
             marginLeft: 'auto',
+            position: 'absolute',
+            zIndex: 11,
+            width: '20%',
+            padding: 0
         }
     }));
 export default function LeftSideNavbar() {

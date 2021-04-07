@@ -66,6 +66,8 @@ a {
     position: relative;
 }
 
+
+
 .mainTextHeader {
     position: absolute;
     top: 100px;
@@ -224,7 +226,7 @@ footer .MuiButton-outlinedPrimary:hover {
 }
 
 .MuiAppBar-colorPrimary.active{
-    background-color: rgb(175 175 175) !important;
+    background-color: rgb(175, 175, 175) !important;
     border: none !important;
 }
 

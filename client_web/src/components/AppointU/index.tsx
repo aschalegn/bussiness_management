@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import './tor2U.css';
-import { useMediaQuery, useTheme, makeStyles } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+import { useMediaQuery, useTheme, makeStyles, Button } from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-import TextField from '@material-ui/core/TextField';
 import { HashLink } from "react-router-hash-link"
 import { Link } from 'react-router-dom';
 import CommonQA from './CommonQA';
@@ -13,6 +10,7 @@ import LeftSideNavbar from './leftNavbar';
 import TopNavbar from './topNavbar';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+import ContactUs from './contactUs';
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const tutorialSteps = [
@@ -67,10 +65,7 @@ const Home = () => {
     const corousaleClasses = useStyles();
     const theme = useTheme();
     const [activeStep, setActiveStep] = useState(0);
-    const [fullName, setFullName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('');
-    const [sent, setSent] = useState(false);
+
 
     useEffect(() => {
         Aos.init({ duration: 1200 });
@@ -82,28 +77,7 @@ const Home = () => {
     //BreakPoints
     const isMatch = useMediaQuery(theme.breakpoints.down('md'));
 
-    const formSubmit = () => {
-        const data = {
-            fullName: fullName,
-            phone: phone,
-            email: email,
-        }
-        console.log(data);
-        axios.post('/api/forma', data)
-            .then(res => {
-                if (res.status === 200) {
-                    setSent(true);
-                    console.log(res);
-                }
-                else {
-                    console.log(`error code ${res.status}`)
-                }
-            })
-            .catch((err) => {
-                console.log(err.message);
 
-            })
-    }
 
     return (
         <div className='tor2U'>
@@ -206,18 +180,7 @@ const Home = () => {
             </main>
 
             <footer>
-                <form id="contact" data-aos='fade-in'>
-                    <div>
-                        <TextField id="standard-basic" label="שם מלא" type='text' onChange={(e) => { setFullName(e.target.value) }} />
-                        <TextField id="standard-basic" label="טלפון" type='text' onChange={(e) => { setPhone(e.target.value) }} />
-                        <TextField id="standard-basic" label="מייל" type='email' onChange={(e) => { setEmail(e.target.value) }} />
-                    </div>
-
-                    <div className='btnFotterSubmit'>
-                        <Button type='button' variant="outlined" color="primary" onClick={formSubmit}> שלח </Button>
-                    </div>
-                </form>
-                <div className='copyrights'><p>כל הזכויות שמורים 2021 Tor2U</p>  </div>
+                <ContactUs/>
             </footer>
         </div>
     )

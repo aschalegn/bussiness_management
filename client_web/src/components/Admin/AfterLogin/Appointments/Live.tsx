@@ -8,24 +8,19 @@ export default function Live() {
     const { appointments } = useContext(appointmentContext);
     const { user } = useContext(userContext);
 
-    const live: Array<string> = [];
+    const live: Array<any> = [];
     const getThreeAp = () => {
         let now = moment().format("HH:mm");
         for (let i = 0; i < user.workers.length; i++) {
             const worker = user.workers[i];
-            console.log(worker);
-
             const firstAvailable = moment(worker.availableTimes[0], "HH:mm").format("HH:mm");
-
-
             if (now > firstAvailable) {
                 const workerName = worker.name;
-                live.push(workerName);
-                for (let i = 0; i < 3; i++) {
-                    const workerAvailableTimes = worker.availableTimes[i];
-
-                    live.push(workerAvailableTimes);
-                }
+                live.push({worker: workerName, times: []});
+                for (let j = 0; j < 3; j++) {
+                    const workerAvailableTimes = worker.availableTimes[j];
+                    live[i].times.push(workerAvailableTimes);
+                }                
             }
             else {
                 for (let i = 0; i < appointments.length; i++) {
@@ -44,7 +39,12 @@ export default function Live() {
             <AdminNav location="תורים עכשיו" />
             <section className="Live">
                 {live.map((ti, i) => {
-                    return <div key={i} >{ti}</div>
+                    return <>
+                        <h4 key={i}>{ti.worker}</h4>
+                        {ti.times.map((time:any,j:number)=>{
+                          return   <div key={j}>{time}</div>
+                        })}
+                    </>
                 })}
             </section>
         </>
