@@ -107,9 +107,9 @@ export default function Navbar() {
             user.type === 'client' ?
               <AppointmentsProvider>
                 <Fragment>
-                  <Route exact path='/6028e4f2ed8a283230f4bc6c' component={HomeClient} />
-                  <Route exact path='/6028e4f2ed8a283230f4bc6c/Appointment' component={Appointment} />
-                  <Route exact path='/6028e4f2ed8a283230f4bc6c/FutureAppointment' component={FutureAppointment} />
+                  <Route exact path='/:bussinesId' component={HomeClient} />
+                  <Route exact path='/:bussinesId/Appointment' component={Appointment} />
+                  <Route exact path='/:bussinesId/FutureAppointment' component={FutureAppointment} />
                 </Fragment>
               </AppointmentsProvider>
               : user.type === 'business' ?
@@ -122,7 +122,7 @@ export default function Navbar() {
                     <AppointmentsProvider>
                       <Admin>
                         <Route exact path='/:bussinesId' component={HomeAdmin} />
-                        <Route exact path='/6028e4f2ed8a283230f4bc6c/settings' component={Main} />
+                        <Route exact path='/:bussinesId/settings' component={Main} />
                         <Route exact path='/:bussinesId/addWorkers' component={AddWorkers} />
                         <Route exact path='/:bussinesId/workers' component={WorkersHome} />
                         <Route exact path='/:bussinesId/appointments' component={Appointments} />

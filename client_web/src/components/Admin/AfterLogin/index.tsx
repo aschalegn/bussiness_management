@@ -13,7 +13,6 @@ import "./Worker.css";
 import { Trans, useTranslation } from "react-i18next"
 
 const Home = () => {
-    const { t, i18n } = useTranslation();
     const { user } = useContext(userContext)
     return (
         <>
@@ -25,7 +24,6 @@ const Home = () => {
                         <Link to={`${user._id}/live`}>
                             <Trans i18nKey="adminNav.currentTurn"></Trans>
                         </Link>
-                        {/* {t("adminNav.currentTurn")} */}
                     </div>
                     <div className="grid-item">
                         <DateRangeIcon />

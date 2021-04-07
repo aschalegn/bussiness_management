@@ -4,6 +4,8 @@ import { userContext } from '../../../context/User';
 import axios from 'axios';
 import { Button, Dialog } from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import moment from 'moment';
+
 
 export default function FutureAppointment() {
 
@@ -41,7 +43,6 @@ export default function FutureAppointment() {
             })
             .catch(err => {
                 console.log(err);
-
             })
     }
 
@@ -56,24 +57,38 @@ export default function FutureAppointment() {
             })
     }
 
-    console.log(futurTurn);
+    const UpdateMetting = () => {
+        return (
+            <article>
+                <Button variant="outlined" color="primary" onClick={handleClickOpen}> תור עתידי </Button>
+                {
+                    futurTurn ?
+                        <Dialog open={open} onClose={handleClickClose} aria-labelledby="form-dialog-title">
+                            <NavigateNextIcon onClick={handleClickClose} />
+                            <form>
+                                <input type="text" title="d"/>
+                            </form>
+                        </Dialog>
+                        :
+                        ''
+                }
+            </article>
+        )
+    }
 
     return (
-        <>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}> תור עתידי </Button>
-            {futurTurn ?
-                <Dialog open={open} onClose={handleClickClose} aria-labelledby="form-dialog-title">
-                    <NavigateNextIcon onClick={handleClickClose} />
-                    <h4> התור העתידי שנקבע לך הוא בתאריך <br /><br />ה-  <b>{futurTurn.date} </b>בשעה <b>{futurTurn.time}</b> אצל <b>{futurTurn.barber}</b></h4>
-                    <p>מצפים לראותך</p>
-                    <p>(שם העסק) צוות</p>
-                    <p>ניתן לבטל או לעדכן תור עד <b>שעתיים לפני התור</b></p>
-                    <button onClick={updateTurn}>עדכון</button>
-                    <br /><br />
-                    <button onClick={deleteTurn}>מחיקה</button>
-                </Dialog>
-                :
-                ''}
-        </>
+        <section>
+            <article>
+                <h4> התור העתידי שנקבע לך הוא בתאריך <br /><br />ה-  <b>{moment(futurTurn.date).format("YYYY-MM-DD")} </b>בשעה <b>{futurTurn.time}</b> אצל <b>{futurTurn.barber}</b></h4>
+                <p>מצפים לראותך</p>
+                <p>(שם העסק) צוות</p>
+                <p>ניתן לבטל או לעדכן תור עד <b>שעתיים לפני התור</b></p>
+                <button onClick={updateTurn}>עדכון</button>
+                <br /><br />
+                <button onClick={deleteTurn}>מחיקה</button>
+            </article>
+            <UpdateMetting />
+
+        </section>
     )
 }
