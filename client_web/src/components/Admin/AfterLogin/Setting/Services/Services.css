@@ -26,3 +26,15 @@
     width: 70%;
     height: 40px;
 }
+
+.Services .serviceList {
+    display: flex;
+}
+
+.Services .serviceList article {
+    width: 33%;
+}
+
+.Services .serviceList img {
+    width: 100%;
+}

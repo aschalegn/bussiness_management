@@ -9,7 +9,7 @@ const EmitterIO = (io: any, socket: Socket) => {
     appointmentEmitter.on("made", (businessId: string, data: IAppointment) => {
         socket.emit("appontmentAdded", { businessId, data });
     });
-
+    
     appointmentEmitter.on("deleted", (businessId: string, data: string) => {
         socket.emit("appontmentDeleted", businessId, data);
     });

@@ -3,16 +3,11 @@ import { Link } from 'react-router-dom';
 import './clientHome.css';
 import { userContext } from '../../../context/User';
 import { Button } from '@material-ui/core';
-
-import Appointment from "../AfterLogin/appointment";
-import AllAppointmentByClient from "../AfterLogin/AllAppointment";
-import FutureAppointment from "../AfterLogin/FutureAppointment";
-
-
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 
 const Home = () => {
-    const { signOut } = useContext(userContext)
-
+    const { signOut, user } = useContext(userContext)
 
     return (
         <>
@@ -25,27 +20,32 @@ const Home = () => {
                 <section className="grid-container">
                     <div className="grid-item">
                         <Link to='/6028e4f2ed8a283230f4bc6c/appointment'>
-                            <Button variant="outlined" color="primary"> קביעת תורים</Button>
+                            <Button variant="outlined" color="primary">
+                                <DateRangeIcon /><br/>
+                                 קביעת תורים</Button>
                         </Link>
                     </div>
-                    <div className="grid-item">
+                    {/* <div className="grid-item">
                         <AllAppointmentByClient />
+                    </div> */}
+
+                    <div className="grid-item">
+                        <Link to={`${user.businesses[0]._id}/FutureAppointment`}>
+                            <EventAvailableIcon /><br/>
+                            תורים עתידיים</Link>
                     </div>
 
                     <div className="grid-item">
-                        <FutureAppointment />
+                        <img src="icons/waze.png" alt="waze icon" />
+                        <p>  נווט לעסק</p>
+                    </div>
+
+
+                    <div className="grid-item">
                     </div>
 
                     <div className="grid-item">
-                        <FutureAppointment />
-                    </div>
 
-                    <div className="grid-item">
-                        <FutureAppointment />
-                    </div>
-
-                    <div className="grid-item">
-                        <FutureAppointment />
                     </div>
                 </section>
             </main>

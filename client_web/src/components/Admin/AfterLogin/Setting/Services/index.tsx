@@ -15,17 +15,15 @@ export default function Services() {
                     setAdd(!add)
                 }}>הוסף שירות</Button>
             {user.services.length > 0 ?
-                <table>
-                    <tbody>
-                        {user.services.map((service, i) =>
-                            <tr key={i}>
-                                <td>{service.name}</td>
-                                <td>{service.price}</td>
-                                <td><img src={service.img} alt="" /></td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table> :
+                <section className="serviceList">
+                    {user.services.map((service, i) =>
+                        <article key={i}>
+                            <h3>{service.name}</h3>
+                            <p>{service.price}</p>
+                            <img src={service.img} alt="" />
+                        </article>
+                    )}
+                </section> :
                 <p> לא נמצאו שירותים</p>
             }
             {add ? <AddServices /> : ''}

@@ -23,7 +23,8 @@ export default function MakeAppointment({ open, setOpen, worker, selectDay, sele
             barber: worker.name,
             date: selectDay,
             time: selectTime,
-            style
+            style,
+            business: user.businesses[0]
         };
 
         axios.post(`${baseURL}appointment/6028e4f2ed8a283230f4bc6c/${user._id}`, body)
