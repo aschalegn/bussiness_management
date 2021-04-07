@@ -15,6 +15,8 @@ export default function Weekly({ appointments }: Props) {
   const d = ["א", "ב", "ג", "ד", "ה", "ו", "ש"];
   useEffect(() => {
     getCurrentWeekDays();
+    console.log(appointments);
+    
   }, []);
 
   const getCurrentWeekDays = () => {
@@ -56,6 +58,7 @@ export default function Weekly({ appointments }: Props) {
               <td className="appointment">
                 {appointments.map((ap, i) => {
                   const date = new Date(ap.date).toISOString();
+                  // console.log(date, days[1]);
                   if (date === days[0] && time === ap.time && ap.barber === worker.name) {
                     return <p className="red" key={i}>{ap.client.fullName}</p>
                   }

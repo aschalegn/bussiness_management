@@ -105,7 +105,7 @@ class AppointmentContreller {
         if (await appointment) {
             const client = await Client.findById(appointment.client);
             const deletefromClient = await client.appointments.filter((ap: string) => { return ap !== appointmentId });
-            const business = await Business.findById(appointment.business);
+            const business = await Business.findById(appointment.business);            
             const deletefromBusiness = await business.appointments.filter((ap: string) => { return ap !== appointmentId });
             // appointment.delete(); //? works
             client.appointments = deletefromClient;

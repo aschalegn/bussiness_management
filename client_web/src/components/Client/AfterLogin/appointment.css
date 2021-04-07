@@ -1,34 +1,34 @@
-table {
+.weeklyClient table {
     caption-side: bottom;
     border-collapse: collapse;
     width: 100%;
     text-align: center;
 }
 
-.days th {
+.weeklyClient .days th {
     padding: 7px 0 !important;
 }
 
-.days th {
+.weeklyClient .days th {
     background-color: brown;
     font-weight: 500;
     font-size: medium;
     border-left: 1px solid #802424;
 }
 
-.dm {
+.weeklyClient .dm {
     font-weight: 100;
     margin: 0;
 }
 
-.times {
+.weeklyClient .times {
     padding: 0 5px !important;
     /* font-weight: 100; */
     font-size: medium !important;
     border-bottom: none;
 }
 
-.time {
+.weeklyClient .time {
     margin: 10px 0 0 0;
     background: #b2dab2;
     border-radius: 40px;
@@ -38,16 +38,16 @@ table {
     cursor: pointer;
 }
 
-.time:hover {
+.weeklyClient .time:hover {
     background: #78ca78;
 }
 
-.catch {
+.weeklyClient .catch {
     margin: 10px 0 0 0;
     background: #b1848488;
     border-radius: 40px;
 }
 
-table td:last-of-type {
+.weeklyClient table td:last-of-type {
     border-left: none;
 }

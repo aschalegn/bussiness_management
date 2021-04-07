@@ -10,6 +10,7 @@ import { db } from './util/config';
 import { Business } from './model/Bussiness';
 import { Client } from './model/Client';
 
+import tor2uRoutes from "./routes/tor2u";
 import businesRoute from "./routes/bussiness";
 import clientRoutes from './routes/clients';
 import appointmentRoutes from './routes/appointment';
@@ -67,6 +68,7 @@ app.get("/api/isuser", parseToken, (req: Request, res: Response, next: NextFunct
 });
 
 //* Routing
+app.use(tor2uRoutes);
 app.use("/api/business", businesRoute);
 app.use('/api/client', clientRoutes);
 app.use('/api/appointment', appointmentRoutes);
