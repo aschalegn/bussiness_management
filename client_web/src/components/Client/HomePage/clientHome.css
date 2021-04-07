@@ -36,7 +36,6 @@
 
 .client div.grid-item {
     background-color: rgba(255, 255, 255, 0.8);
-    border: none !important;
     padding: 6px !important;
     font-size: 30px;
     text-align: center;
@@ -55,4 +54,20 @@ footer {
 
 .grid-item button {
     width: 100%;
+}
+
+.client button.MuiButton-outlinedPrimary {
+    outline: none;
+}
+
+.client button.MuiButton-outlinedPrimary .icon {
+    width: 40px !important;
+}
+
+.client button.MuiButton-outlinedPrimary .icon {
+    font-size: 40px;
+}
+
+.client .grid-item .MuiButton-label {
+    display: block !important;
 }
