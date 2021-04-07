@@ -18,35 +18,58 @@ const Home = () => {
             </header >
             <main className="client">
                 <section className="grid-container">
-                    <div className="grid-item">
+                    <article className="grid-item">
                         <Link to='/6028e4f2ed8a283230f4bc6c/appointment'>
                             <Button variant="outlined" color="primary">
-                                <DateRangeIcon /><br/>
-                                 קביעת תורים</Button>
+                                <DateRangeIcon className="icon" />
+                                <h5>קביעת תורים</h5>
+                            </Button>
                         </Link>
-                    </div>
-                    {/* <div className="grid-item">
-                        <AllAppointmentByClient />
-                    </div> */}
+                    </article>
 
-                    <div className="grid-item">
+                    <article className="grid-item">
                         <Link to={`${user.businesses[0]._id}/FutureAppointment`}>
-                            <EventAvailableIcon /><br/>
-                            תורים עתידיים</Link>
-                    </div>
+                            <Button variant="outlined" color="primary">
+                                <EventAvailableIcon className="icon" />
+                                <h5>
+                                    תור עתידי
+                               </h5> </Button>
+                        </Link>
+                    </article>
 
-                    <div className="grid-item">
-                        <img src="icons/waze.png" alt="waze icon" />
-                        <p>  נווט לעסק</p>
-                    </div>
+                    <article className="grid-item">
+                        <a href=""> 
+                            <Button variant="outlined" color="primary">
+                                <img src="icons/waze.png" alt="waze icon" className="icon" />
+                                <h5>  נווט לעסק</h5>
+                            </Button>
+                        </a>
+                    </article>
 
+                    <article className="grid-item">
+                        <Link to="">
+                            <Button variant="outlined" color="primary">
+                                <h5>facebook</h5>
+                            </Button>
+                        </Link>
+                    </article>
 
-                    <div className="grid-item">
-                    </div>
+                    <article className="grid-item">
+                        <Link to="">
+                            <Button variant="outlined" color="primary">
+                                <h5>Instagram</h5>
+                            </Button>
+                        </Link>
+                    </article>
 
-                    <div className="grid-item">
+                    <article className="grid-item">
+                        <Link to="">
+                            <Button variant="outlined" color="primary">
+                                <h5>whatsApp</h5>
+                            </Button>
+                        </Link>
+                    </article>
 
-                    </div>
                 </section>
             </main>
             <footer>

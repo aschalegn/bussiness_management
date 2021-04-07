@@ -51,3 +51,22 @@
 .weeklyClient table td:last-of-type {
     border-left: none;
 }
+
+.weeklyClient .workers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.weeklyClient .workers .singleWorker {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 5px;
+    background-color: teal;
+    text-align: center;
+}
+
+.weeklyClient .workers .singleWorker p{
+    margin-top: 20%;
+}

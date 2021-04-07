@@ -79,7 +79,7 @@ export default function FutureAppointment() {
     return (
         <section>
             <article>
-                <h4> התור העתידי שנקבע לך הוא בתאריך <br /><br />ה-  <b>{moment(futurTurn.date).format("YYYY-MM-DD")} </b>בשעה <b>{futurTurn.time}</b> אצל <b>{futurTurn.barber}</b></h4>
+                <h4> התור העתידי שנקבע לך הוא בתאריך <br /><br />ה-  <b>{moment(futurTurn.date).format("DD-MM-YYYY")} </b>בשעה <b>{futurTurn.time}</b> אצל <b>{futurTurn.barber}</b></h4>
                 <p>מצפים לראותך</p>
                 <p>(שם העסק) צוות</p>
                 <p>ניתן לבטל או לעדכן תור עד <b>שעתיים לפני התור</b></p>

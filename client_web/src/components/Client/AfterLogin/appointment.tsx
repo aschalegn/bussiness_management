@@ -56,8 +56,8 @@ export default function Appointment() {
         setDM(tmp1);
     };
 
-    const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-         setWorker(user.businesses[0].workers[Number(e.target.value)]);
+    const handleChange = (i:number) => {
+        setWorker(user.businesses[0].workers[i]);
     };
 
     const filterTimes = (time: any, index: number) => {
@@ -82,11 +82,11 @@ export default function Appointment() {
     return (
         <section className="weeklyClient">
             {open ? <MakeAppointment open={open} setOpen={setOpen} worker={worker} selectDay={selectDay} selectTime={selectTime} /> : ''}
-            <select name="worker" id="worker" onChange={handleChange} title="select worker">
+            <section className="workers" id="workers" title="select worker">
                 {user.businesses[0].workers.map((worker, i) =>
-                    <option key={i} value={i} >{worker.name}</option>
+                    <article key={i} onClick={()=>{handleChange(i)}} className="singleWorker"><p>{worker.name}</p></article>
                 )}
-            </select>
+            </section>
 
             <table className='board'>
                 <thead>
