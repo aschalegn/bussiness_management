@@ -1,4 +1,10 @@
+.adminAccount{
+    position: relative;
+}
 .exitAccount {
+  position: absolute;
+    top: 12px;
+    right: 2%;
   width: 120px;
   height: 40px;
   border: 1px solid black;
@@ -10,4 +16,14 @@
 
 .exitAccount:hover {
   background-color: #e6e0e0;
+}
+
+@media (max-height: 830px) {
+  .exitAccount{
+    position: absolute !important;
+    top: 5px !important;
+    right: 2% !important;
+    width: 100px;
+  height: 30px;
+  }
 }
