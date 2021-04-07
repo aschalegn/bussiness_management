@@ -228,9 +228,9 @@ footer .MuiButton-outlinedPrimary:hover {
     border: none !important;
 }
 
-.MuiSvgIcon-root {
+/* .MuiSvgIcon-root {
     margin-left: auto;
-}
+} */
 
 .weServices{
     color: black;

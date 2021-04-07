@@ -11,22 +11,31 @@ export default function Live() {
     const live: Array<string> = [];
     const getThreeAp = () => {
         let now = moment().format("HH:mm");
-        const firstAvailable = moment(user.workers[1].availableTimes[0], "HH:mm").format("HH:mm");
-        if (now > firstAvailable) {
-            for (let i = 0; i < 3; i++) {
-                const element = user.workers[1].availableTimes[i];
-                live.push(element);
-            }
-        }
-        else {
-            for (let i = 0; i < appointments.length; i++) {
-                const ap = appointments[i];
-                if (ap) {
+        for (let i = 0; i < user.workers.length; i++) {
+            const worker = user.workers[i];
+            console.log(worker);
 
+            const firstAvailable = moment(worker.availableTimes[0], "HH:mm").format("HH:mm");
+
+
+            if (now > firstAvailable) {
+                const workerName = worker.name;
+                live.push(workerName);
+                for (let i = 0; i < 3; i++) {
+                    const workerAvailableTimes = worker.availableTimes[i];
+
+                    live.push(workerAvailableTimes);
+                }
+            }
+            else {
+                for (let i = 0; i < appointments.length; i++) {
+                    const ap = appointments[i];
+                    if (ap) {
+
+                    }
                 }
             }
         }
-
     };
 
     getThreeAp()
