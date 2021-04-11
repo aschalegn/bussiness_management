@@ -136,11 +136,19 @@ const addSetAvailable = (worker: any) => {
 
 const addService = async (businessId: string, body: IService, file: Express.MulterS3.File) => {
     const business = await Business.findById(businessId);
-    console.log(body);
     body.img = file.location;
     business.services.push(body);
     await business.save();
     return business.services;
 };
 
-export { addBussiness, logIn, addWorker, getAvailableTimes, updatePassword, updateDetails, addService };
+const addSocial = async (businessId: String, socialMedia: any) => {
+    const updated = await Business.findByIdAndUpdate(businessId, {socialMedia});
+    return await updated.socialMedia;
+}
+
+export {
+    addBussiness, logIn, addWorker,
+    getAvailableTimes, updatePassword,
+    updateDetails, addService, addSocial
+};

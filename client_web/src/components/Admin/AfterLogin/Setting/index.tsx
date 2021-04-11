@@ -5,6 +5,7 @@ import AdminNav from '../../../Layouts/AppBar/AdminNav';
 import LogoAndPoster from './LogoAndPoster';
 import Services from './Services/index';
 import "./Settings.css";
+import SocialMedia from './SocialMedia';
 
 export default function Main() {
     const [value, setValue] = useState(0);
@@ -18,7 +19,8 @@ export default function Main() {
                 <p onClick={() => { setValue(0) }}>מידע כללי</p>
                 <p onClick={() => { setValue(1) }}>תמונות</p>
                 <p onClick={() => { setValue(2) }}>שירותים </p>
-                <p onClick={() => { setValue(3) }}>התראות </p>
+                {/* <p onClick={() => { setValue(3) }}>התראות </p> */}
+                <p onClick={() => { setValue(4) }}>רשתות חברתיות </p>
             </Tabs>
             {value === 0 ?
                 <Info />
@@ -28,7 +30,10 @@ export default function Main() {
                     : value === 2 ?
                         <Services />
                         :
-                        ''
+                        value === 4 ?
+                            <SocialMedia />
+                            :
+                            ''
             }
         </section>
     );

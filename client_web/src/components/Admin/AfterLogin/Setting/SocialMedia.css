@@ -1,0 +1,20 @@
+.socialMedia .social {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.socialMedia .social label {
+    width: 20%;
+}
+
+.socialMedia .social input {
+    width: 80%;
+    height: 50px;
+}
+
+.socialMedia button {
+    width: 70px;
+}
