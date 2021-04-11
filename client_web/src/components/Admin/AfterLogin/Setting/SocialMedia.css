@@ -4,17 +4,26 @@
     justify-content: center;
     margin: auto;
     margin-top: 10px;
+    font-size: 1.1rem;
+}
+
+.socialMedia form {
+    margin-top: 20px;
 }
 
 .socialMedia .social label {
     width: 20%;
-}
+}   
 
 .socialMedia .social input {
     width: 80%;
     height: 50px;
+    border: 1px solid brown;
 }
 
 .socialMedia button {
-    width: 70px;
+    width: 150px;
+    padding: 5px;
+    border: 1px solid brown;
+    margin-top: 10px;
 }

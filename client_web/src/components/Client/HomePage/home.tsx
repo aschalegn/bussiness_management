@@ -25,7 +25,7 @@ const Home = () => {
                         <Link to='/6028e4f2ed8a283230f4bc6c/appointment'>
                             <Button variant="outlined" color="primary">
                                 <DateRangeIcon className="icon" />
-                                <h5>קביעת תורים</h5>
+                                <h6>קביעת תורים</h6>
                             </Button>
                         </Link>
                     </article>
@@ -34,9 +34,9 @@ const Home = () => {
                         <Link to={`${user.businesses[0]._id}/FutureAppointment`}>
                             <Button variant="outlined" color="primary">
                                 <EventAvailableIcon className="icon" />
-                                <h5>
+                                <h6>
                                     תור עתידי
-                               </h5> </Button>
+                               </h6> </Button>
                         </Link>
                     </article>
 
@@ -44,7 +44,7 @@ const Home = () => {
                         <a href="">
                             <Button variant="outlined" color="primary">
                                 <img src="icons/waze.png" alt="waze icon" className="icon" />
-                                <h5>  נווט לעסק</h5>
+                                <h6>  נווט לעסק</h6>
                             </Button>
                         </a>
                     </article>
@@ -62,7 +62,7 @@ const Home = () => {
                                                 :
                                                 <WhatsAppIcon />
                                             }
-                                            <h5>{social.name}</h5>
+                                            <h6>{social.name}</h6>
                                         </Button>
                                     </a>
                                 }
