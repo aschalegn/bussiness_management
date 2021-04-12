@@ -8,15 +8,15 @@ export default function WorkersHome() {
     const [addWorker, setAddWorker] = useState(false);
     return (
         <div>
-            {addWorker ? <AddWorkers /> : ''}
+            {addWorker ? <AddWorkers open={addWorker} setOpen={setAddWorker}/> : ''}
             <AdminNav location="עובדים" />
             <section className="workersPage">
                 {user.workers.map(worker =>
                     <article className="worker">
                         <img src={worker.profile} alt={worker.name} />
-                        <h4>{worker.name}</h4>
-                        <p>{worker.phone}</p>
-                        <p>{worker.email}</p>
+                        <div><h3>{worker.name}</h3></div>
+                        <div><h6>{worker.phone}</h6></div>
+                        <div><h6>{worker.email}</h6></div>
                     </article>
                 )}
                 <article className="worker">

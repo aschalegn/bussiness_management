@@ -14,9 +14,7 @@ export default function Weekly({ appointments }: Props) {
   const [worker, setWorker] = useState(user.workers[0]);
   const d = ["א", "ב", "ג", "ד", "ה", "ו", "ש"];
   useEffect(() => {
-    getCurrentWeekDays();
-    console.log(appointments);
-    
+    getCurrentWeekDays();    
   }, []);
 
   const getCurrentWeekDays = () => {

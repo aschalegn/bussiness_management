@@ -1,19 +1,16 @@
 .workersPage {
     margin-top: 15px;
     display: flex;
+    width: 100%;
 }
 
 .workersPage .worker {
     text-align: center;
-    border: 1px solid black;
     margin: 5px;
-    min-width: 150px;
+    width: 33%;
 }
 
 .workersPage .worker img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
 }
 
 .worker button {

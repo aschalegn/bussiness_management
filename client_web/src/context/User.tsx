@@ -19,7 +19,8 @@ export const userContext = createContext({
         logo: '',
         poster: '',
         category: '',
-        services: [{ name: '', price: 0, img: '' }]
+        services: [{ name: '', price: 0, img: '' }],
+        profile: ''
     },
     signUp: (body: any) => { },
     signIn: (email: string, password: string) => { },

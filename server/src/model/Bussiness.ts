@@ -21,6 +21,7 @@ const businessSchema = new Schema({
     about: String,
     socialMedia: [{ name: String, link: String }],
     workers: [{
+        name: String,
         times: { openAt: String, closeAt: String, jump: Number },
         availableTimes: [String],
         role: { type: String, enum: ["worker", "manager"] },
@@ -28,7 +29,8 @@ const businessSchema = new Schema({
         skills: [String],
         password: String,
         phone: String,
-        email: String
+        email: String,
+        profile: String
     }],
     appointments: [{
         type: mongoose.Types.ObjectId,

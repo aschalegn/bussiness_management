@@ -5,8 +5,9 @@
     color: black;
     display: flex;
     align-items: center;
-    justify-content: center !important;
+    justify-content: space-between;
     padding: 0 2%;
+    
 }
 
 .adminHeader div:last-child {

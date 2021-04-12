@@ -31,7 +31,7 @@ export default function AdminNav({ location }: Props) {
                     </div>
                 </>
             }
-            <img src="../logo.jpg" alt="logo" />
+           <div> <img src="../logo.jpg" alt="logo" /></div>
         </header>
     )
 }

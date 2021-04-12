@@ -61,6 +61,7 @@ const addWorker = async (req: Request, res: Response) => {
         }
         const availableTimes = addSetAvailable(worker)
         worker.availableTimes = availableTimes;
+        worker.profile = worker.profile;
         const { id } = req.params;
 
         Business.findById(id, (err: any, b: any) => {
@@ -70,6 +71,8 @@ const addWorker = async (req: Request, res: Response) => {
             return res.status(200).send(worker)
         });
     };
+    console.log(worker);
+    
 };
 
 const getAvailableTimes = (req: Request, res: Response) => {
