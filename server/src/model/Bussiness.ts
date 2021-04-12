@@ -19,7 +19,14 @@ const businessSchema = new Schema({
     times: { openAt: String, closeAt: String },
     phones: [],
     about: String,
-    socialMedia: [{ name: String, link: String }],
+    socialMedia: {type:
+        [{
+            name: String, link: String,
+        }], default: [
+            { name: 'instagram', link: '' },
+            { name: 'facebook', link: '' },
+            { name: 'whatsApp', link: '' }]
+    },
     workers: [{
         name: String,
         times: { openAt: String, closeAt: String, jump: Number },

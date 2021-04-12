@@ -15,6 +15,7 @@ export const userContext = createContext({
         email: '',
         times: { openAt: '', closeAt: '' },
         businesses,
+        socialMedia: [{ name: '', link: '' }],
         role: "",
         logo: '',
         poster: '',

@@ -55,21 +55,6 @@ const Home = () => {
                             <Trans i18nKey="adminNav.workers"></Trans>
                         </Link>
                     </div>
-                    <div className="grid-item">
-                        <Link to="">
-                            טקרנימח
-                        </Link>
-                    </div>
-                    <div className="grid-item">
-                        <Link to="">
-                            <Trans i18nKey="adminNav.socialmedia"></Trans>
-                        </Link>
-                    </div>
-                    <div className="grid-item">
-                        <Link to="">
-                            הגדרות
-                        </Link>
-                    </div>
                 </div>
             </main>
         </>

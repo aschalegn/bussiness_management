@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import {
     addBussiness, addWorker, getAvailableTimes,
-    logIn, updateDetails, updatePassword, addService
+    logIn, updateDetails, updatePassword, addService, addSocial
 } from "../controllers/bussiness";
 import { uploadImage, uploadMulter } from "../controllers/images";
 import { Business } from "../model/Bussiness";
@@ -53,6 +53,15 @@ router.patch("/files/:id", uploadMulter.fields([{ name: 'poster' }, { name: 'log
 
 router.patch("/setting/addWorker/:id", (req, res) => {
     addWorker(req, res);
+});
+
+router.patch("/setting/social/:id", (req, res) => {
+    const { id } = req.params;
+    const body = req.body;
+    addSocial(id, body)
+        .then(links => {
+            res.send(links);
+        });
 });
 
 router.patch("/setting/services/:id", uploadMulter.single("img"), (req, res) => {
