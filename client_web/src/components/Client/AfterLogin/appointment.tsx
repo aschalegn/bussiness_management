@@ -4,6 +4,8 @@ import { userContext } from '../../../context/User';
 import { appointmentContext } from '../../../context/Appointments';
 import MakeAppointment from './MakeAppointment';
 import './appointment.css';
+import ClientNav from '../../Layouts/AppBar/ClientNav';
+import '../../Layouts/AppBar/AdminNav.css';
 
 export default function Appointment() {
     const d: number[] = [];
@@ -80,6 +82,8 @@ export default function Appointment() {
     };
 
     return (
+        <>
+        <ClientNav location={"קביעת תורים"} />
         <section className="weeklyClient">
             {open ? <MakeAppointment open={open} setOpen={setOpen} worker={worker} selectDay={selectDay} selectTime={selectTime} /> : ''}
             <section className="workers" id="workers" title="select worker">
@@ -87,7 +91,6 @@ export default function Appointment() {
                     <article key={i} onClick={()=>{handleChange(i)}} className="singleWorker"><p>{worker.name}</p></article>
                 )}
             </section>
-
             <table className='board'>
                 <thead>
                     <tr className="days">
@@ -124,6 +127,6 @@ export default function Appointment() {
 
 
         </section >
-
+</>
     )
 }

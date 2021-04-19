@@ -63,7 +63,6 @@ const addWorker = async (req: Request, res: Response) => {
         worker.availableTimes = availableTimes;
         worker.profile = worker.profile;
         const { id } = req.params;
-
         Business.findById(id, (err: any, b: any) => {
             if (err) { console.log(err); }
             b.workers.push(worker);

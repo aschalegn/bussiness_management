@@ -14,6 +14,7 @@ const Home = () => {
 
     return (
         <>
+ 
             <header className='homeAccount'>
                 <button className='exitAccount' onClick={signOut}>יציאה</button>
                 <img src="https://media.istockphoto.com/photos/everything-should-be-perfect-picture-id522305300?b=1&k=6&m=522305300&s=170667a&w=0&h=s6xDPtJSyFXOhqH9K0K7XLM1_Z3xah8YZD5ND6YOOO8=" id="businessPhoto" alt="businessPhoto" />

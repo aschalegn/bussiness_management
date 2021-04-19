@@ -6,7 +6,7 @@ type Props = {
     location?: string
 }
 
-export default function AdminNav({ location }: Props) {
+export default function ClientNav({ location }: Props) {
     const { user, signOut } = useContext(userContext);
     return (
         <header className='navHeader'>
