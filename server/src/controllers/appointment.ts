@@ -26,6 +26,7 @@ class AppointmentContreller {
         const appointment = new Appointment(data);
         const client = await Client.findById(userId);
         if (await client) {
+            console.log(client, 'client--------------');
             
                 await client.appointments.push(appointment);
                 const business = await Business.findById(bussinessId);
@@ -35,6 +36,7 @@ class AppointmentContreller {
                 await client.save();
                 const apToSend = await Appointment.findById(appointment._id).populate("client")
                 appointmentEmitter.emit("made", bussinessId, apToSend);  
+
            return appointment;
         }
         else return false;
