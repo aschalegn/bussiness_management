@@ -91,6 +91,7 @@ export default function Appointment() {
                     <article key={i} onClick={()=>{handleChange(i)}} className="singleWorker"><p>{worker.name}</p></article>
                 )}
             </section>
+            
             <table className='board'>
                 <thead>
                     <tr className="days">

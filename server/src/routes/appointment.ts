@@ -62,9 +62,9 @@ router.delete("/:id", (req, res) => {
     let { id } = req.params;
     new AppointmentContreller()
         .delete(id)
-        .then(appointment => {
+        // .then(appointment => {
             // if (appointment) return res.status(200).send("deleted sucssesfully");
-        });
+        // });
     // return res.status(500).send("issues while deleting the appointment");
 });
 

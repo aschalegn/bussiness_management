@@ -7,25 +7,37 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import moment from 'moment';
 import ClientNav from '../../Layouts/AppBar/ClientNav';
 import './FutureTurn.css';
+import Appointment from './appointment';
 
 export default function FutureAppointment() {
 
     const user = useContext(userContext)
     const [futurTurn, setFuturTurn] = useState(Object);
-    const [open, setOpen] = React.useState(false);
+    const [openUpdate, setOpenUpdate] = React.useState(false);
+    const [openDelete, setOpenDelete] = React.useState(false);
 
-    const handleClickOpen = () => {
-        setOpen(true);
+    const handleClickOpenUpdateMetting = () => {
+        setOpenUpdate(true);
     };
-    const handleClickClose = () => {
-        setOpen(false);
+    const handleClickCloseUpdateMetting = () => {
+        setOpenUpdate(false);
+    };
+    const handleClickOpenDeleteMetting = () => {
+        setOpenDelete(true);
+    };
+    const handleClickCloseDeleteMetting = () => {
+        setOpenDelete(false);
     };
     const businessName = user.user.businesses[0].name
+    const workers = user.user.businesses[0].workers
+
     useEffect(() => {
         const userId = user.user._id
         axios.get(`${baseURL}appointment/client/${userId}`)
             .then((res) => {
                 let arr = res.data.appointments;
+                console.log(workers);
+
                 setFuturTurn(arr[arr.length - 1]);
             })
             .catch((err) => { console.log(err) })
@@ -40,7 +52,7 @@ export default function FutureAppointment() {
         axios.patch(`${baseURL}appointment/${futurTurn._id}`, data)
             .then(res => {
                 alert('התור עודכן בהצלחה');
-                setOpen(false);
+                setOpenUpdate(false);
             })
             .catch(err => {
                 console.log(err);
@@ -50,11 +62,10 @@ export default function FutureAppointment() {
     const deleteTurn = () => {
         axios.delete(`${baseURL}appointment/${futurTurn._id}`)
             .then(res => {
-                console.log(res)
+                console.log(res,'success')
             })
             .catch(err => {
-                console.log(err)
-
+                console.log(err,'------------ error ----------')
             })
     }
 
@@ -62,14 +73,12 @@ export default function FutureAppointment() {
         return (
 
             <>
-                <Button variant="outlined" color="secondary" onClick={handleClickOpen} > עדכון </Button>
+                <Button variant="outlined" color="secondary" onClick={handleClickOpenUpdateMetting} > עדכון </Button>
                 {
                     futurTurn ?
-                        <Dialog open={open} onClose={handleClickClose} aria-labelledby="form-dialog-title">
-                            <NavigateNextIcon onClick={handleClickClose} />
-                            <form>
-                                <input type="text" title="d" />
-                            </form>
+                        <Dialog open={openUpdate} onClose={handleClickCloseUpdateMetting} aria-labelledby="form-dialog-title">
+                            <NavigateNextIcon onClick={handleClickCloseUpdateMetting} />
+                            <Appointment />
                         </Dialog>
                         :
                         ''
@@ -78,21 +87,16 @@ export default function FutureAppointment() {
 
         )
     }
+    
     const DeleteMetting = () => {
         return (
-
             <>
-                <Button variant="outlined" color="primary" onClick={handleClickOpen}> מחיקה </Button>
+                <Button variant="outlined" color="primary" onClick={deleteTurn}> מחיקה </Button>
                 {
                     futurTurn ?
-                        <Dialog open={open} onClose={handleClickClose} aria-labelledby="form-dialog-title">
-                            <NavigateNextIcon onClick={handleClickClose} />
-                            <form>
-                                <select name="" id="">
-                                    
-                                </select>
-                                <input type="date" />
-                            </form>
+                        <Dialog open={openDelete} onClose={handleClickCloseDeleteMetting} aria-labelledby="form-dialog-title">
+                            <NavigateNextIcon onClick={handleClickCloseDeleteMetting} />
+
                         </Dialog>
                         :
                         ''
@@ -132,10 +136,10 @@ export default function FutureAppointment() {
                     <p>ניתן לבטל או לעדכן תור עד <b>שעתיים לפני התור</b></p>
                     {/* <button onClick={updateTurn}>עדכון</button>
                     <button onClick={deleteTurn}>מחיקה</button> */}
-                      <UpdateMetting />
-                <DeleteMetting />
+                    <UpdateMetting />
+                    <DeleteMetting />
                 </article>
-              
+
             </section>
         </>
     )
