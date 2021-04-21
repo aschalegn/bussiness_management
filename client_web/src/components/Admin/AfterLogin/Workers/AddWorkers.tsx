@@ -286,8 +286,7 @@ export default function AddWorkers({ open, setOpen }: Props) {
             onChange={(e) => {
               const files = e.target.files;
               if (files) {
-                console.log(files[0].name);
-                setProfile(files[0].name)
+                setProfile(files[0]);                
               }
             }}
           />
