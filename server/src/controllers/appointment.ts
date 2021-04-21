@@ -26,16 +26,16 @@ class AppointmentContreller {
         const appointment = new Appointment(data);
         const client = await Client.findById(userId);
         if (await client) {
-            
-                await client.appointments.push(appointment);
-                const business = await Business.findById(bussinessId);
-                await business.appointments.push(appointment);
-                await business.save();
-                await appointment.save();
-                await client.save();
-                const apToSend = await Appointment.findById(appointment._id).populate("client")
-                appointmentEmitter.emit("made", bussinessId, apToSend);  
-           return appointment;
+
+            await client.appointments.push(appointment);
+            const business = await Business.findById(bussinessId);
+            await business.appointments.push(appointment);
+            await business.save();
+            await appointment.save();
+            await client.save();
+            const apToSend = await Appointment.findById(appointment._id).populate("client")
+            appointmentEmitter.emit("made", bussinessId, apToSend);
+            return appointment;
         }
         else return false;
     }
@@ -100,46 +100,43 @@ class AppointmentContreller {
         return appointment;
     };
 
-    //     delete = async (appointmentId: string) => {
-    //         const appointment = await Appointment.findById(appointmentId);
-    //         console.log(appointment,'fhwefgweugfuiweh');
-    //         if (await appointment) {
-    //             const client = await Client.findById(appointment.client);
-    //             const deletefromClient = await client.appointments.filter((ap: string) => { ap !== appointmentId });
-    //             const result = client.appointments.filter((word:any) => word !== appointmentId);            
-    //             console.log(client, 'client');
-    //             console.log(deletefromClient,'deletefromClient',appointmentId);
-    //             const business = await Business.findById(appointment.business);            
-    //             const deletefromBusiness = await business.appointments.filter((ap: string) => { return ap !== appointmentId });
-    //             // appointment.delete(); //? works
-    //             client.appointments = deletefromClient;
-    //             business.appointments = deletefromBusiness;
-    //             client.save();
-    //             business.save();
-    //             appointmentEmitter.emit("deleted", appointmentId);
-    //             // return appointment;
-    //             console.log('delete appointment');
+    delete = async (appointmentId: string) => {
+        const appointment = await Appointment.findByIdAndDelete(appointmentId);
+        console.log(appointment);
+        if (await appointment) {
+            const client = await Client.findById(appointment.client);
+            const deletefromClient = await client.appointments.filter((ap: string) => { ap !== appointmentId });
+            const result = client.appointments.filter((word: any) => word !== appointmentId);
+            console.log(client, 'client');
+            const business = await Business.findById(appointment.business);
+            const deletefromBusiness = await business.appointments.filter((ap: string) => { return ap !== appointmentId });
+            // appointment.delete(); //? works
+            client.appointments = deletefromClient;
+            business.appointments = deletefromBusiness;
+            client.save();
+            business.save();
+            appointmentEmitter.emit("deleted", appointmentId);
+            // return appointment;
+            console.log('delete appointment');
 
-    //         };
-    //         return false;
-    //     };
-    // };
-
-    delete = async (appointmentId: any) => {
-        // const business = await Business.findById(appointment.business);
-        const clientId = await Appointment.findById(appointmentId)
-        const x = await Business.find();
-        const business = await Business.findById(appointmentId)
-        //    const filtered = await x.appointments.filter((ap: any) => { return ap !== appointmentId });
-        console.log(clientId, 'dyfwfnwnl');
-        console.log(x);
-
-        const b = await x.appointments.findOne(appointmentId)
-        console.log(b);
-
-        // console.log(filtered, 'business',appointmentId);
+        };
+        return false;
     };
 };
+
+    // delete = async (appointmentId: any) => {
+    //     // const business = await Business.findById(appointment.business);
+    //     const clientId = await Appointment.findById(appointmentId)
+    //     const x = await Business.find();
+    //     const business = await Business.findById(appointmentId)
+    //     //    const filtered = await x.appointments.filter((ap: any) => { return ap !== appointmentId });
+    //     console.log(clientId, 'dyfwfnwnl');
+    //     console.log(x);
+
+    //     const b = await x.appointments.findOne(appointmentId)
+    //     // console.log(filtered, 'business',appointmentId);
+    // };
+// };
 
 // new AppointmentContreller()
 //     .getByBusinessAgr("6028e4f2ed8a283230f4bc6c",

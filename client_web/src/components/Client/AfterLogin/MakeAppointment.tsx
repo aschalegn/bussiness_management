@@ -32,9 +32,7 @@ export default function MakeAppointment({ open, setOpen, worker, selectDay, sele
                 if (res.status === 201) {
                     handleClickClose();
                     alert('התור נקבע');
-                }
-               console.log(res.status);
-                
+                }               
             })
             .catch(err => {
                 console.log(err);
