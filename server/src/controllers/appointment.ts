@@ -38,10 +38,9 @@ class AppointmentContreller {
                 await appointment.save();
                 await client.save();
                 const apToSend = await Appointment.findById(appointment._id).populate("client")
-                appointmentEmitter.emit("made", bussinessId, apToSend);
-                 return appointment;
+                appointmentEmitter.emit("made", bussinessId, apToSend);  
             }
-           
+           return appointment;
         }
         else return false;
     }
