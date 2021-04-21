@@ -14,7 +14,7 @@ const appointmentSchema: Schema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Client'
     },
-    bussiness: {
+    business: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Business'
     }

@@ -36,8 +36,6 @@ export default function FutureAppointment() {
         axios.get(`${baseURL}appointment/client/${userId}`)
             .then((res) => {
                 let arr = res.data.appointments;
-                console.log(workers);
-
                 setFuturTurn(arr[arr.length - 1]);
             })
             .catch((err) => { console.log(err) })
@@ -88,23 +86,23 @@ export default function FutureAppointment() {
         )
     }
 
-    const DeleteMetting = () => {
-        return (
-            <>
-                <Button variant="outlined" color="primary" onClick={deleteTurn}> מחיקה </Button>
-                {
-                    futurTurn ?
-                        <Dialog open={openDelete} onClose={handleClickCloseDeleteMetting} aria-labelledby="form-dialog-title">
-                            <NavigateNextIcon onClick={handleClickCloseDeleteMetting} />
+    // const DeleteMetting = () => {
+    //     return (
+    //         <>
+    //             <Button variant="outlined" color="primary" onClick={deleteTurn}> מחיקה </Button>
+    //             {
+    //                 futurTurn ?
+    //                     <Dialog open={openDelete} onClose={handleClickCloseDeleteMetting} aria-labelledby="form-dialog-title">
+    //                         <NavigateNextIcon onClick={handleClickCloseDeleteMetting} />
 
-                        </Dialog>
-                        :
-                        ''
-                }
-            </>
+    //                     </Dialog>
+    //                     :
+    //                     ''
+    //             }
+    //         </>
 
-        )
-    }
+    //     )
+    // }
     return (
         <>
             <ClientNav location={"תור עתידי"} />
@@ -147,9 +145,10 @@ export default function FutureAppointment() {
                     צוות {businessName} </p>
                     <p>ניתן לבטל או לעדכן תור עד <b>שעתיים לפני התור</b></p>
                     {/* <button onClick={updateTurn}>עדכון</button>
-                    <button onClick={deleteTurn}>מחיקה</button> */}
-                    <UpdateMetting />
-                    <DeleteMetting />
+                    */}
+                    <UpdateMetting /> 
+                    <button onClick={deleteTurn}>מחיקה</button>
+                    {/* <DeleteMetting /> */}
                 </article>
 
             </section>
