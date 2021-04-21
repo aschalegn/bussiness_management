@@ -32,9 +32,6 @@ export default function MakeAppointment({ open, setOpen, worker, selectDay, sele
                 if (res.status === 201) {
                     handleClickClose();
                     alert('התור נקבע');
-                }else{
-                    handleClickClose();
-                    alert('יש לך כבר תור לעידכון התור אנא הכנס לתור עתידי')
                 }
                console.log(res.status);
                 

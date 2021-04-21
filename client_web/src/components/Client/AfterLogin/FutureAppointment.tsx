@@ -62,10 +62,10 @@ export default function FutureAppointment() {
     const deleteTurn = () => {
         axios.delete(`${baseURL}appointment/${futurTurn._id}`)
             .then(res => {
-                console.log(res,'success')
+                console.log(res, 'success')
             })
             .catch(err => {
-                console.log(err,'------------ error ----------')
+                console.log(err, '------------ error ----------')
             })
     }
 
@@ -87,7 +87,7 @@ export default function FutureAppointment() {
 
         )
     }
-    
+
     const DeleteMetting = () => {
         return (
             <>
@@ -121,11 +121,23 @@ export default function FutureAppointment() {
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>{moment(futurTurn.date).format("DD-MM-YYYY")}</td>
-                                <td>{futurTurn.time}</td>
-                                <td>{futurTurn.barber}</td>
-                            </tr>
+
+                            {futurTurn ?
+                                <tr>
+                                    <td>{moment(futurTurn.date).format("DD-MM-YYYY")}</td>
+                                    <td>{futurTurn.time}</td>
+                                    <td>{futurTurn.barber}</td>
+                                </tr>
+                                :
+                                <tr>
+                                    <td>DD-MM-YYYY</td>
+                                    <td>--:--</td>
+                                    <td>----</td>
+                                </tr>
+                                
+                            }
+
+
 
                         </tbody>
                     </table>

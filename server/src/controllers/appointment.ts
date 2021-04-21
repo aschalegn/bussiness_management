@@ -26,11 +26,7 @@ class AppointmentContreller {
         const appointment = new Appointment(data);
         const client = await Client.findById(userId);
         if (await client) {
-            console.log(client.appointments.length);
-            if (await client.appointments.length >= 1) {
-                console.log('the client have appointment')
-                return false;
-            } else {
+            
                 await client.appointments.push(appointment);
                 const business = await Business.findById(bussinessId);
                 await business.appointments.push(appointment);
@@ -39,7 +35,6 @@ class AppointmentContreller {
                 await client.save();
                 const apToSend = await Appointment.findById(appointment._id).populate("client")
                 appointmentEmitter.emit("made", bussinessId, apToSend);  
-            }
            return appointment;
         }
         else return false;
