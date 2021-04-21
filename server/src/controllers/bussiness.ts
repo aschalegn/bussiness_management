@@ -39,7 +39,6 @@ const logIn = async (email: any, password: any, res: Response) => {
                 if (isPasswordMatch) {
                     const token = tokenise(b._id, "business");
                     res.cookie("appointU", token);
-                    console.log(worker);
                     return res.status(200).send({ body: worker, type: "business" });
                 };
             };
@@ -51,6 +50,9 @@ const logIn = async (email: any, password: any, res: Response) => {
 
 const addWorker = async (req: Request, res: Response) => {
     const worker = req.body;
+    const file = req.file as Express.MulterS3.File;
+    worker.profile = file.location;
+    
     const emailExist = await isEmailExists(worker.email);
     if (!emailExist) {
         worker.password = hashPassword(worker.password);
@@ -59,19 +61,16 @@ const addWorker = async (req: Request, res: Response) => {
             closeAt: worker.closeAt,
             jump: worker.jump
         }
-        const availableTimes = addSetAvailable(worker)
+        const availableTimes = addSetAvailable(worker);
         worker.availableTimes = availableTimes;
-        worker.profile = worker.profile;
         const { id } = req.params;
         Business.findById(id, (err: any, b: any) => {
             if (err) { console.log(err); }
             b.workers.push(worker);
             b.save();
-            return res.status(200).send(worker)
+            return res.status(200).send(worker);
         });
     };
-    console.log(worker);
-    
 };
 
 const getAvailableTimes = (req: Request, res: Response) => {
@@ -87,7 +86,6 @@ const getAvailableTimes = (req: Request, res: Response) => {
 };
 
 const updateDetails = async (id: string, body: any) => {
-    console.log(body);
     const updated = await Business.findByIdAndUpdate(id, body, { new: true });
     if (await updated) {
         return updated;
@@ -145,7 +143,7 @@ const addService = async (businessId: string, body: IService, file: Express.Mult
 };
 
 const addSocial = async (businessId: String, socialMedia: any) => {
-    const updated = await Business.findByIdAndUpdate(businessId, {socialMedia});
+    const updated = await Business.findByIdAndUpdate(businessId, { socialMedia });
     return await updated.socialMedia;
 }
 

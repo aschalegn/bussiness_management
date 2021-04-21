@@ -33,10 +33,12 @@ var uploadMulter = multer({
         acl: 'public-read',
         bucket: bucket,
         metadata: function (req: Request, file: Express.Multer.File, cb: any) {
-            cb(null, { fieldName: req.params.id + "-" + file.fieldname });
+            console.log(file);
+            
+            cb(null, { filename:  file.fieldname });
         },
         key: function (req: Request, file: Express.MulterS3.File, cb: any) {
-            cb(null, file.filename + "-" + Date.now().toString())
+            cb(null, file.originalname + "-" +file.fieldname+ Date.now().toString());
         }
     })
 });

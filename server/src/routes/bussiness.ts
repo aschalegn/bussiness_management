@@ -51,7 +51,7 @@ router.patch("/files/:id", uploadMulter.fields([{ name: 'poster' }, { name: 'log
     res.send(files);
 });
 
-router.patch("/setting/addWorker/:id", (req, res) => {
+router.patch("/setting/addWorker/:id", uploadMulter.single("profile"),(req, res) => {
     addWorker(req, res);
 });
 
